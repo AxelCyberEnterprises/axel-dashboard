@@ -25,7 +25,7 @@ const DashboardLayout = () => {
           <TopNav />
 
           {/* Main Content Area with Outlet */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto">
             <Outlet />
           </div>
         </SidebarInset>

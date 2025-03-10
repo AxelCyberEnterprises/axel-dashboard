@@ -1,24 +1,27 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { increment } from '../store/slices/counter';
+import Hero from "../components/homepage/Hero";
+import Intro from "../components/homepage/Intro";
+import Benefits from "../components/homepage/Benefits";
+import HowItWorks from "../components/homepage/HowItWorks";
+import Pricing from "../components/homepage/Pricing";
+import Faq from "../components/homepage/Faq";
+import Testiomonial from "../components/homepage/Testiomonial";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const HomePage: React.FC = () => {
-    const dispatch = useDispatch();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const counter = useSelector((state: any) => state.counter.value);
-
-    const handleIncrement = () => {
-        dispatch(increment())
-    }
-
-    return (
-        <div>
-            <h1>Welcome to Engage-X</h1>
-            <p>This is the home page of the Engage-X project.</p>
-            <p>{ counter }</p>
-            <button onClick={handleIncrement}>increase</button>
-        </div>
-    );
+  return (
+    <main className="font-montserrat">
+      <Navbar />
+      <Hero />
+      <Intro />
+      <Benefits />
+      <HowItWorks />
+      <Pricing />
+      <Faq />
+      <Testiomonial />
+      <Footer />
+    </main>
+  );
 };
 
 export default HomePage;
