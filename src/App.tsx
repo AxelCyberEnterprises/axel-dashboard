@@ -34,6 +34,7 @@ function App() {
                     <Route path="/dashboard/user" element={<DashboardLayout />}>
                         <Route index element={<UserDashboardHome />} />
                         <Route path="session-history" element={<UserSessionHistory />} />
+                        <Route path="session-history/report/:id" element={<UserSessionHistory />} />
                         <Route path="analytics" element={<UserAnalytics />} />
                         <Route path="settings" element={<UserSettings />} />
                     </Route>

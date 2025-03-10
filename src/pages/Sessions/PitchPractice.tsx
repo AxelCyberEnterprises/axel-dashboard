@@ -3,7 +3,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { SquareArrowUpRight, ThumbsUp, Volume2, X } from 'lucide-react';
 import audience from '../../assets/images/pngs/audience.png';
+import alert from "../../assets/images/svgs/alert.svg";
+import dialogImage from "../../assets/images/authPage-image.png";
 import { ReactMediaRecorder } from "react-media-recorder";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 // Component to preview video stream
 const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
@@ -58,6 +69,10 @@ const RecordView = () => {
 };
 
 const PitchPractice: React.FC = () => {
+
+    const [open, setOpen] = useState(false);
+    const [questionOpen, setQuestionOpen] = useState(false);
+
     return (
         <div className="text-primary-blue">
             <section className="flex flex-wrap border-b-1 px-8 py-4 justify-between items-center">
@@ -110,9 +125,41 @@ const PitchPractice: React.FC = () => {
                         </div>
 
                         <div className="w-full flex justify-end mt-16 px-4 md:px-0">
-                            <Button className="bg-jelly-bean hover:bg-jelly-bean/90 flex">
-                                <SquareArrowUpRight className="me-1" /> End Session
-                            </Button>
+                            <Dialog open={open} onOpenChange={setOpen}>
+                                <DialogTrigger asChild>
+                                    <Button
+                                        className="bg-jelly-bean hover:bg-jelly-bean/90 flex"
+                                        onClick={() => setOpen(true)}
+                                    >
+                                        <SquareArrowUpRight className="me-1" /> End Session
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                        <DialogTitle>
+                                            <img src={alert} alt="alert symbol" />
+                                            <h5 className="mt-3 mb-5">End Session</h5>
+                                        </DialogTitle>
+                                        <DialogDescription>
+                                            <p className="big">
+                                                You are about to End a Session, you will be sent to the Session Analysis
+                                                Report page and you will no longer be able to continue this session.
+                                            </p>
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="flex gap-2">
+                                        <Button
+                                            className="w-full bg-transparent hover:bg-ghost-white/50 border-1 border-grey text-primary-blue py-5"
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button className="w-full py-5 bg-jelly-bean hover:bg-jelly-bean/90">
+                                            End
+                                        </Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </div>
                 </div>
@@ -229,10 +276,56 @@ const PitchPractice: React.FC = () => {
                                     </div>
                                 </div>
                                 <p>32</p>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                {/* question modal */}
+
+                <Dialog open={questionOpen} onOpenChange={setQuestionOpen}>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                            <DialogTitle>
+                                <h5 className="mt-3 mb-5">Listener's Question</h5>
+                            </DialogTitle>
+                            <DialogDescription>
+                                <p className="big">
+                                    "What's your go-to-market strategy and how do you plan to acquire your first 100
+                                    customers?"
+                                </p>
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="mt-4 flex justify-end w-full">
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    className="bg-transparent hover:bg-transparent text-primary-blue py-5"
+                                    onClick={() => setQuestionOpen(false)}
+                                >
+                                    Skip
+                                </Button>
+                                <Button className="py-5 bg-primary-blue hover:bg-primary-blue/90">Answer Now</Button>
+                            </div>
+                        </div>
+
+                        <div className="time mt-3">
+                            <p>
+                                Time remaining: <span className="text-jelly-bean">0:45</span>
+                            </p>
+
+                            <div className="mt-2 mb-3">
+                                <SegmentedProgressBar percent={80} color={"#252A39"} divisions={1} />
+                            </div>
+                        </div>
+                        <DialogFooter className="h-60 block">
+                            <img
+                                src={dialogImage}
+                                alt="dialog image"
+                                className="object-cover w-full h-full object-[50%_15%]"
+                            />
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
             </section>
         </div>
     );
