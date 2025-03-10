@@ -2,14 +2,15 @@
     $vw: 100vw;
     background-color: $color-chinese-black;
     color: $color-white;
-    
+
     .top__links,
     .bottom__links {
         .link {
             border-radius: 4px;
             transition: all 0.8s ease;
-            
-            &.active, &:hover {
+
+            &.active,
+            &:hover {
                 background-color: $color-gunmetal;
                 color: $color-green-sheen;
 
