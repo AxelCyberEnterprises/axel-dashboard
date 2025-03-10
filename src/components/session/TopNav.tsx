@@ -21,7 +21,7 @@ const TopNav: React.FC = () => {
     return (
         <header className="flex h-16 shrink-0 items-center justify-between gap-2 px-8 border-b-1">
             <div className="flex items-center gap-2">
-                <img src={logo} alt="Engage X logo" className="me-6" />
+                <img src={logo} alt="Engage X logo" className="me-6 hidden lg:inline-block" />
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -52,7 +52,7 @@ const TopNav: React.FC = () => {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className="left__top__nav hidden lg:flex items-center">
+            <div className="left__top__nav items-center">
                 <div className="user__image">
                     <img src={userImg} alt="user image" />
                 </div>
