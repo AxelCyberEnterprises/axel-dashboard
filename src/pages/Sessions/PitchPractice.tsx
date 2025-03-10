@@ -19,7 +19,7 @@ const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
         return null;
     }
 
-    return <video ref={videoRef} className='w-full h-full object-cover rounded-3xl' autoPlay />;
+    return <video ref={videoRef} className='w-full h-full object-cover' autoPlay />;
 };
 
 // Main recording component
@@ -41,7 +41,7 @@ const RecordView = () => {
                 };
 
                 return (
-                    <div className='h-full relative rounded-3xl'>
+                    <div className='h-full relative'>
                         <VideoPreview stream={previewStream} />
                         <div className="absolute bottom-0 z-10">
                             {!isRecording ? (
