@@ -19,6 +19,7 @@ import ForgotPassword from "./pages/auth/forgotPassword";
 import ResetPassword from "./pages/auth/resetPassword";
 import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
+import UserPitchSessionReport from "./pages/Dashboard/User/SessionReports/PitchSessionReport";
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/dashboard/user" element={<DashboardLayout />}>
                         <Route index element={<UserDashboardHome />} />
                         <Route path="session-history" element={<UserSessionHistory />} />
+                        <Route path="session-report/:id" element={<UserPitchSessionReport />} />
                         <Route path="analytics" element={<UserAnalytics />} />
                         <Route path="settings" element={<UserSettings />} />
                     </Route>
