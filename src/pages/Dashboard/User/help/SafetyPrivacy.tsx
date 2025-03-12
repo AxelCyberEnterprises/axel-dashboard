@@ -114,7 +114,7 @@ const SafetyPrivacy: React.FC = () => {
             </main>
                 </article>
             </section>
-            <section className='pt-4 sm:my-9 mt-3 mb-20  px-7 relative sm:border-t bottom-0 w-full'>
+            <section className='pt-4 sm:my-9 mt-3 mb-20 max-lg:pb-2 max-sm:pb-0 px-7 relative sm:border-t bottom-1 w-full'>
         <button onClick={()=> navigate(-1)} className='flex gap-1.5 text-white max-sm:w-full sm:absolute right-7 top-2 px-4 justify-center py-2.5 sm:py-1.5'>
         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.5 11.8945H7.914L12.414 7.39447L11 5.98047L4.086 12.8945L11 19.8085L12.414 18.3945L7.914 13.8945H19.5V11.8945Z" fill="white"/>
