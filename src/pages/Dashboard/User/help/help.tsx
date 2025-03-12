@@ -13,7 +13,7 @@ const Help: React.FC = () => {
             <section className="w-full border-y flex items-start text-[#262b3a] py-2 px-7 gap-2 ">
                <button className="bg-transparent hover:bg-transparent p-0" onClick={() => navigate(-1)}>
 
-                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="18" height="18" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M5 12.8945L11 6.89453M5 12.8945L11 18.8945M5 12.8945H19"
                         stroke="black"

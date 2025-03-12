@@ -12,6 +12,7 @@ import "./styles/index.scss";
 import Help from "./pages/Dashboard/User/help/help";
 import SafetyPrivacy from "./pages/Dashboard/User/help/SafetyPrivacy";
 import HelpPage from "./pages/Dashboard/User/help";
+import ChatbotPage from "./pages/Dashboard/User/help/ChatbotPage";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                         <Route path="help" element={<HelpPage />}>
                             <Route index element={<Help />} />
                             <Route path="safety" element={<SafetyPrivacy />} />
+                            <Route path="message" element={<ChatbotPage />} />
                         
                         </Route>
                     </Route>
