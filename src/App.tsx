@@ -5,12 +5,13 @@ import AdminSessionHistory from "./pages/Dashboard/Admin/AdminSessionHistory";
 import AdminDashboardHome from "./pages/Dashboard/Admin/Index";
 import UserAnalytics from "./pages/Dashboard/User/Analytics";
 import UserDashboardHome from "./pages/Dashboard/User/Index";
+import PublicSpeaking from "./pages/Dashboard/User/PublicSpeaking";
 import UserSettings from "./pages/Dashboard/User/Settings";
 import UserSessionHistory from "./pages/Dashboard/User/UserSessionHistory";
-import HomePage from "./pages/HomePage";
-import "./styles/index.scss";
 import Features from "./pages/Features";
+import HomePage from "./pages/HomePage";
 import Pricing from "./pages/Pricing";
+import "./styles/index.scss";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dashboard/user" element={<DashboardLayout />}>
             <Route index element={<UserDashboardHome />} />
             <Route path="session-history" element={<UserSessionHistory />} />
+            <Route path="public-speaking" element={<PublicSpeaking />} />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
           </Route>

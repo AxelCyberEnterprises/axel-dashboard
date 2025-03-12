@@ -64,7 +64,7 @@ export const columns: ColumnDef<IAdminSessionHistory>[] = [
     },
     {
         id: "actions",
-        header: () => <span className="text-primary-0">Action</span>,
+        header: () => <span className="text-primary-base">Action</span>,
         enableHiding: false,
         cell: () => {
             return (
@@ -72,7 +72,7 @@ export const columns: ColumnDef<IAdminSessionHistory>[] = [
                     <DropdownMenuTrigger asChild>
                         <Button
                             variant="ghost"
-                            className="bg-transparent hover:bg-transparent text-primary-0 size-fit p-0 has-[>svg]:px-0 focus-visible:border-none focus-visible:ring-0"
+                            className="bg-transparent hover:bg-transparent text-primary-base size-fit p-0 has-[>svg]:px-0 focus-visible:border-none focus-visible:ring-0"
                         >
                             <span className="sr-only">Open menu</span>
                             <MoreHorizontal className="size-5" />
@@ -81,14 +81,14 @@ export const columns: ColumnDef<IAdminSessionHistory>[] = [
                     <DropdownMenuContent align="end" alignOffset={-10} className="p-0">
                         <Link to="">
                             <DropdownMenuItem className="px-4 py-2 cursor-pointer">
-                                <ChartLine className="text-primary-0" />
-                                <span className="text-primary-0 text-sm">View Report</span>
+                                <ChartLine className="text-primary-base" />
+                                <span className="text-primary-base text-sm">View Report</span>
                             </DropdownMenuItem>
                         </Link>
                         <Link to="">
                             <DropdownMenuItem className="px-4 py-2 cursor-pointer">
-                                <Download className="text-primary-0" />
-                                <span className="text-primary-0 text-sm">Download</span>
+                                <Download className="text-primary-base" />
+                                <span className="text-primary-base text-sm">Download</span>
                             </DropdownMenuItem>
                         </Link>
                     </DropdownMenuContent>
