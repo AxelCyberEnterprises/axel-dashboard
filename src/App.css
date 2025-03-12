@@ -1,5 +1,40 @@
 @import "tailwindcss" important;
 
+@theme {
+    --font-montserrat: "Montserrat";
+    --font-montreal: "Neue Montreal";
+
+    --color-white: #FFF;
+    --color-black: #000;
+    --color-primary-blue: #252A39;
+    --color-dark-electric-blue: #62717A;
+    --color-gunmetal: #262B3A;
+    --color-chinese-black: #10161E;
+    --color-cultured: #F7F6F2;
+    --color-alice-blue: #EFF6FC;
+    --color-new-car: #2154CB;
+    --color-gray: #BDBDBD;
+    --color-grey: #818181;
+    --color-green-sheen: #64BA9E;
+    --color-medium-sea-green: #40B869;
+    --color-dark-charcoal: #333333;
+    --color-dark-orange: #ECB25E;
+    --color-dull-electric-blue: #4C5C75;
+    --color-light-silver: #d0d5dd;
+    --color-ghost-white: #f9f9f9;
+    --color-independence: #474d63;
+    --color-slate-gray: #6f7c8d;
+    --color-bright-gray: #e4e7ec;
+    --color-artichoke: #999b84;
+    --color-pale-taupe: #c29c81;
+    --color-gold-crayola: #eebc89;
+    --color-pantone-green: #07a042;
+    --color-crimson-red: #940803;
+    --color-auro-metal-saurus: #6b7186;
+    --color-maximum-yellow-red: #F5B546;
+    --color-jelly-bean: #DD524D;
+}
+
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
