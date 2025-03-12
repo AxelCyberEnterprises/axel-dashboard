@@ -42,33 +42,30 @@ const Chat: React.FC = () => {
     };
 
     const scrollToBottom = () => {
-      if (chatboxRef.current) {
-          const container = chatboxRef.current;
-          const start = container.scrollTop;
-          const end = container.scrollHeight - container.clientHeight;
-          const duration = 500; // Duration in milliseconds
-          let startTime: number | null = null;
-  
-          const animateScroll = (timestamp: number) => {
-              if (!startTime) startTime = timestamp;
-              const elapsed = timestamp - startTime;
-              const progress = Math.min(elapsed / duration, 1); // Progress between 0 and 1
-  
-              // Apply ease-in-out timing function
-              const easeInOut = progress < 0.5
-                  ? 2 * progress * progress
-                  : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-  
-              container.scrollTop = start + (end - start) * easeInOut;
-  
-              if (progress < 1) {
-                  requestAnimationFrame(animateScroll);
-              }
-          };
-  
-          requestAnimationFrame(animateScroll);
-      }
-  };
+        if (chatboxRef.current) {
+            const container = chatboxRef.current;
+            const start = container.scrollTop;
+            const end = container.scrollHeight - container.clientHeight;
+            const duration = 500;
+            let startTime: number | null = null;
+
+            const animateScroll = (timestamp: number) => {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                const easeInOut = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                container.scrollTop = start + (end - start) * easeInOut;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateScroll);
+                }
+            };
+
+            requestAnimationFrame(animateScroll);
+        }
+    };
 
     useEffect(() => {
         scrollToBottom();
@@ -82,9 +79,9 @@ const Chat: React.FC = () => {
     };
 
     return (
-        <div className=" h-[calc(100vh-13rem)] relative w-full pt-[5rem] max-w-3x mx-auto">
-            <section className="w-full border-y fixed top-[4rem] bg-white flex items-start text-[#262b3a] py-2 px-7 mb-2 gap-2">
-                <button className="bg-transparent hover:bg-transparent p-0" onClick={() => navigate(-1)}>
+        <div className=" h-[calc(100vh-13rem)] relative w-full mx-auto">
+            <section className="w-full border-y bg-white flex items-start text-[#262b3a] py-2 px-7 mb-2 gap-2">
+                <button className="bg-transparent hover:bg-transparent mt-0.5 p-0" onClick={() => navigate(-1)}>
                     <svg width="18" height="18" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5 12.8945L11 6.89453M5 12.8945L11 18.8945M5 12.8945H19"
@@ -97,14 +94,13 @@ const Chat: React.FC = () => {
                 </button>
                 <div>
                     <p className="text-xl">AI Chatbot</p>
-                    <p className="text-muted-foregroun text-[rgba(71,77,99,1)] text-sm">
+                    <p className=" text-[rgba(71,77,99,1)] text-sm">
                         A conversational tool for questions, support and answers about engage
                         <span className="text-[#64BA9E]">X</span>
                     </p>
                 </div>
             </section>
 
-            {/* Chat Messages */}
             <div
                 ref={chatboxRef}
                 className=" h-[calc(100vh-13rem-2.5rem)] px-7 pb-14 pt-5  bg-white overflow-y-auto"
@@ -143,7 +139,9 @@ const Chat: React.FC = () => {
                                     <img src={AIAvatar} alt="AI Avatar" className="w-10 h-10 rounded-full" />
                                     <div className="inline-block px-4 py-2 text-sm rounded-lg text-[#1e293b] bg-transparent font-medium border max-w-[70%] break-words">
                                         {msg.text}
-                                        <p className="text-xs float-right ml-4 text-gray-500  sm:mt-2">{msg.timestamp}</p>
+                                        <p className="text-xs float-right ml-4 text-gray-500  sm:mt-2">
+                                            {msg.timestamp}
+                                        </p>
                                     </div>
                                 </div>
                             )}
@@ -176,7 +174,7 @@ const Chat: React.FC = () => {
                 {isBotTyping && (
                     <div className="flex items-center space-x-2">
                         <img src={AIAvatar} alt="AI Avatar" className="w-10 h-10 rounded-full" />
-                        <div className="inline-bloc typing-dots text-5xl px-4 py-0 rounded-lg text-[#1e293b] flex items-start -mt-2.5 bg-transparent borde w-fit">
+                        <div className=" typing-dots text-5xl px-4 py-0 rounded-lg text-[#1e293b] flex items-start -mt-2.5 bg-transparent  w-fit">
                             <span>.</span>
                             <span>.</span>
                             <span>.</span>
@@ -185,8 +183,7 @@ const Chat: React.FC = () => {
                 )}
             </div>
 
-
-            <div className=" justify-center flex flex-col px-7 bg-white sticky w[calc(100vw-21rem)] maxmd:w-[calc(100vw-3rem)] items-center bottom-0 top-0 pb-5 sm:pb-1  -[80vw]">
+            <div className=" justify-center flex flex-col px-7 bg-white sticky  items-center bottom-0 top-0 pb-5 sm:pb-1  ">
                 <form
                     onSubmit={handleSend}
                     className="flex rounded-4xl w-full placeholder:text-[#475569] sm:w-4/5 items-center px-4 py-2 border border-gray-300 shadow space-x-3"

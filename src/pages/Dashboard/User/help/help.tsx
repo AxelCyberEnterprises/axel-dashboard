@@ -11,7 +11,7 @@ const Help: React.FC = () => {
     return (
         <div className="m-0 p-0">
             <section className="w-full border-y flex items-start text-[#262b3a] py-2 px-7 gap-2 ">
-               <button className="bg-transparent hover:bg-transparent p-0" onClick={() => navigate(-1)}>
+               <button className="bg-transparent mt-0.5 hover:bg-transparent p-0" onClick={() => navigate(-1)}>
 
                 <svg width="18" height="18" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

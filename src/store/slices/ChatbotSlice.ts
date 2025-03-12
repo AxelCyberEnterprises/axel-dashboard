@@ -1,29 +1,26 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Message {
-  text: string;
-  sender: 'user' | 'bot';
-  timestamp: string; // Added timestamp
+    text: string;
+    sender: "user" | "bot";
+    timestamp: string;
 }
 
 export interface ChatState {
-  messages: Message[];
+    messages: Message[];
 }
 const initialState: ChatState = {
-  messages: [],
+    messages: [],
 };
 
 const chatSlice = createSlice({
-  name: 'chat',
-  initialState,
-  reducers: {
-    addMessage: (state, action: PayloadAction<Message>) => {
-      state.messages.push(action.payload);
+    name: "chat",
+    initialState,
+    reducers: {
+        addMessage: (state, action: PayloadAction<Message>) => {
+            state.messages.push(action.payload);
+        },
     },
-  },
 });
 
 export const { addMessage } = chatSlice.actions;
