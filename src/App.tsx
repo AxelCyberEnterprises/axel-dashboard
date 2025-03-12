@@ -11,6 +11,10 @@ import UserSessionHistory from "./pages/Dashboard/User/UserSessionHistory";
 import PitchPracticeSession from "./pages/Sessions/PitchPractice";
 import HomePage from "./pages/HomePage";
 import "./styles/index.scss";
+import Help from "./pages/Dashboard/User/help/help";
+import SafetyPrivacy from "./pages/Dashboard/User/help/SafetyPrivacy";
+import HelpPage from "./pages/Dashboard/User/help";
+import ChatbotPage from "./pages/Dashboard/User/help/ChatbotPage";
 import UserPlan from "./components/layouts/userAuth";
 import LoginPage from "./pages/auth/login";
 import Tutorial from "./pages/auth/tutorial";
@@ -36,7 +40,14 @@ function App() {
                         <Route path="session-history" element={<UserSessionHistory />} />
                         <Route path="analytics" element={<UserAnalytics />} />
                         <Route path="settings" element={<UserSettings />} />
+                        <Route path="help" element={<HelpPage />}>
+                            <Route index element={<Help />} />
+                            <Route path="safety" element={<SafetyPrivacy />} />
+                            <Route path="message" element={<ChatbotPage />} />
+                        
+                        </Route>
                     </Route>
+
 
                     <Route path="/dashboard/admin" element={<DashboardLayout />}>
                         <Route index element={<AdminDashboardHome />} />
