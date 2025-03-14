@@ -1,16 +1,12 @@
 import axios, { Axios, AxiosError } from "axios";
 import { API_BASE_URL } from "./constants";
 import { convertArrayToString, tokenManager } from "./utils";
-import { useDispatch } from "react-redux";
+import store from "../store"; // Import Redux store directly
 import { logout } from "../store/slices/authSlice";
-
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const dispatch = useDispatch();
 
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: { "Content-Type": "application/json" },
-    timeout: 10000, // 10 seconds
 });
 
 api.interceptors.request.use((config) => {
@@ -42,7 +38,6 @@ api.interceptors.response.use(
                 error.message;
             error.message = message;
 
-            // Handle authentication errors
             if (error.response?.status === 401) {
                 handleAuthError();
             }
@@ -53,7 +48,8 @@ api.interceptors.response.use(
 );
 
 function handleAuthError() {
-    dispatch(logout())
+    const dispatch = store.dispatch;
+    dispatch(logout());
 }
 
 export const apiGet = <T = unknown>(...args: Parameters<Axios["get"]>) => api.get<T>(...args).then((r) => r.data);

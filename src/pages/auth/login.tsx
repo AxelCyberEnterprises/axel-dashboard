@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "../../compo
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Checkbox } from "../../components/ui/checkbox";
+import { useLogin } from "@/hooks/auth";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -32,10 +33,13 @@ const Login: React.FC = () => {
         },
     });
 
+    const { mutate: login, isPending } = useLogin();
+
     const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
         console.log("Form Data:", data);
-        dispatch(setRouteFromLogin(true));
-        navigate("../../dashboard/user");
+        login(data)
+        // dispatch(setRouteFromLogin(true));
+        // navigate("../../dashboard/user");
     };
 
     return (
@@ -92,7 +96,7 @@ const Login: React.FC = () => {
                         )}
                     />
 
-                    <Button type="submit" className="py-7 md:py-[23px] font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-3xl">
+                    <Button type="submit" isLoading={isPending} className="py-7 md:py-[23px] font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-3xl">
                         Login
                     </Button>
                 </form>
