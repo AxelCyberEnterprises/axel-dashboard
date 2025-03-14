@@ -49,6 +49,7 @@ const Login: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="email"
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         render={({ field }: { field: any }) => (
                             <FormItem>
                                 <FormControl>
@@ -66,6 +67,7 @@ const Login: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="password"
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         render={({ field }: { field: any }) => (
                             <FormItem className="relative border-0">
                                 <FormControl className="relative border-0">

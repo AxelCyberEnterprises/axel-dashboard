@@ -1,9 +1,11 @@
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 import SideNav from "../dashboard/SideNav";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import TopNav from "../dashboard/TopNav";
 
-const DashboardLayout = () => {
+import { ReactNode } from "react";
+
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
     return (
         <SidebarProvider
             style={
@@ -24,7 +26,7 @@ const DashboardLayout = () => {
 
           {/* Main Content Area with Outlet */}
           <div className="flex-1 overflow-y-auto">
-            <Outlet />
+            { children }
           </div>
         </SidebarInset>
       </div>
