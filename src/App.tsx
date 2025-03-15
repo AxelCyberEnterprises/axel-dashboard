@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import "./styles/index.scss";
 import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
+import PerformanceImprovement from "./pages/Dashboard/User/PerformanceImprovement";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route path="/dashboard/user" element={<DashboardLayout />}>
             <Route index element={<UserDashboardHome />} />
             <Route path="session-history" element={<UserSessionHistory />} />
+            <Route
+              path="performance-improvement"
+              element={<PerformanceImprovement />}
+            />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
           </Route>

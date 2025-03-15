@@ -18,6 +18,8 @@
     --color-dark-charcoal: #333333;
     --color-dark-orange: #ECB25E;
     --color-dull-electric-blue: #4C5C75;
+    --color-dark-gray: #D0D5DD;
+    --color-success-green: #0E7B33;
 }
 
 @plugin "tailwindcss-animate";
@@ -160,4 +162,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+#dialog-content {
+  display: none !important;
 }
