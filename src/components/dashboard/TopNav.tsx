@@ -19,7 +19,7 @@ const TopNav: React.FC = () => {
         segment.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
     return (
-        <header className="flex h-16 shrink-0 items-center justify-between gap-2 px-8">
+        <header className="flex h-16 shrink-0 items-center justify-between gap-2 px-8 md:border-b-1 border-grey">
             <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1 hidden md:flex p-5" />
                 <Breadcrumb>

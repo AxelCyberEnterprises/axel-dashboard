@@ -11,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "../../compo
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Checkbox } from "../../components/ui/checkbox";
+import { useLogin } from "@/hooks/auth";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -32,10 +33,13 @@ const Login: React.FC = () => {
         },
     });
 
+    const { mutate: login, isPending } = useLogin();
+
     const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
         console.log("Form Data:", data);
-        dispatch(setRouteFromLogin(true));
-        navigate("../../dashboard/user");
+        login(data)
+        // dispatch(setRouteFromLogin(true));
+        // navigate("../../dashboard/user");
     };
 
     return (
@@ -49,6 +53,7 @@ const Login: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="email"
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         render={({ field }: { field: any }) => (
                             <FormItem>
                                 <FormControl>
@@ -66,6 +71,7 @@ const Login: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="password"
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         render={({ field }: { field: any }) => (
                             <FormItem className="relative border-0">
                                 <FormControl className="relative border-0">
@@ -90,7 +96,7 @@ const Login: React.FC = () => {
                         )}
                     />
 
-                    <Button type="submit" className="py-6 font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-lg">
+                    <Button type="submit" isLoading={isPending} className="py-6 font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-lg">
                         Login
                     </Button>
                 </form>

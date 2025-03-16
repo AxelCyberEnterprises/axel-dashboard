@@ -1,6 +1,8 @@
-import { Outlet, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import authPageImage from "../../assets/images/authPage-image.png";
 import engageLogo from "../../assets/images/engage-x-logo.png";
+import { ReactNode } from "react";
+
 
 export function BackToWebsite() {
     return (
@@ -41,19 +43,28 @@ export function welcomeMessage() {
         </div>
     );
 }
-const UserPlan = () => {
+const UserPlan = ({ children }: { children: ReactNode }) => {
 
-    return (
-        <div className="md:h-screen h-full md:overflow-y-hidden  lg:px-10 md:px-0 px-5  max-lg:py-0 max-lg:justify-between max-md:block   max-lg:flex-row justify-center lgjustify-start md:flex-row flex-col flex gap-5">
-            <div className="auth flex-1 lg:flex-[0.9] ">
-               
-                <div className="text-black h-full w-full ">
-                    <Outlet />
-                </div>
-            </div>
-            <aside className="flex-1 rounded-[45px] max-lg:rounded-none lg:my-5 md:block hidden overflow-hidden relative">
-                <img src={authPageImage} className="w-full h-full object-top object-cover" alt="authPage-image" />
-            </aside>
+
+  
+
+  return (
+    <div className="md:h-screen h-full md:overflow-y-hidden  lg:px-10 md:px-0 px-5  max-lg:py-0 max-lg:justify-between max-md:block   max-lg:flex-row justify-center lgjustify-start md:flex-row flex-col flex gap-5">
+      <div className="auth flex-1 lg:flex-[0.9] ">
+        
+        <div className="text-black h-full w-full ">
+         
+            { children }
+        </div>
+        </div>
+        <aside className="flex-1 rounded-[45px] max-lg:rounded-none lg:my-5 md:block hidden overflow-hidden relative">
+       
+        <img
+          src={authPageImage}
+          className="w-full h-full object-top object-cover"
+          alt="authPage-image"
+        />
+      </aside>
         </div>
     );
 };
