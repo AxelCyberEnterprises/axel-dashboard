@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setRouteFromLogin, setSignupFlow, setTopicQuestion } from "../../store/slices/authSlice";
+import { setRouteFromLogin, setTopicQuestion } from "../../store/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { welcomeMessage } from "../../components/layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../../components/ui/form";
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
                                 <FormControl>
                                     <Input
                                         placeholder="Enter your email"
-                                        className="rounded-3xl py-7 md:py-[23px] font-[Inter] max-md:w-full text-lg focus:border-0 text-black border-[#d0d5dd]"
+                                        className="rounded-lg py-6  font-[Inter] max-md:w-full text-lg focus:border-0 text-black border-[#d0d5dd]"
                                         {...field}
                                     />
                                 </FormControl>
@@ -73,7 +73,7 @@ const Login: React.FC = () => {
                                         <Input
                                             type={showPassword ? "text" : "password"}
                                             placeholder="Enter your password"
-                                            className="rounded-3xl font-[Inter] py-7 md:py-[23px] pr-12 border text-black outline-0 border-[#d0d5dd] shadow-0 focus:outline-0  focus:border-0    w-full"
+                                            className="rounded-lg font-[Inter] py-6 pr-12 border text-black outline-0 border-[#d0d5dd] shadow-0 focus:outline-0  focus:border-0    w-full"
                                             {...field}
                                         />
                                         <Button
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
                         )}
                     />
 
-                    <Button type="submit" className="py-7 md:py-[23px] font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-3xl">
+                    <Button type="submit" className="py-6 font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-lg">
                         Login
                     </Button>
                 </form>
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
                 </div>
 
                 <Link
-                    to="../forgot-password"
+                    to="/forgot-password"
                     className="font-semibold hover:bg-transparent p-2 bg-transparent shadow-none rounded-lg text-sm text-[#262b3a]"
                 >
                     Forgot Password
@@ -122,7 +122,7 @@ const Login: React.FC = () => {
                     <Link
                         to="../signup"
                         onClick={() => {
-                            dispatch(setSignupFlow("authQuestions"));
+                            // dispatch(setSignupFlow("authQuestions"));
                             dispatch(setTopicQuestion("What do you plan on doing?"));
                         }}
                         className="text-[#262b3a] hover:bg-transparent  hover:underline shadow-none font-semibold bg-transparent p-0"

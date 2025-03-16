@@ -6,17 +6,26 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignupFlow, setSignupData } from "../../store/slices/authSlice";
 import { Link } from "react-router-dom";
-import { welcomeMessage } from "../layouts/userAuth";
+import { BackToWebsite, welcomeMessage } from "../layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/store";
 
+// Enhanced password validation schema
+const passwordSchema = z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character");
+
 const signupSchema = z
     .object({
         fullName: z.string().min(1, "Full name is required"),
         email: z.string().email("Invalid email address").min(1, "Email is required"),
-        password: z.string().min(8, "Password must be at least 8 characters"),
+        password: passwordSchema,
         confirmPassword: z.string().min(1, "Confirm password is required"),
     })
     .refine((data) => data.password === data.confirmPassword, {
@@ -30,6 +39,7 @@ const Signup: React.FC = () => {
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+    const [passwordStrength, setPasswordStrength] = React.useState("");
 
     const form = useForm<SignupFormValues>({
         resolver: zodResolver(signupSchema),
@@ -42,6 +52,7 @@ const Signup: React.FC = () => {
     });
 
     const signupData = useSelector((state: RootState) => state.auth.signupData);
+
     const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
         dispatch(
             setSignupData({
@@ -55,13 +66,34 @@ const Signup: React.FC = () => {
         dispatch(setSignupFlow("confirmation"));
     };
 
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const password = e.target.value;
+        form.setValue("password", password);
+        checkPasswordStrength(password);
+    };
+
+    const checkPasswordStrength = (password: string) => {
+        const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.\-_]).{6,}$/;
+
+        const mediumRegex = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+
+        if (strongRegex.test(password)) {
+            setPasswordStrength("Strong");
+        } else if (mediumRegex.test(password)) {
+            setPasswordStrength("Medium");
+        } else {
+            setPasswordStrength("Weak");
+        }
+    };
+
     return (
         <div className="signup-container sm:w-10/12 px-1 sm:mx-auto md:flex flex flex-col justify-center h-screen md:overflow-y-hidden max-md:pl-0 max-lg:pl-5">
+            {BackToWebsite()}
             {welcomeMessage()}
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex pt-5 sm:w-[75%] sm:mx-auto font-[Montserrat] flex-col gap-5 md:gap-4"
+                    className="flex pt-1 sm:w-[75%] sm:mx-auto font-[Montserrat] flex-col gap-5 md:gap-4"
                 >
                     <FormField
                         control={form.control}
@@ -71,7 +103,7 @@ const Signup: React.FC = () => {
                                 <FormControl>
                                     <Input
                                         placeholder="Enter your full name"
-                                        className="rounded-3xl font-[Montserrat] text-black py-7 border-[#d0d5dd]"
+                                        className="rounded-lg font-[Montserrat] text-black py-6 border-[#d0d5dd]"
                                         {...field}
                                     />
                                 </FormControl>
@@ -88,7 +120,7 @@ const Signup: React.FC = () => {
                                 <FormControl>
                                     <Input
                                         placeholder="Enter your email"
-                                        className="rounded-3xl font-[Montserrat]  py-7 text-black border-[#d0d5dd]"
+                                        className="rounded-lg font-[Montserrat]  py-6 text-black border-[#d0d5dd]"
                                         {...field}
                                     />
                                 </FormControl>
@@ -107,8 +139,9 @@ const Signup: React.FC = () => {
                                         <Input
                                             type={showPassword ? "text" : "password"}
                                             placeholder="Enter your password"
-                                            className="rounded-3xl py-7 pr-12 border font-[Montserrat] text-black border-[#d0d5dd] w-full"
+                                            className="rounded-lg py-6 pr-12 border font-[Montserrat] text-black border-[#d0d5dd] w-full"
                                             {...field}
+                                            onChange={handlePasswordChange}
                                         />
                                         <Button
                                             type="button"
@@ -120,6 +153,16 @@ const Signup: React.FC = () => {
                                     </div>
                                 </FormControl>
                                 <FormMessage />
+                                {passwordStrength && (
+                                    <div className="text-sm mt-1">
+                                        Password Strength:{" "}
+                                        <span
+                                            className={`font-semibold ${passwordStrength === "Strong" ? "text-green-500" : passwordStrength === "Medium" ? "text-yellow-500" : "text-red-500"}`}
+                                        >
+                                            {passwordStrength}
+                                        </span>
+                                    </div>
+                                )}
                             </FormItem>
                         )}
                     />
@@ -134,7 +177,7 @@ const Signup: React.FC = () => {
                                         <Input
                                             type={showConfirmPassword ? "text" : "password"}
                                             placeholder="Confirm your password"
-                                            className="rounded-3xl py-7 pr-12 font-[Montserrat] text-black border-[#d0d5dd] w-full"
+                                            className="rounded-lg py-6 pr-12 font-[Montserrat] text-black border-[#d0d5dd] w-full"
                                             {...field}
                                         />
                                         <Button
@@ -151,7 +194,10 @@ const Signup: React.FC = () => {
                         )}
                     />
 
-                    <Button type="submit" className="rounded-3xl font-[Montserrat] bg-[#262b3a] hover:bg-[#262b3ada] py-7">
+                    <Button
+                        type="submit"
+                        className="rounded-lg font-[Montserrat] bg-[#262b3a] hover:bg-[#262b3ada] py-6"
+                    >
                         Get Started
                     </Button>
                 </form>

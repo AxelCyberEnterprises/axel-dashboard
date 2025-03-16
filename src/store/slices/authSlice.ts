@@ -50,9 +50,9 @@ const initialState: AuthState = {
     ],
     topicQuestion: "What do you plan on doing?",
 
-    signupFlow: "authQuestions",
+    signupFlow: "signup",
     routeFromLogin: false,
-    signupData: null, // Stores signup details
+    signupData: null,
 };
 
 const authSlice = createSlice({

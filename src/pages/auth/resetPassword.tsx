@@ -27,7 +27,7 @@ const ResetPassword: React.FC = () => {
 
     return (
         <div className="forgot-password-container md:w-10/12 sm:w-3/5 sm:mx-auto flex flex-col justify-center h-screen overflow-y-hidden max-md:pl-0 gap-3 max-lg:pl-5">
-            <h2 className="text-[30px] text-center font-medium">Reset Password</h2>
+            <h2 className="text-3xl text-center">Reset Password</h2>
             <p className="text-center font-[Inter] text-[#667085]">
                 Your new password must be different from <br /> the previous one.
             </p>
@@ -38,7 +38,7 @@ const ResetPassword: React.FC = () => {
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter new password"
                             id="password"
-                            className="rounded-3xl font-[Inter] py-7 md:py-[20px] pr-12 border text-black border-[#d0d5dd] w-full"
+                            className="rounded-lg font-[Inter] py-6 pr-12 border text-black border-[#d0d5dd] w-full"
                             required
                             value={password}
                             onChange={(e) => {
@@ -58,7 +58,7 @@ const ResetPassword: React.FC = () => {
                         <Input
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Confirm new password"
-                            className="rounded-3xl font-[Inter] pr-12 w-full text-black py-7 md:py-[20px] border-[#d0d5dd]"
+                            className="rounded-lg font-[Inter] pr-12 w-full text-black py-6 border-[#d0d5dd]"
                             id="confirmPassword"
                             required
                             value={confirmPassword}
@@ -78,7 +78,7 @@ const ResetPassword: React.FC = () => {
                 </div>
                 <Button
                     type="submit"
-                    className="text-white lg:w-full font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] py-7 md:py-[20px] max-md:w-full rounded-3xl"
+                    className="text-white lg:w-full font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] py-6 max-md:w-full rounded-lg"
                 >
                     Reset password
                 </Button>

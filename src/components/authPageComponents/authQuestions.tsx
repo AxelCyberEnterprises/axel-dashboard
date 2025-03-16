@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/index";
-import { setTopicQuestion, setSignupData, setSignupFlow } from "../../store/slices/authSlice";
+import { setTopicQuestion, setSignupData } from "../../store/slices/authSlice";
 import { welcomeMessage } from "@/components/layouts/userAuth";
+import { useNavigate } from "react-router-dom";
 
 const AuthQuestions: React.FC = () => {
     const [selectedOptions, setSelectedOptions] = useState<{
@@ -12,7 +13,7 @@ const AuthQuestions: React.FC = () => {
     const signupData = useSelector((state: RootState) => state.auth.signupData);
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const questions = useSelector((state: RootState) => state.auth.questions);
     const topicQuestion = useSelector((state: RootState) => state.auth.topicQuestion);
 
@@ -28,37 +29,37 @@ const AuthQuestions: React.FC = () => {
             if (topicQuestion === "What do you plan on doing?") {
                 setSelectedOptions((prev) => ({ ...prev, plan: selectedOption.plan }));
 
-                // Save to Redux state (signupData.planQuestion)
                 dispatch(
                     setSignupData({
                         ...signupData,
                         planQuestion: selectedOption.plan || "",
                     }),
                 );
-
-                setTimeout(() => {
-                    dispatch(setTopicQuestion("What role are you?"));
-                }, 800);
             } else if (topicQuestion === "What role are you?") {
                 setSelectedOptions((prev) => ({ ...prev, role: selectedOption.role }));
 
-                // Save to Redux state (signupData.roleQuestion)
                 dispatch(
                     setSignupData({
                         ...signupData,
                         roleQuestion: selectedOption.role || "",
                     }),
                 );
-
-                setTimeout(() => {
-                    dispatch(setSignupFlow("signup"));
-                }, 400);
             }
         }
     };
 
+    const handleContinue = () => {
+        if (topicQuestion === "What do you plan on doing?") {
+            dispatch(setTopicQuestion("What role are you?"));
+        } else {
+            navigate("/Tutorial");
+        }
+    };
+
     return (
-        <div className="  md:flex flex-col md:h-[90vh]  max-lg:p-5 justify-center  h-full">
+        <div
+            className={` ${topicQuestion === "What role are you?" ? "md:justify-center max-sm:my-16" : " justify-center"}  flex min-h-screen flex-col md:h-[90vh] md:w-4/5 md:mx-auto  max-lg:p-5 justify-center`}
+        >
             {welcomeMessage()}
             <div className="font-[Montserrat] mt-10 w-full md:w-[80%] mx-auto lg:w-full md:mt-5">
                 {filteredQuestions.map((item) => (
@@ -67,8 +68,8 @@ const AuthQuestions: React.FC = () => {
                         <div
                             className={`mt-3 w-full ${
                                 topicQuestion === "What do you plan on doing?"
-                                    ? "lg:flex-row max-lg:w-full   flex-col max-lg:space-y-4 flex space-x-4"
-                                    : "md:flex lg:grid md:flex-row md:justify-between flex-wrap flex-col max-md:space-y-4 flex grid-cols-[repeat(auto-fit,minmax(220px,1fr))] md:gap-5"
+                                    ? "lg:grid grid-cols-3 lg:gap-4 max-lg:w-full   flex-col max-lg:space-y-4 flex space-x-4"
+                                    : "md:flex lg:flex md:flex-row md:justify-between flex-wrap flex-col max-md:space-y-4 flex md:gap-5"
                             }`}
                         >
                             {item.content.map((option) => {
@@ -80,10 +81,8 @@ const AuthQuestions: React.FC = () => {
                                 return (
                                     <label
                                         key={option.contentId}
-                                        className={`flex items-center font-normal text-sm px-4  justify-start  md:py-6 py-3 lg:py-4 w-full ${
-                                            topicQuestion === "What do you plan on doing?"
-                                                ? "lg:w-[180px] "
-                                                : "md:w-[160px] lg:w-[220px]"
+                                        className={`flex items-center font-normal text-sm px-3  justify-start  md:py-6 py-3 lg:py-4 w-full ${
+                                            topicQuestion === "What do you plan on doing?" ? " " : "md:w-[45%] "
                                         } ${
                                             isSelected
                                                 ? "bg-[#2154cb11] text-[#2154cb]"
@@ -93,9 +92,9 @@ const AuthQuestions: React.FC = () => {
                                         <input
                                             type="radio"
                                             name={topicQuestion === "What do you plan on doing?" ? "plans" : "roles"}
-                                            value={option.contentId} // Use contentId as the value
+                                            value={option.contentId}
                                             className="mt-0 mb-0 w-fit accent-[#2154cb]"
-                                            checked={isSelected} // Reflect whether the option is selected
+                                            checked={isSelected}
                                             onChange={handleInputContent}
                                         />
                                         <span className="text-gray-70">{option.plan || option.role}</span>
@@ -106,6 +105,12 @@ const AuthQuestions: React.FC = () => {
                     </div>
                 ))}
             </div>
+            <button
+                onClick={handleContinue}
+                className={`w-full md:w-[80%] mx-auto lg:w-full rounded-lg font-[montserrat] mt-7 md:py-5 py-4`}
+            >
+                Continue
+            </button>
         </div>
     );
 };

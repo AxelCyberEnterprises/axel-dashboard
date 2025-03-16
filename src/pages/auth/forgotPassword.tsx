@@ -29,7 +29,7 @@ const ForgotPassword: React.FC = () => {
 
     return (
         <div className="forgot-password-container px-1 md:w-10/12 sm:w-3/5 h-screen sm:mx-auto   flex flex-col justify-center overflow-y-hidden gap-3 max-md:pl-0 max-lg:pl-5">
-            <h2 className="text-[30px] text-center font-medium">Forgot Password?</h2>
+            <h2 className="text-3xl text-center">Forgot Password?</h2>
             <p className="text-center font-[Inter] text-[#667085]">
                 We got you. Enter your email to get a link to <br /> reset your password.
             </p>
@@ -43,7 +43,7 @@ const ForgotPassword: React.FC = () => {
                                 <FormControl>
                                     <Input
                                         placeholder="Enter your email"
-                                        className=" rounded-3xl  w-full font-[Inter] md:py-[20px] py-7 text-black border-[#d0d5dd]"
+                                        className=" rounded-lg  w-full font-[Inter]  py-6 text-black border-[#d0d5dd]"
                                         {...field}
                                     />
                                 </FormControl>
@@ -55,13 +55,13 @@ const ForgotPassword: React.FC = () => {
                     <div className="flex gap-4 font-[Inter] pt-4">
                         <Link
                             to="../login"
-                            className="bg-white flex-1 text-black rounded-3xl py-4 md:py-[14px] px-5 border flex items-center justify-center font-semibold"
+                            className="bg-white flex-1 text-black rounded-lg py-4 px-5 h-auto border flex items-center justify-center font-semibold"
                         >
                             Back
                         </Link>
                         <Button
                             type="submit"
-                            className="text-white flex items-center justify-center flex-[4.5] bg-[#262b3a] hover:bg-[#262b3ada] py-7 md:py-[22px] rounded-3xl"
+                            className="text-white flex items-center justify-center flex-[4.5] bg-[#262b3a] hover:bg-[#262b3ada] h-auto py-4 rounded-lg"
                         >
                             Get reset link
                         </Button>
