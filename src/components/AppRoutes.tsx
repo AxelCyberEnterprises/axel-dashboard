@@ -23,6 +23,10 @@ import UserPitchSessionReport from "../pages/Dashboard/User/SessionReports/Pitch
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { tokenManager } from "@/lib/utils";
+import Help from "@/pages/Dashboard/User/help/help";
+import SafetyPrivacy from "@/pages/Dashboard/User/help/SafetyPrivacy";
+import Chat from "@/pages/Dashboard/User/help/ChatbotPage";
+import HelpPage from "@/pages/Dashboard/User/help";
 
 function RequireAuth({ children }: { children: ReactNode }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,6 +48,12 @@ function UserDashboardRoutes() {
             <Route path="session-report/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
+            <Route path="help" element={<HelpPage/>} >
+            <Route index element={<Help/>} />
+            <Route path="safety" element={<SafetyPrivacy />} />
+            <Route path="message" element={<Chat />} />
+            </Route>
+
             <Route path="*" element={<Navigate replace to="/dashboard/user" />} />
         </Routes>
     );

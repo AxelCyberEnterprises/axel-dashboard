@@ -52,7 +52,7 @@ const AuthQuestions: React.FC = () => {
         if (topicQuestion === "What do you plan on doing?") {
             dispatch(setTopicQuestion("What role are you?"));
         } else {
-            navigate("/Tutorial");
+            navigate("../Tutorial");
         }
     };
 

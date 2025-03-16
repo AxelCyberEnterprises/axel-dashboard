@@ -3,9 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { setRouteFromLogin, setTopicQuestion } from "../../store/slices/authSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { welcomeMessage } from "../../components/layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
@@ -21,8 +19,6 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
 
     const form = useForm<LoginFormValues>({
@@ -115,7 +111,7 @@ const Login: React.FC = () => {
                 </div>
 
                 <Link
-                    to="/forgot-password"
+                    to="../forgot-password"
                     className="font-semibold hover:bg-transparent p-2 bg-transparent shadow-none rounded-lg text-sm text-[#262b3a]"
                 >
                     Forgot Password
@@ -127,10 +123,7 @@ const Login: React.FC = () => {
                     Don't have an account?{" "}
                     <Link
                         to="../signup"
-                        onClick={() => {
-                            // dispatch(setSignupFlow("authQuestions"));
-                            dispatch(setTopicQuestion("What do you plan on doing?"));
-                        }}
+                       
                         className="text-[#262b3a] hover:bg-transparent  hover:underline shadow-none font-semibold bg-transparent p-0"
                     >
                         Sign up
