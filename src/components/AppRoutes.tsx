@@ -88,7 +88,7 @@ function AuthRoutes() {
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="tutorial" element={<Tutorial />} />
-            <Route path="*" element={<Navigate replace to="/signup" />} />
+            <Route path="*" element={<Navigate replace to="/auth/signup" />} />
         </Routes>
     );
 }
