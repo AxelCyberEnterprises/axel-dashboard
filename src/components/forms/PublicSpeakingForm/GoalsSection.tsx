@@ -64,7 +64,7 @@ const GoalsSection = ({ form }: IGoalsSectionProps) => {
                     className="text-green-sheen hover:text-green-sheen border-green-sheen w-fit rounded-lg"
                 >
                     <Plus className="size-4" />
-                    <span>Add Phase</span>
+                    <span>Save Goal</span>
                 </Button>
             </div>
         </section>

@@ -1,20 +1,14 @@
+import StartSession from "@/components/dialogs/dialog-contents/StartSession";
 import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
 import { PublicSpeakingDefaultGoals } from "@/config/form-field-options";
 import { PublicSpeakingSchema } from "@/schemas/public-speaking";
+import { openDialog } from "@/store/slices/dynamicDialogSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlayCircle } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
 import GoalsSection from "./GoalsSection";
 import InputSpeakerNotesSection from "./InputSpeakerNotesSection";
@@ -24,7 +18,7 @@ import VirtualEnvironmentSection from "./VirtualEnvironmentSection";
 export type FormType = z.infer<typeof PublicSpeakingSchema>;
 
 const PublicSpeakingForm = () => {
-    const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const form = useForm<FormType>({
         resolver: zodResolver(PublicSpeakingSchema),
@@ -56,49 +50,28 @@ const PublicSpeakingForm = () => {
                         Save as Draft
                     </Button>
                     <div className="flex items-center gap-x-4">
-                        <Button type="button" size="lg" className="bg-green-sheen hover:bg-green-sheen/80 font-normal transition">
+                        <Button
+                            type="button"
+                            size="lg"
+                            className="bg-green-sheen hover:bg-green-sheen/80 font-normal transition"
+                        >
                             Skip Setup
                         </Button>
-                        <Dialog open={open} onOpenChange={setOpen}>
-                            <DialogTrigger asChild>
-                                <Button
-                                    size="lg"
-                                    className="bg-[#D4D6DF] hover:bg-[#D4D6DF]/80 text-gunmetal font-normal transition"
-                                >
-                                    Start Session
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent className="w-100 max-w-100 h-72 max-h-72 [&_[data-slot='dialog-close']]:p-0 [&_[data-slot='dialog-close']]:bg-transparent [&_[data-slot='dialog-close']>svg]:text-gunmetal [&_[data-slot='dialog-close']>svg:not([class*='size-'])]:size-5">
-                                <DialogHeader className="sr-only">
-                                    <DialogTitle>Start your Session</DialogTitle>
-                                    <DialogDescription>Start your Session</DialogDescription>
-                                </DialogHeader>
-                                <div className="flex flex-col justify-between">
-                                    <div className="space-y-6">
-                                        <div className="p-2 border border-bright-gray rounded-md size-fit">
-                                            <PlayCircle className="size-5" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <h6>Start your Session</h6>
-                                            <p className="text-independence">
-                                                Confirm you are ready to use a Session Credit and all your Information
-                                                and settings are satisfactory
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-x-4">
-                                        <Button
-                                            variant="outline"
-                                            className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal w-full h-11"
-                                            onClick={() => setOpen(false)}
-                                        >
-                                            Cancel
-                                        </Button>
-                                        <Button className="bg-gunmetal font-normal w-full h-11">Proceed</Button>
-                                    </div>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                        <Button
+                            type="button"
+                            size="lg"
+                            className="bg-[#D4D6DF] hover:bg-[#D4D6DF]/80 text-gunmetal font-normal transition"
+                            onClick={() =>
+                                dispatch(
+                                    openDialog({
+                                        key: "start-session",
+                                        children: <StartSession />,
+                                    }),
+                                )
+                            }
+                        >
+                            Start Session
+                        </Button>
                     </div>
                 </div>
             </form>
