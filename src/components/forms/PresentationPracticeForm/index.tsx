@@ -8,44 +8,63 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { Switch } from "@/components/ui/switch";
-import { PublicSpeakingDefaultGoals } from "@/config/form-field-options";
-import { PublicSpeakingSchema } from "@/schemas/public-speaking";
+import { PresentationPracticeSchema } from "@/schemas/presentation-practice";
+import { setslidePreviews } from "@/store/slices/dashboard/user/presentationPracticeSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlayCircle } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
-import GoalsSection from "./GoalsSection";
-import InputSpeakerNotesSection from "./InputSpeakerNotesSection";
-import TimeAllocationSection from "./TimeAllocationSection";
-import VirtualEnvironmentSection from "./VirtualEnvironmentSection";
+import SlideDetailsSection from "./SlideDetailsSection";
+import SlidePreviewSection from "./SlidePreviewSection";
+import UploadSlideSection from "./UploadSlideSection";
 
-export type FormType = z.infer<typeof PublicSpeakingSchema>;
+export type FormType = z.infer<typeof PresentationPracticeSchema>;
 
-const PublicSpeakingForm = () => {
+const PresentationPracticeForm = () => {
     const [open, setOpen] = useState(false);
 
+    const dispatch = useDispatch();
+
     const form = useForm<FormType>({
-        resolver: zodResolver(PublicSpeakingSchema),
-        defaultValues: useMemo(() => ({ goals: PublicSpeakingDefaultGoals }), []),
+        resolver: zodResolver(PresentationPracticeSchema),
     });
+
+    useEffect(() => {
+        const subscription = form.watch((values, { name }) => {
+            // console.log("Values: ", values);
+
+            if (name !== "files" || !("files" in values && values.files)) return;
+
+            const filePreviews = [];
+
+            for (let i = 0; i < values.files.length; i++) {
+                const file = values.files.item(i) as File;
+                filePreviews.push(URL.createObjectURL(file));
+            }
+
+            dispatch(setslidePreviews(filePreviews));
+        });
+
+        return () => subscription.unsubscribe();
+    }, [dispatch, form]);
 
     return (
         <Form {...form}>
-            <form className="flex lg:flex-row flex-col gap-6">
-                <section className="flex-1 space-y-12">
-                    <GoalsSection {...{ form }} />
-                    <TimeAllocationSection />
-                    <InputSpeakerNotesSection {...{ form }} />
-                </section>
-                <section className="space-y-6">
-                    <VirtualEnvironmentSection {...{ form }} />
-                    <div className="flex items-center justify-between">
-                        <p>Enable AI Generated Questions</p>
-                        <Switch className="p-0 justify-start h-6 w-10 [&_[data-slot='switch-thumb']]:size-5" />
-                    </div>
-                </section>
+            <form className="flex items-start px-4 pb[15vh]">
+                <UploadSlideSection
+                    {...{ form }}
+                    className="flex-1 h-[calc(100vh-56.53px)] overflow-y-auto hide-scrollbar px-4 pt-4 pb-[15vh] border-x border-bright-gray"
+                />
+                <SlideDetailsSection
+                    {...{ form }}
+                    className="flex-3 h-[calc(100vh-56.53px)] overflow-y-auto hide-scrollbar px-4 pt-4 pb-[15vh]"
+                />
+                <SlidePreviewSection
+                    {...{ form }}
+                    className="flex-1 h-[calc(100vh-56.53px)] overflow-y-auto hide-scrollbar px-4 pt-4 pb-[15vh] border-x border-bright-gray"
+                />
                 <div className="absolute bottom-0 inset-x-0 p-4 flex items-center justify-between border-t border-bright-gray bg-white">
                     <Button
                         type="button"
@@ -53,18 +72,20 @@ const PublicSpeakingForm = () => {
                         size="lg"
                         className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal"
                     >
-                        Save as Draft
+                        Cancel
                     </Button>
                     <div className="flex items-center gap-x-4">
-                        <Button type="button" size="lg" className="bg-green-sheen hover:bg-green-sheen/80 font-normal transition">
-                            Skip Setup
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="lg"
+                            className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal"
+                        >
+                            Save as Draft
                         </Button>
                         <Dialog open={open} onOpenChange={setOpen}>
                             <DialogTrigger asChild>
-                                <Button
-                                    size="lg"
-                                    className="bg-[#D4D6DF] hover:bg-[#D4D6DF]/80 text-gunmetal font-normal transition"
-                                >
+                                <Button size="lg" className="bg-gunmetal font-normal">
                                     Start Session
                                 </Button>
                             </DialogTrigger>
@@ -106,4 +127,4 @@ const PublicSpeakingForm = () => {
     );
 };
 
-export default PublicSpeakingForm;
+export default PresentationPracticeForm;

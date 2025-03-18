@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Plus, Trash2 } from "lucide-react";
 import { HTMLAttributes } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { FormType } from ".";
 
-interface ISpeechPhasesSectionProps extends HTMLAttributes<HTMLElement> {
+interface IGoalsSectionProps extends HTMLAttributes<HTMLElement> {
     form: UseFormReturn<FormType>;
 }
 
-const SpeechPhasesSection = ({ form }: ISpeechPhasesSectionProps) => {
+const GoalsSection = ({ form }: IGoalsSectionProps) => {
     const { fields, append, remove } = useFieldArray({
-        name: "speechPhases",
+        name: "goals",
         control: form.control,
         rules: {
             minLength: 1,
@@ -21,35 +21,25 @@ const SpeechPhasesSection = ({ form }: ISpeechPhasesSectionProps) => {
     });
 
     return (
-        <section className="space-y-6 border border-bright-gray p-4 rounded-2xl">
-            <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                    <h6>Speech Phases</h6>
-                    <p className="text-independence">Create your speech phases</p>
-                </div>
-                <Button
-                    type="button"
-                    onClick={() => append({ id: fields.length + 1, phaseName: "" })}
-                    className="bg-alice-blue hover:bg-alice-blue text-gunmetal rounded-2xl"
-                >
-                    <Plus className="size-4" />
-                    <span>Add Phase</span>
-                </Button>
+        <section className="space-y-6">
+            <div className="space-y-2">
+                <h6>Goals</h6>
+                <p className="text-independence">What are your goals for this session?</p>
             </div>
-            <div className="flex flex-col gap-y-7">
+            <div className="flex flex-col gap-y-4">
+                <span>Add goals</span>
                 {fields.map((field, index) => (
                     <FormField
                         control={form.control}
                         key={field.id}
-                        name={`speechPhases.${index}.phaseName`}
+                        name={`goals.${index}.goal`}
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Phase Name</FormLabel>
                                 <FormControl>
                                     <div className="flex items-center gap-4">
                                         <Input
                                             {...field}
-                                            placeholder="Enter phase name"
+                                            placeholder="Enter text here"
                                             className="h-11 rounded-lg focus-visible:ring-0 shadow-none text-gunmetal"
                                         />
                                         <Button
@@ -67,9 +57,18 @@ const SpeechPhasesSection = ({ form }: ISpeechPhasesSectionProps) => {
                         )}
                     />
                 ))}
+                <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => append({ id: fields.length + 1, goal: "" })}
+                    className="text-green-sheen hover:text-green-sheen border-green-sheen w-fit rounded-lg"
+                >
+                    <Plus className="size-4" />
+                    <span>Add Phase</span>
+                </Button>
             </div>
         </section>
     );
 };
 
-export default SpeechPhasesSection;
+export default GoalsSection;

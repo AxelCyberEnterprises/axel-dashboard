@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/svgs/logo.svg";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "../ui/sidebar";
 import { Input } from "../ui/input";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "../ui/sidebar";
 
 const SideNav: React.FC = () => {
     const location = useLocation();
@@ -108,6 +108,28 @@ const SideNav: React.FC = () => {
                 </svg>
             ),
             path: "/dashboard/user/pitch-practice",
+        },
+        {
+            name: "Presentation Practice",
+            icon: (
+                <svg
+                    width="24"
+                    height="24"
+                    className="me-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M3 21H21M11 16H13M8 11C9.838 8.405 14.119 8.263 16 11M5.409 17.118C5.05 15.602 4.871 14.844 5.106 14.26C5.252 13.897 5.502 13.584 5.826 13.36C6.346 13 7.13 13 8.702 13H15.299C16.869 13 17.654 13 18.174 13.36C18.498 13.584 18.748 13.897 18.894 14.26C19.129 14.844 18.95 15.602 18.591 17.118C18.238 18.612 18.061 19.358 17.621 19.895C17.3436 20.2335 16.9954 20.5073 16.601 20.697C15.973 21 15.199 21 13.652 21H10.348C8.801 21 8.028 21 7.4 20.697C7.00557 20.5073 6.65742 20.2335 6.38 19.895C5.938 19.358 5.762 18.612 5.409 17.118ZM14 5C14 5.53043 13.7893 6.03914 13.4142 6.41421C13.0391 6.78929 12.5304 7 12 7C11.4696 7 10.9609 6.78929 10.5858 6.41421C10.2107 6.03914 10 5.53043 10 5C10 4.46957 10.2107 3.96086 10.5858 3.58579C10.9609 3.21071 11.4696 3 12 3C12.5304 3 13.0391 3.21071 13.4142 3.58579C13.7893 3.96086 14 4.46957 14 5Z"
+                        stroke="white"
+                        strokeWidth="0.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            ),
+            path: "/dashboard/user/presentation-practice",
         },
         {
             name: "Reports & Analytics",

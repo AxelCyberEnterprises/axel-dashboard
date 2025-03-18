@@ -10,49 +10,24 @@ interface IInputSpeakerNotesSectionProps extends HTMLAttributes<HTMLElement> {
 
 const InputSpeakerNotesSection = ({ form }: IInputSpeakerNotesSectionProps) => {
     return (
-        <section className="space-y-6 border border-bright-gray p-4 rounded-2xl">
+        <section className="space-y-6">
             <div className="space-y-2">
-                <h6>Input Speaker Notes</h6>
-                <p className="text-independence">Lorem ipsum dolor sit amet consectetur.</p>
+                <h6>Speaker Notes</h6>
+                <p className="text-independence">Add speaker note for this session.</p>
             </div>
-            <div className="flex flex-col gap-y-7">
-                <ControlledFieldWrapper
-                    control={form.control}
-                    name="inputSpeakerNotes.introductionNotes"
-                    label="Introduction Notes"
-                    render={({ field }) => (
-                        <Textarea
-                            {...field}
-                            placeholder="Enter your opening remarks and key points"
-                            className="resize-none focus-visible:ring-0 shadow-none text-gunmetal h-24.5"
-                        />
-                    )}
-                />
-                <ControlledFieldWrapper
-                    control={form.control}
-                    name="inputSpeakerNotes.bodyPhaseNotes"
-                    label="Body Phase Notes"
-                    render={({ field }) => (
-                        <Textarea
-                            {...field}
-                            placeholder="Main points for your topic"
-                            className="resize-none focus-visible:ring-0 shadow-none text-gunmetal h-24.5"
-                        />
-                    )}
-                />
-                <ControlledFieldWrapper
-                    control={form.control}
-                    name="inputSpeakerNotes.conclusionNotes"
-                    label="Conclusion Notes"
-                    render={({ field }) => (
-                        <Textarea
-                            {...field}
-                            placeholder="Enter key points for your conclusion "
-                            className="resize-none focus-visible:ring-0 shadow-none text-gunmetal h-24.5"
-                        />
-                    )}
-                />
-            </div>
+            <ControlledFieldWrapper
+                control={form.control}
+                name="speakerNotes"
+                label="Speaker note"
+                className="[&_[data-slot='form-label']]:font-normal"
+                render={({ field }) => (
+                    <Textarea
+                        {...field}
+                        placeholder="Enter text here"
+                        className="resize-none focus-visible:ring-0 shadow-none text-gunmetal h-24.5"
+                    />
+                )}
+            />
         </section>
     );
 };
