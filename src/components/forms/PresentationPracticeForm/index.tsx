@@ -60,7 +60,6 @@ const PresentationPracticeForm = () => {
                     <Button
                         type="button"
                         variant="outline"
-                        size="lg"
                         className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal"
                     >
                         Cancel
@@ -68,14 +67,16 @@ const PresentationPracticeForm = () => {
                     <div className="flex items-center gap-x-4">
                         <Button
                             type="button"
-                            size="lg"
-                            className="bg-green-sheen hover:bg-green-sheen/80 font-normal transition"
+                            variant="outline"
+                            className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal"
                         >
                             Save as Draft
                         </Button>
+                        <Button type="button" className="bg-green-sheen hover:bg-green-sheen/80 font-normal transition">
+                            Skip Setup
+                        </Button>
                         <Button
                             type="button"
-                            size="lg"
                             className="bg-[#D4D6DF] hover:bg-[#D4D6DF]/80 text-gunmetal font-normal transition"
                             onClick={() =>
                                 dispatch(

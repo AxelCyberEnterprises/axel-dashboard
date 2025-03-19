@@ -6,6 +6,8 @@ import { HTMLAttributes } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { FormType } from ".";
 
+const GOALS_GUIDE = ["Confidently deliver key points ", "Maintain audience engagement."];
+
 interface IGoalsSectionProps extends HTMLAttributes<HTMLElement> {
     form: UseFormReturn<FormType>;
 }
@@ -21,10 +23,18 @@ const GoalsSection = ({ form }: IGoalsSectionProps) => {
     });
 
     return (
-        <section className="space-y-6">
+        <section className="space-y-5">
             <div className="space-y-2">
                 <h6>Goals</h6>
                 <p className="text-independence">What are your goals for this session?</p>
+            </div>
+            <div className="space-y-1 p-3 rounded-lg border border-bright-gray bg-[#F8F9FC]">
+                {GOALS_GUIDE.map((guide, index) => (
+                    <div key={guide + index} className="flex items-center gap-x-1.5 text-sm">
+                        <span>{index + 1}.</span>
+                        <span>{guide}</span>
+                    </div>
+                ))}
             </div>
             <div className="flex flex-col gap-y-4">
                 <span>Add goals</span>

@@ -27,7 +27,7 @@ const PublicSpeakingForm = () => {
 
     return (
         <Form {...form}>
-            <form className="flex lg:flex-row flex-col gap-6">
+            <form className="flex lg:flex-row flex-col lg:gap-10 gap-6">
                 <section className="flex-1 space-y-12">
                     <GoalsSection {...{ form }} />
                     <TimeAllocationSection />
@@ -40,27 +40,24 @@ const PublicSpeakingForm = () => {
                         <Switch className="p-0 justify-start h-6 w-10 [&_[data-slot='switch-thumb']]:size-5" />
                     </div>
                 </section>
-                <div className="absolute bottom-0 inset-x-0 p-4 flex items-center justify-between border-t border-bright-gray bg-white">
+                <div className="md:absolute bottom-0 inset-x-0 md:p-4 md:mt-0 mt-6 flex md:flex-row flex-col md:gap-y-0 gap-y-3 items-center justify-between md:border-t border-bright-gray bg-white">
                     <Button
                         type="button"
                         variant="outline"
-                        size="lg"
-                        className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal"
+                        className="text-gunmetal hover:text-gunmetal border-gunmetal font-normal md:w-fit w-full"
                     >
                         Save as Draft
                     </Button>
-                    <div className="flex items-center gap-x-4">
+                    <div className="md:w-fit w-full flex md:flex-row flex-col md:gap-y-0 gap-y-3 items-center md:gap-x-4">
                         <Button
                             type="button"
-                            size="lg"
-                            className="bg-green-sheen hover:bg-green-sheen/80 font-normal transition"
+                            className="bg-green-sheen hover:bg-green-sheen/80 font-normal md:w-fit w-full transition"
                         >
                             Skip Setup
                         </Button>
                         <Button
                             type="button"
-                            size="lg"
-                            className="bg-[#D4D6DF] hover:bg-[#D4D6DF]/80 text-gunmetal font-normal transition"
+                            className="bg-[#D4D6DF] hover:bg-[#D4D6DF]/80 text-gunmetal font-normal md:w-fit w-full transition"
                             onClick={() =>
                                 dispatch(
                                     openDialog({
