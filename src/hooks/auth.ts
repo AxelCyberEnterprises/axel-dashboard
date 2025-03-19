@@ -11,7 +11,7 @@ export function useRegister() {
     return useMutation({
         mutationKey: ["register"],
         mutationFn: async (data: { email: string, password: string }) => {
-            return await apiPost("/auth/register", data);
+            return await apiPost("users/auth/register", data);
         },
         onSuccess: async (data) => {
             dispatch(login(data));
@@ -30,7 +30,7 @@ export function useLogin() {
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async (data: { email: string; password: string }) => {
-            return await apiPost("/auth/login", data);
+            return await apiPost("users/auth/login", data);
         },
         onSuccess: async (data) => {
             console.log(data);
