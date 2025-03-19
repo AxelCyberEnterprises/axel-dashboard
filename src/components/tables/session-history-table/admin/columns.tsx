@@ -79,7 +79,7 @@ export const columns: ColumnDef<IAdminSessionHistory>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" alignOffset={-10} className="p-0">
-                        <Link to="">
+                        <Link to="/dashboard/admin/session-history/1">
                             <DropdownMenuItem className="px-4 py-2 cursor-pointer">
                                 <ChartLine className="text-primary-0" />
                                 <span className="text-primary-0 text-sm">View Report</span>
