@@ -3,17 +3,16 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { setSignupFlow, setSignupData } from "../../store/slices/authSlice";
+// import { useDispatch } from "react-redux";
+// import { setSignupFlow, setSignupData } from "../../store/slices/authSlice";
 import { Link } from "react-router-dom";
 import { BackToWebsite, welcomeMessage } from "../layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RootState } from "@/store";
 import { Checkbox } from "../ui/checkbox";
 import googleIcon from "@/assets/images/svgs/google-icon.svg";
-import axios from "axios";
+import { useSignup } from "@/hooks/auth";
 
 // Enhanced password validation schema
 const passwordSchema = z
@@ -40,12 +39,9 @@ const signupSchema = z
 type SignupFormValues = z.infer<typeof signupSchema>;
 
 const Signup: React.FC = () => {
-    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
     const [passwordStrength, setPasswordStrength] = React.useState("");
-    const [apiError, setApiError] = React.useState<string | null>(null);
-    console.log(apiError);
     const form = useForm<SignupFormValues>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
@@ -53,46 +49,26 @@ const Signup: React.FC = () => {
             lastName: "",
             email: "",
             password: "",
-            confirmPassword: "",
         },
     });
 
-    // const splitFullName = (fullName: string) => {
-    //     const parts = fullName.trim().split(" ");
-    //     const firstName = parts[0] || "";
-    //     const lastName = parts.slice(1).join(" ") || ""; // Handles middle names as part of the last name
-    //     return { firstName, lastName };
-    // };
+  
 
-    const signupData = useSelector((state: RootState) => state.auth.signupData);
+    // const signupData = useSelector((state: RootState) => state.auth.signupData);
 
+
+    const { mutate: signup, isPending, error } = useSignup();
+    console.log(isPending, error);
 
     const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
-        setApiError(null);
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/users/`, {
-                first_name: data.firstName,
-                last_name: data.lastName,
-                email: data.email,
-                password: data.password,
-            });
-    
-            console.log(response);
-    
-            dispatch(
-                setSignupData({
-                    ...signupData,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    password: data.password,
-                    confirmPassword: data.confirmPassword,
-                })
-            );
-            dispatch(setSignupFlow("confirmation"));
-        } catch (error: any) {
-            setApiError(error.response?.data?.message || "An unexpected error occurred.");
+        const newData = {
+            first_name: data.firstName,
+            last_name: data.lastName,
+            email: data.email,
+            password: data.password,
         }
+        signup(newData)
+  
     };
     
 

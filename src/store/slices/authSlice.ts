@@ -28,6 +28,7 @@ interface AuthState {
     isAuthenticated: boolean;
     hasCheckedAuth: boolean;
     emailForPasswordReset: string;
+    apiError: string | null;
 }
 
 const initialState: AuthState = {
@@ -61,9 +62,10 @@ const initialState: AuthState = {
     routeFromLogin: false,
     signupData: null, // Stores signup details
     user: null,
-    isAuthenticated: true,
+    isAuthenticated: false,
     hasCheckedAuth: false,
     emailForPasswordReset: "",
+    apiError: null,
 };
 
 const authSlice = createSlice({
@@ -75,6 +77,9 @@ const authSlice = createSlice({
         },
         setEmailForPasswordReset: (state, action: PayloadAction<string>) => {
             state.emailForPasswordReset = action.payload;
+        },
+        setApiError: (state, action: PayloadAction<string>) => {
+            state.apiError = action.payload;
         },
         setSignupFlow: (state, action: PayloadAction<string>) => {
             state.signupFlow = action.payload;
@@ -105,6 +110,7 @@ const authSlice = createSlice({
                 console.error("Failed to set tokens:", error);
                 state.user = null;
                 state.isAuthenticated = false;
+
             }
         },
     },
@@ -119,5 +125,5 @@ export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { dispatch
     return true;
 });
 
-export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setEmailForPasswordReset } = authSlice.actions;
+export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setApiError, setEmailForPasswordReset } = authSlice.actions;
 export default authSlice.reducer;

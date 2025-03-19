@@ -36,12 +36,13 @@ const Confirmation: React.FC = () => {
         setIsLoading(true);
         setApiError(null);
         console.log(signupData?.email);
+        console.log(data.code)
 
         try {
             // Simulate API call to verify the code
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/auth/verify-email/`, {
-                code: data.code,
                 email: signupData?.email,
+                verification_code: data.code,
             });
 
             console.log("Verification successful:", response.data);

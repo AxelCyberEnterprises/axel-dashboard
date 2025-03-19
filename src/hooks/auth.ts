@@ -2,20 +2,20 @@ import { apiPost } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { login } from "@/store/slices/authSlice";
+import { login, setSignupFlow } from "@/store/slices/authSlice";
 
-export function useRegister() {
+export function useSignup() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     return useMutation({
-        mutationKey: ["register"],
-        mutationFn: async (data: { email: string, password: string }) => {
-            return await apiPost("/auth/register", data);
+        mutationKey: ["signup"],
+        mutationFn: async (data: {first_name:string, last_name:string, email: string, password: string }) => {
+            return await apiPost("/users/users/", data);
         },
         onSuccess: async (data) => {
-            dispatch(login(data));
-            navigate("/");
+            console.log(data)
+            // dispatch(login(data));
+            dispatch(setSignupFlow("confirmation"));
         },
         onError: (error) => {
             console.error(error);
@@ -50,6 +50,7 @@ export function useLogin() {
         },
         onError: (error) => {
             console.error(error);
+            // dispatch(setApiError(error.message));
         },
     });
 }

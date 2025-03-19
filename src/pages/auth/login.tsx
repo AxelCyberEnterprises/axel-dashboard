@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -21,7 +20,6 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
     const [showPassword, setShowPassword] = React.useState(false);
-    const [apiError, setApiError] = React.useState<string | null>(null);
 
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
@@ -31,42 +29,11 @@ const Login: React.FC = () => {
         },
     });
 
-    const { mutate: login, isPending } = useLogin();
-
+    const { mutate: login, isPending, error } = useLogin();
+    
     const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-        setApiError(null);
-
-        try {
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/users/auth/login/`,
-                {
-                    email: data.email,
-                    password: data.password,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                },
-            );
-
-
-
-            // Extract the token from the response
-            const token = response.data.data.token;
-            if (!token) {
-                throw new Error("No token received from the server");
-            }
-
-            localStorage.setItem("authToken", token);
-
             login(data);
 
-           
-        } catch (error: any) {
-            console.error('Login failed:', error.response ? error.response.data : error.message);
-            setApiError(error.response?.data?.message || "An unexpected error occurred.");
-        }
     };
 
     return (
@@ -129,7 +96,7 @@ const Login: React.FC = () => {
                         {isPending ? "Logging in..." : "Login"}
                     </Button>
 
-                    {apiError && <p className="text-sm text-red-500 text-center">{apiError}</p>}
+                    {error && <p className="text-sm text-red-500 text-center">{error.message}</p>}
                 </form>
             </Form>
 
