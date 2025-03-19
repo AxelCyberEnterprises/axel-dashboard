@@ -57,7 +57,7 @@ const initialState: AuthState = {
     ],
     topicQuestion: "What do you plan on doing?",
 
-    signupFlow: "confirmation",
+    signupFlow: "signup",
     routeFromLogin: false,
     signupData: null, // Stores signup details
     user: null,

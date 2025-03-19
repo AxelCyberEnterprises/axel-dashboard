@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { RootState } from "@/store";
 import { Checkbox } from "../ui/checkbox";
 import googleIcon from "@/assets/images/svgs/google-icon.svg";
+import axios from "axios";
 
 // Enhanced password validation schema
 const passwordSchema = z
@@ -65,27 +66,19 @@ const Signup: React.FC = () => {
 
     const signupData = useSelector((state: RootState) => state.auth.signupData);
 
+
     const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
         setApiError(null);
         try {
-            const response = await fetch("/api/users/users/", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    first_name: data.firstName,
-                    last_name: data.lastName,
-                    email: data.email,
-                    password: data.password,
-                }),
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/users/`, {
+                first_name: data.firstName,
+                last_name: data.lastName,
+                email: data.email,
+                password: data.password,
             });
-
-
+    
             console.log(response);
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Signup failed");
-            }
-
+    
             dispatch(
                 setSignupData({
                     ...signupData,
@@ -94,13 +87,14 @@ const Signup: React.FC = () => {
                     email: data.email,
                     password: data.password,
                     confirmPassword: data.confirmPassword,
-                }),
+                })
             );
             dispatch(setSignupFlow("confirmation"));
         } catch (error: any) {
-            setApiError(error.message || "An unexpected error occurred.");
+            setApiError(error.response?.data?.message || "An unexpected error occurred.");
         }
     };
+    
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const password = e.target.value;

@@ -23,6 +23,16 @@ export function useRegister() {
     });
 }
 
+interface LoginResponse {
+    data: { is_admin: boolean,
+        token: string,
+        email: string,
+        first_name: string|null,
+        last_name: string|null,
+     };
+}
+
+
 export function useLogin() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,11 +40,13 @@ export function useLogin() {
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async (data: { email: string; password: string }) => {
-            return await apiPost("/users/auth/login/", data);
+            return await apiPost<LoginResponse>("/users/auth/login/", data);
         },
         onSuccess: async (data) => {
+            const admin = data.data.is_admin
+            console.log(admin)
             dispatch(login(data));
-            navigate("/");
+            navigate(admin ? "/dashboard/admin" : "/dashboard/user");
         },
         onError: (error) => {
             console.error(error);

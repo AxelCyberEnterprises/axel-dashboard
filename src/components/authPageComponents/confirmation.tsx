@@ -35,6 +35,7 @@ const Confirmation: React.FC = () => {
     const onSubmit: SubmitHandler<VerificationFormValues> = async (data) => {
         setIsLoading(true);
         setApiError(null);
+        console.log(signupData?.email);
 
         try {
             // Simulate API call to verify the code
