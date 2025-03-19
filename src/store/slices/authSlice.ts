@@ -97,7 +97,7 @@ const authSlice = createSlice({
             state.hasCheckedAuth = true;
         },
         login: (state, data) => {
-            const { token, email } = data.payload.data;
+            const { token, email, is_admin } = data.payload.data;
             if (!token || !email) {
                 throw new Error("Invalid data");
             }
@@ -105,7 +105,7 @@ const authSlice = createSlice({
             try {
                 tokenManager.setToken(token);
                 state.isAuthenticated = true;
-                state.user = true;
+                state.user = !is_admin;
             } catch (error) {
                 console.error("Failed to set tokens:", error);
                 state.user = null;

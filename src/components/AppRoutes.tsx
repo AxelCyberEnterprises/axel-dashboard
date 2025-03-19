@@ -1,32 +1,34 @@
+import { tokenManager } from "@/lib/utils";
+import PresentationPractice from "@/pages/Dashboard/User/PresentationPractice";
+import PublicSpeaking from "@/pages/Dashboard/User/PublicSpeaking";
 import { ReactNode } from "react";
-import { Link, Navigate, Route, Routes, useLocation, BrowserRouter as Router } from "react-router";
 import { useSelector } from "react-redux";
+import { Link, Navigate, Route, BrowserRouter as Router, Routes, useLocation } from "react-router";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import SessionsLayout from "../components/layouts/SessionsLayout";
-import UserPlan from "./layouts/userAuth";
+import AuthPage from "../pages/auth";
+import ForgotPassword from "../pages/auth/forgotPassword";
+import LoginPage from "../pages/auth/login";
+import ResetPassword from "../pages/auth/resetPassword";
+import Tutorial from "../pages/auth/tutorial";
 import AdminSessionHistory from "../pages/Dashboard/Admin/AdminSessionHistory";
 import AdminDashboardHome from "../pages/Dashboard/Admin/Index";
 import UserAnalytics from "../pages/Dashboard/User/Analytics";
 import UserDashboardHome from "../pages/Dashboard/User/Index";
+import UserPitchSessionReport from "../pages/Dashboard/User/SessionReports/PitchSessionReport";
 import UserSettings from "../pages/Dashboard/User/Settings";
 import UserSessionHistory from "../pages/Dashboard/User/UserSessionHistory";
-import PitchPracticeSession from "../pages/Sessions/PitchPractice";
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/auth/login";
-import Tutorial from "../pages/auth/tutorial";
-import AuthPage from "../pages/auth";
-import ForgotPassword from "../pages/auth/forgotPassword";
-import ResetPassword from "../pages/auth/resetPassword";
 import Features from "../pages/Features";
+import HomePage from "../pages/HomePage";
 import Pricing from "../pages/Pricing";
-import UserPitchSessionReport from "../pages/Dashboard/User/SessionReports/PitchSessionReport";
-import { Separator } from "./ui/separator";
+import PitchPracticeSession from "../pages/Sessions/PitchPractice";
+import UserPlan from "./layouts/userAuth";
 import { Button } from "./ui/button";
-import { tokenManager } from "@/lib/utils";
 import Help from "@/pages/Dashboard/User/help/help";
 import SafetyPrivacy from "@/pages/Dashboard/User/help/SafetyPrivacy";
 import Chat from "@/pages/Dashboard/User/help/ChatbotPage";
 import HelpPage from "@/pages/Dashboard/User/help";
+import { Separator } from "./ui/separator";
 
 function RequireAuth({ children }: { children: ReactNode }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,6 +46,8 @@ function UserDashboardRoutes() {
     return (
         <Routes>
             <Route index element={<UserDashboardHome />} />
+            <Route path="public-speaking" element={<PublicSpeaking />} />
+            <Route path="presentation-practice" element={<PresentationPractice />} />
             <Route path="session-history" element={<UserSessionHistory />} />
             <Route path="session-history/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />

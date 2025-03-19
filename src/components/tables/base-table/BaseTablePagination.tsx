@@ -18,7 +18,7 @@ const BaseTablePagination = <TData,>({ table }: IBaseTablePaginationProps<TData>
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
-                    className="border-none bg-transparent hover:bg-bright-gray shadow-none font-normal text-gunmetal disabled:text-primary-80 h-8"
+                    className="border-none bg-transparent hover:bg-bright-gray shadow-none font-normal text-gunmetal disabled:text-gray-blue h-8"
                 >
                     Previous
                 </Button>
@@ -39,7 +39,7 @@ const BaseTablePagination = <TData,>({ table }: IBaseTablePaginationProps<TData>
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
-                    className="border-none bg-transparent hover:bg-bright-gray shadow-none font-normal text-gunmetal disabled:text-primary-80"
+                    className="border-none bg-transparent hover:bg-bright-gray shadow-none font-normal text-gunmetal disabled:text-gray-blue"
                 >
                     Next
                 </Button>
