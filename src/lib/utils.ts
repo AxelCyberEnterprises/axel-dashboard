@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { eachMonthOfInterval, endOfYear, format, parseISO, startOfYear } from "date-fns";
 import Cookies from "js-cookie";
-import { format, parseISO, eachMonthOfInterval, startOfYear, endOfYear } from "date-fns";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -114,4 +114,8 @@ export function toSentenceCase(str: string) {
 
 export function transformToOptions<K extends string>(input: Record<K, string>) {
     return (Object.keys(input) as K[]).map((key) => ({ key, name: input[key] })) as { key: K; name: string }[];
+}
+
+export function isFileWithPreview(file: File): file is File & { preview: string } {
+    return "preview" in file && typeof file.preview === "string";
 }

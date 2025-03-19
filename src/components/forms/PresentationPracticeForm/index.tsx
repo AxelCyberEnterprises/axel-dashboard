@@ -26,14 +26,9 @@ const PresentationPracticeForm = () => {
         const subscription = form.watch((values, { name }) => {
             console.log("Values: ", values);
 
-            if (name !== "files" || !("files" in values && values.files)) return;
+            if (name !== "slides" || !("slides" in values && values.slides)) return;
 
-            const filePreviews = [];
-
-            for (let i = 0; i < values.files.length; i++) {
-                const file = values.files.item(i) as File;
-                filePreviews.push(URL.createObjectURL(file));
-            }
+            const filePreviews = values.slides.map((slide) => slide?.preview as string);
 
             dispatch(setslidePreviews(filePreviews));
         });

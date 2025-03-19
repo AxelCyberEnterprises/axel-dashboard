@@ -28,7 +28,7 @@ const GoalsSection = ({ form }: IGoalsSectionProps) => {
                 <h6>Goals</h6>
                 <p className="text-independence">What are your goals for this session?</p>
             </div>
-            <div className="space-y-1 p-3 rounded-lg border border-bright-gray bg-[#F8F9FC]">
+            <div className="space-y-2 p-3 rounded-lg border border-bright-gray bg-[#F8F9FC]">
                 {GOALS_GUIDE.map((guide, index) => (
                     <div key={guide + index} className="flex items-center gap-x-1.5 text-sm">
                         <span>{index + 1}.</span>
@@ -74,7 +74,7 @@ const GoalsSection = ({ form }: IGoalsSectionProps) => {
                     className="text-green-sheen hover:text-green-sheen border-green-sheen w-fit rounded-lg"
                 >
                     <Plus className="size-4" />
-                    <span>Save Goal</span>
+                    <span>Add Goal</span>
                 </Button>
             </div>
         </section>
