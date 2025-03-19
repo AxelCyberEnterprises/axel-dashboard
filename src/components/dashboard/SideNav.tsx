@@ -3,12 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/svgs/logo.svg";
 import { Input } from "../ui/input";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "../ui/sidebar";
+import { logout } from "@/store/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const SideNav: React.FC = () => {
     const location = useLocation();
     const pathSegments = location.pathname.split("/").filter(Boolean);
     const lastSegment = pathSegments.length >= 2 ? pathSegments[1] : "";
-
+    const dispatch = useDispatch()
     const userLinks = [
         {
             name: "Home",
@@ -420,6 +422,9 @@ const SideNav: React.FC = () => {
                 </svg>
             ),
             path: "/dashboard/user/logout",
+            function: (()=>{
+                dispatch(logout())
+            })
         },
     ];
 
@@ -489,6 +494,7 @@ const SideNav: React.FC = () => {
                 {bottomLinks.map((link, index) => (
                     <Link
                         to={link.path}
+                        onClick={link.function}
                         key={index}
                         className={`link flex items-center w-full py-2 px-1 mb-0.5 text-white ${
                             location.pathname === link.path ? "active" : ""
