@@ -14,6 +14,8 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 const TopNav: React.FC = () => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter((path) => path);
+    const pathSegments = location.pathname.split("/").filter(Boolean);
+    const lastSegment = pathSegments.length >= 2 ? pathSegments[1] : "";
 
     const formatBreadcrumb = (segment: string) =>
         segment.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
@@ -26,13 +28,13 @@ const TopNav: React.FC = () => {
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link to="/dashboard">Home</Link>
+                                <Link to={`/dashboard/${lastSegment}`}>Home</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
 
-                        {pathnames.map((segment, index) => {
-                            const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-                            const isLast = index === pathnames.length - 1;
+                        {pathnames.slice(2).map((segment, index) => {
+                            const routeTo = `/${pathnames.slice(0, index + 3).join("/")}`;
+                            const isLast = index === pathnames.slice(2).length - 1;
 
                             return (
                                 <div key={routeTo} className="flex items-center">
