@@ -49,10 +49,10 @@ const UserPlan = ({ children }: { children: ReactNode }) => {
   
 
   return (
-    <div className="md:h-screen h-full md:overflow-y-hidden  lg:px-10 md:px-0 px-5  max-lg:py-0 max-lg:justify-between max-md:block   max-lg:flex-row justify-center lgjustify-start md:flex-row flex-col flex gap-5">
+    <div className="md:h-screen h-full md:overflow-y-hidden  lg:px-10 md:px-0 px-5  max-lg:py-0 max-lg:justify-between max-md:block   max-lg:flex-row justify-center md:flex-row flex-col flex gap-5">
       <div className="auth flex-1 lg:flex-[0.9] ">
         
-        <div className="text-black h-full w-full ">
+        <div className="text-black overflow-y-aut h-full w-full ">
          
             { children }
         </div>

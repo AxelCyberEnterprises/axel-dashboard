@@ -11,6 +11,8 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/store";
+import { Checkbox } from "../ui/checkbox";
+import googleIcon from "@/assets/images/svgs/google-icon.svg";
 
 // Enhanced password validation schema
 const passwordSchema = z
@@ -23,7 +25,8 @@ const passwordSchema = z
 
 const signupSchema = z
     .object({
-        fullName: z.string().min(1, "Full name is required"),
+        firstName: z.string().min(1, "First name is required"),
+        lastName: z.string().min(1, "Last name is required"),
         email: z.string().email("Invalid email address").min(1, "Email is required"),
         password: passwordSchema,
         confirmPassword: z.string().min(1, "Confirm password is required"),
@@ -40,30 +43,63 @@ const Signup: React.FC = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
     const [passwordStrength, setPasswordStrength] = React.useState("");
-
+    const [apiError, setApiError] = React.useState<string | null>(null);
+    console.log(apiError);
     const form = useForm<SignupFormValues>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
-            fullName: "",
+            firstName: "",
+            lastName: "",
             email: "",
             password: "",
             confirmPassword: "",
         },
     });
 
+    // const splitFullName = (fullName: string) => {
+    //     const parts = fullName.trim().split(" ");
+    //     const firstName = parts[0] || "";
+    //     const lastName = parts.slice(1).join(" ") || ""; // Handles middle names as part of the last name
+    //     return { firstName, lastName };
+    // };
+
     const signupData = useSelector((state: RootState) => state.auth.signupData);
 
-    const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
-        dispatch(
-            setSignupData({
-                ...signupData,
-                fullName: data.fullName,
-                email: data.email,
-                password: data.password,
-                confirmPassword: data.confirmPassword,
-            }),
-        );
-        dispatch(setSignupFlow("confirmation"));
+    const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
+        setApiError(null);
+        try {
+            const response = await fetch("/api/users/users/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    first_name: data.firstName,
+                    last_name: data.lastName,
+                    email: data.email,
+                    password: data.password,
+                }),
+            });
+
+
+            console.log(response);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Signup failed");
+            }
+
+            dispatch(
+                setSignupData({
+                    ...signupData,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    password: data.password,
+                    confirmPassword: data.confirmPassword,
+                }),
+            );
+            dispatch(setSignupFlow("confirmation"));
+        } catch (error: any) {
+            setApiError(error.message || "An unexpected error occurred.");
+        }
     };
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,30 +123,48 @@ const Signup: React.FC = () => {
     };
 
     return (
-        <div className="signup-container sm:w-10/12 px-1 sm:mx-auto md:flex flex flex-col justify-center h-screen md:overflow-y-hidden max-md:pl-0 max-lg:pl-5">
-            {BackToWebsite()}
+        <div className="signup-container sm:w-10/12 overflow-y-auto px-1 scrollbar-hide sm:mx-auto md:flex flex flex-col justify-center h-screen mb-10  max-md:pl-0 max-lg:pl-5">
+            <div className="stick mt-36 top-5">{BackToWebsite()}</div>
             {welcomeMessage()}
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="flex pt-1 sm:w-[75%] sm:mx-auto font-[Montserrat] flex-col gap-5 md:gap-4"
                 >
-                    <FormField
-                        control={form.control}
-                        name="fullName"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Enter your full name"
-                                        className="rounded-lg font-[Montserrat] text-black py-6 border-[#d0d5dd]"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="grid grid-cols-2 gap-2 mx-auto w-full">
+                        <FormField
+                            control={form.control}
+                            name="firstName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Enter your first name"
+                                            className="rounded-lg flex-1 w-full font-[Montserrat] text-black py-6 border-[#d0d5dd]"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="lastName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Enter your last name"
+                                            className="rounded-lg flex-1 w-full font-[Montserrat] text-black py-6 border-[#d0d5dd]"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
 
                     <FormField
                         control={form.control}
@@ -202,6 +256,27 @@ const Signup: React.FC = () => {
                     </Button>
                 </form>
             </Form>
+            <div>
+                <label
+                    className="flex sm:w-[75%] mx-auto font-[500] mt-2 gap-2 justify-start items-center text-sm text-nowrap"
+                    htmlFor="remember"
+                >
+                    <Checkbox
+                        className=" border-2  p-2 border-gray-300 rounded-md checked:bg-transparent   bg-transparent  data-[state=checked]:bg-transparent data-[state=checked]:text-black  "
+                        name="remember"
+                        id="remember"
+                    />
+                    Remember for 30 days
+                </label>
+            </div>
+            <div className="relative w-full sm:w-3/4 mx-auto font-[Inter] text-center my-5 ">
+                <div className="absolute top-1/2 transform -translate-y-1/2 w-full border-b border-gray-300 z-10"></div>
+                <span className="relative z-20 bg-white px-3">OR</span>
+            </div>
+            <button className="flex w-full bg-transparent hover:scale-[1.03] duration-300 border font-[Montserrat] py-2.5 text-black p-4 rounded-lg sm:w-3/4 mx-auto  justify-center gap-4">
+                <img src={googleIcon} className="w-[20px]" alt="" />
+                <p>Sign up with Google</p>
+            </button>
             <div className="flex gap-2 w-full text-muted-foreground text-sm justify-center font-[Montserrat] items-center my-2">
                 <p>Already have an account?</p>
                 <Link
