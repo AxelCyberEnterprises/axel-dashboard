@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { tokenManager } from "@/lib/utils";
 
 interface Question {
     id: number;
@@ -21,6 +22,10 @@ interface AuthState {
     signupFlow: string;
     routeFromLogin: boolean;
     signupData: SignupData | null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    user: any | null;
+    isAuthenticated: boolean;
+    hasCheckedAuth: boolean;
 }
 
 const initialState: AuthState = {
@@ -53,6 +58,9 @@ const initialState: AuthState = {
     signupFlow: "authQuestions",
     routeFromLogin: false,
     signupData: null, // Stores signup details
+    user: null,
+    isAuthenticated: true,
+    hasCheckedAuth: false,
 };
 
 const authSlice = createSlice({
@@ -62,7 +70,6 @@ const authSlice = createSlice({
         setTopicQuestion: (state, action: PayloadAction<string>) => {
             state.topicQuestion = action.payload;
         },
-
         setSignupFlow: (state, action: PayloadAction<string>) => {
             state.signupFlow = action.payload;
         },
@@ -72,8 +79,40 @@ const authSlice = createSlice({
         setSignupData: (state, action: PayloadAction<Partial<SignupData>>) => {
             state.signupData = { ...state.signupData!, ...action.payload };
         },
+        logout: (state) => {
+            tokenManager.clearToken();
+            state.user = null;
+            state.isAuthenticated = false;
+            state.hasCheckedAuth = true;
+        },
+        login: (state, data) => {
+            const { access_token, user } = data.payload;
+
+            if (!access_token || !user) {
+                throw new Error("Invalid data");
+            }
+
+            try {
+                tokenManager.setToken(access_token);
+                state.isAuthenticated = true;
+                state.user = true;
+            } catch (error) {
+                console.error("Failed to set tokens:", error);
+                state.user = null;
+                state.isAuthenticated = false;
+            }
+        },
     },
 });
 
-export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData } = authSlice.actions;
+export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { dispatch }) => {
+    const accessToken = tokenManager.getToken();
+    if (!accessToken) {
+        dispatch(authSlice.actions.logout()); // Dispatch logout if no token
+        return false;
+    }
+    return true;
+});
+
+export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login } = authSlice.actions;
 export default authSlice.reducer;

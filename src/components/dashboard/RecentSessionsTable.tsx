@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -143,10 +144,12 @@ export const columns: ColumnDef<Session>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                            {" "}
-                            <ChartLine className="text-black" /> View Report
-                        </DropdownMenuItem>
+                        <Link to="/dashboard/user/session-history/1">
+                            <DropdownMenuItem>
+                                {" "}
+                                <ChartLine className="text-black" /> View Report
+                            </DropdownMenuItem>
+                        </Link>
                         <DropdownMenuItem>
                             {" "}
                             <Download className="text-black" /> Download

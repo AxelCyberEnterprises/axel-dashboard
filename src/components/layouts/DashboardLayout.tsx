@@ -1,10 +1,12 @@
+// import { Outlet } from "react-router-dom";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Outlet } from "react-router-dom";
 import SideNav from "../dashboard/SideNav";
 import TopNav from "../dashboard/TopNav";
 import DynamicDialog from "../dialogs/DynamicDialog";
 
-const DashboardLayout = () => {
+import { ReactNode } from "react";
+
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
     return (
         <SidebarProvider
             style={
@@ -25,7 +27,7 @@ const DashboardLayout = () => {
 
                     {/* Main Content Area with Outlet */}
                     <div className="flex-1 overflow-y-auto">
-                        <Outlet />
+                        {children}
                         <DynamicDialog />
                     </div>
                 </SidebarInset>
