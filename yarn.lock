@@ -208,7 +208,7 @@
     "@babel/helper-skip-transparent-expression-wrappers" "^7.25.9"
     "@babel/plugin-syntax-typescript" "^7.25.9"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.20.6", "@babel/runtime@^7.21.0", "@babel/runtime@^7.24.4", "@babel/runtime@^7.25.6", "@babel/runtime@^7.26.0", "@babel/runtime@^7.26.10", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.20.6", "@babel/runtime@^7.21.0", "@babel/runtime@^7.24.4", "@babel/runtime@^7.25.6", "@babel/runtime@^7.26.0", "@babel/runtime@^7.26.10", "@babel/runtime@^7.26.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.26.10"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.10.tgz#a07b4d8fa27af131a633d7b3524db803eb4764c2"
   integrity sha512-2WJMeRQPHKSPemqk/awGrAiuFfzBmOIPXKizAsVhWH9YJqLZ0H+HS4c8loHGgW6utJ3E/ejXQUsiGaQy2NZ9Fw==
@@ -2379,10 +2379,10 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
-detect-libc@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
-  integrity sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==
+detect-libc@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.3.tgz#f0cd503b40f9939b894697d19ad50895e30cf700"
+  integrity sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==
 
 detect-node-es@^1.1.0:
   version "1.1.0"
@@ -2712,7 +2712,7 @@ fast-unique-numbers@^7.0.2:
     "@babel/runtime" "^7.21.0"
     tslib "^2.5.0"
 
-fast-unique-numbers@^9.0.19, fast-unique-numbers@^9.0.4:
+fast-unique-numbers@^9.0.18, fast-unique-numbers@^9.0.19, fast-unique-numbers@^9.0.4:
   version "9.0.19"
   resolved "https://registry.yarnpkg.com/fast-unique-numbers/-/fast-unique-numbers-9.0.19.tgz#05565b49b7b5c46a31ae5011cd8149b4a723c501"
   integrity sha512-sfxP/1eJtVFle7hSJjHxULjVabATWtxTdUTzemee5E3kM0SlosrpklxFT7V19hyPdpYllrFLt2Uo40SyDX2mtg==
@@ -4465,13 +4465,22 @@ worker-factory@^6.0.76:
     fast-unique-numbers "^7.0.2"
     tslib "^2.5.0"
 
-worker-factory@^7.0.24, worker-factory@^7.0.39:
+worker-factory@^7.0.24:
   version "7.0.39"
   resolved "https://registry.yarnpkg.com/worker-factory/-/worker-factory-7.0.39.tgz#0961402a23b47d9337962ac9e4bf6f20b9877424"
   integrity sha512-UrCbghhZSu8ZjBwF0fmH+h7l8gK9LhBMcl2w6TpC22gQHi2YLXogJcW71aaldtVLSrbusAi526Oi5IHJgc9FdA==
   dependencies:
     "@babel/runtime" "^7.26.9"
     fast-unique-numbers "^9.0.18"
+    tslib "^2.8.1"
+
+worker-factory@^7.0.40:
+  version "7.0.40"
+  resolved "https://registry.yarnpkg.com/worker-factory/-/worker-factory-7.0.40.tgz#94f1f1641aa8fea0ce4538ee3bff7e593130abdc"
+  integrity sha512-hfNchU+FG8PChpBdL1zUsVT84D94wMZEOZIXUJUDuNTrnW9gBk8TvSbV9+wb3ByLA8zWF/5U6OrAksBoZsW3lA==
+  dependencies:
+    "@babel/runtime" "^7.26.10"
+    fast-unique-numbers "^9.0.19"
     tslib "^2.8.1"
 
 wrap-ansi@^6.2.0:
