@@ -41,7 +41,7 @@ function UserDashboardRoutes() {
         <Routes>
             <Route index element={<UserDashboardHome />} />
             <Route path="session-history" element={<UserSessionHistory />} />
-            <Route path="session-report/:id" element={<UserPitchSessionReport />} />
+            <Route path="session-history/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
             <Route path="*" element={<Navigate replace to="/dashboard/user" />} />
@@ -54,6 +54,7 @@ function AdminDashboardRoutes() {
         <Routes>
             <Route index element={<AdminDashboardHome />} />
             <Route path="session-history" element={<AdminSessionHistory />} />
+            <Route path="session-history/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
             <Route path="*" element={<Navigate replace to="/dashboard/admin" />} />
