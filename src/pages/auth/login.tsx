@@ -38,8 +38,8 @@ const Login: React.FC = () => {
     const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
         console.log("Form Data:", data);
         login(data)
-        // dispatch(setRouteFromLogin(true));
-        // navigate("../../dashboard/user");
+        dispatch(setRouteFromLogin(true));
+        navigate("../../dashboard/user");
     };
 
     return (
