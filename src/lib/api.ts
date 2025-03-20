@@ -21,7 +21,7 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
     (res) => {
-        if (res.data?.errorMessage ) {
+        if (res.data?.errorMessage) {
             const errorMessage = res.data?.errorMessage || convertArrayToString(res.data?.message);
             const error = new Error(errorMessage) as AxiosError;
             error.response = res;
