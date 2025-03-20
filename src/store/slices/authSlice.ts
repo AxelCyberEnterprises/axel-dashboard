@@ -86,7 +86,7 @@ const authSlice = createSlice({
             state.hasCheckedAuth = true;
         },
         login: (state, data) => {
-            const { token, isAdmin } = data.payload;
+            const { token, isAdmin } = data.payload.data;
 
             if (!token) {
                 throw new Error("Invalid data");

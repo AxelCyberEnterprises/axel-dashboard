@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setRouteFromLogin, setSignupFlow, setTopicQuestion } from "../../store/slices/authSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { setSignupFlow, setTopicQuestion } from "../../store/slices/authSlice";
+import { Link } from "react-router-dom";
 import { welcomeMessage } from "../../components/layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
@@ -22,7 +22,6 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
 
     const form = useForm<LoginFormValues>({
@@ -38,8 +37,6 @@ const Login: React.FC = () => {
     const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
         console.log("Form Data:", data);
         login(data)
-        dispatch(setRouteFromLogin(true));
-        navigate("../../dashboard/user");
     };
 
     return (
