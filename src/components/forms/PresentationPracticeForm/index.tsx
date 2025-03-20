@@ -28,9 +28,12 @@ const PresentationPracticeForm = () => {
 
             if (name !== "slides" || !("slides" in values && values.slides)) return;
 
-            const filePreviews = values.slides.map((slide) => slide?.preview as string);
+            const slides = values.slides.filter(
+                (slide): slide is { file: File; preview: string } =>
+                    slide !== undefined && slide.file !== undefined && slide.preview !== undefined,
+            );
 
-            dispatch(setslidePreviews(filePreviews));
+            dispatch(setslidePreviews(slides));
         });
 
         return () => subscription.unsubscribe();

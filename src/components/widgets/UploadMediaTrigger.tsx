@@ -8,9 +8,10 @@ type IUploadMediaTriggerProps<T extends FieldValues, K extends Path<T>> = HTMLAt
     multiple?: boolean;
     name: K;
 };
-type IFilesWithPreview = (File & {
+export type IFilesWithPreview = {
+    file: File;
     preview: string;
-})[];
+}[];
 
 const UploadMediaTrigger = <T extends FieldValues, K extends Path<T>>({
     accept = { "image/*": [".png", ".gif", ".jpeg", ".jpg"], "application/pdf": [".pdf"] },
@@ -29,11 +30,10 @@ const UploadMediaTrigger = <T extends FieldValues, K extends Path<T>>({
                 });
             }
 
-            const newFiles = acceptedFiles.map((file) =>
-                Object.assign(file, {
-                    preview: URL.createObjectURL(file),
-                }),
-            );
+            const newFiles = acceptedFiles.map((file) => ({
+                file,
+                preview: URL.createObjectURL(file),
+            }));
 
             // const updatedFiles = files ? [...files, ...newFiles] : newFiles;
 

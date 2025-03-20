@@ -1,8 +1,9 @@
+import { IFilesWithPreview } from "@/components/widgets/UploadMediaTrigger";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IPresentationPractice {
     activeSlideIndex: number;
-    slidePreviews: string[];
+    slidePreviews: IFilesWithPreview;
 }
 
 const initialState: IPresentationPractice = {
@@ -17,7 +18,7 @@ const presentationPracticeSlice = createSlice({
         setActiveSlideIndex: (state, action: PayloadAction<number>) => {
             state.activeSlideIndex = action.payload;
         },
-        setslidePreviews: (state, action: PayloadAction<string[]>) => {
+        setslidePreviews: (state, action: PayloadAction<IFilesWithPreview>) => {
             state.slidePreviews = action.payload;
         },
     },

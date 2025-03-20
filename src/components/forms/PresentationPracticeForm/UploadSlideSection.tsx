@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import PDFViewer from "@/components/widgets/pdf-viewer";
 import UploadMediaTrigger from "@/components/widgets/UploadMediaTrigger";
-import { cn } from "@/lib/utils";
+import { cn, isPdf } from "@/lib/utils";
 import { RootState } from "@/store";
 import { setActiveSlideIndex } from "@/store/slices/dashboard/user/presentationPracticeSlice";
 import { Plus, UploadCloud } from "lucide-react";
@@ -50,21 +51,23 @@ const UploadSlideSection = ({ className }: IUploadSlideSectionProps) => {
                             <div className="space-y-5">
                                 <h6 className="text-lg">Uploaded Slides ({slidePreviews.length})</h6>
                                 <div className="flex flex-col gap-y-3">
-                                    {slidePreviews.map((preview, i) => (
+                                    {slidePreviews.map(({ file, preview }, i) => (
                                         <div
                                             key={preview + i}
                                             className="flex items-start gap-x-3 cursor-pointer"
                                             onClick={() => handleSlideClick(i)}
                                         >
                                             <span className="text-sm">{i + 1}</span>
-                                            <div className="w-full h-24">
-                                                <img
-                                                    src={preview}
-                                                    alt="slide"
-                                                    className={cn("object-cover size-full rounded-md", {
-                                                        "border-2 border-gunmetal": i === activeSlideIndex,
-                                                    })}
-                                                />
+                                            <div
+                                                className={cn("w-full h-24 overflow-hidden rounded-md", {
+                                                    "border-2 border-gunmetal": i === activeSlideIndex,
+                                                })}
+                                            >
+                                                {isPdf(file) ? (
+                                                    <PDFViewer file={file} />
+                                                ) : (
+                                                    <img src={preview} alt="slide" className="object-cover size-full" />
+                                                )}
                                             </div>
                                         </div>
                                     ))}
@@ -85,21 +88,23 @@ const UploadSlideSection = ({ className }: IUploadSlideSectionProps) => {
                         <Plus className="size-5" />
                     </UploadMediaTrigger>
                 </div>
-                {slidePreviews.map((preview, i) => (
+                {slidePreviews.map(({ file, preview }, i) => (
                     <div
                         key={preview + i}
                         className="flex flex-col items-start gap-y-2 cursor-pointer"
                         onClick={() => handleSlideClick(i)}
                     >
                         <span className="text-sm">{i + 1}</span>
-                        <div className="w-42.5 h-24">
-                            <img
-                                src={preview}
-                                alt="slide"
-                                className={cn("object-cover size-full rounded-md", {
-                                    "border-2 border-gunmetal": i === activeSlideIndex,
-                                })}
-                            />
+                        <div
+                            className={cn("w-42.5 h-24 overflow-hidden rounded-md", {
+                                "border-2 border-gunmetal": i === activeSlideIndex,
+                            })}
+                        >
+                            {isPdf(file) ? (
+                                <PDFViewer file={file} />
+                            ) : (
+                                <img src={preview} alt="slide" className="object-cover size-full rounded-md" />
+                            )}
                         </div>
                     </div>
                 ))}

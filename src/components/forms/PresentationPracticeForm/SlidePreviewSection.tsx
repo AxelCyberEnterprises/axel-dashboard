@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+import PDFViewer from "@/components/widgets/pdf-viewer";
+import { cn, isPdf } from "@/lib/utils";
 import { RootState } from "@/store";
 import { HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
@@ -27,8 +28,16 @@ const SlidePreviewSection = ({ className, form }: ISlidePreviewSectionProps) => 
                     <h6 className="text-lg">Slide Preview</h6>
                     <div className="space-y-6">
                         <div className="space-y-4">
-                            <div className="w-auto h-29 p-2 border border-bright-gray rounded-lg">
-                                <img src={activeSlide} alt="" className="object-cover size-full rounded-md" />
+                            <div className="w-auto h-29 p-2 border border-bright-gray rounded-lg overflow-hidden">
+                                {isPdf(activeSlide.file) ? (
+                                    <PDFViewer file={activeSlide.file} />
+                                ) : (
+                                    <img
+                                        src={activeSlide.preview}
+                                        alt=""
+                                        className="object-cover size-full rounded-md"
+                                    />
+                                )}
                             </div>
                             <Button
                                 type="button"
