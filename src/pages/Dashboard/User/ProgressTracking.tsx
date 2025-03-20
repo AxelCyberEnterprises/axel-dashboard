@@ -109,7 +109,7 @@ const ProgressTracking: React.FC = () => {
         cta='Cancel'
         ctaClassName='bg-[#262B3A] text-[#414651]'
       />
-      <div className='scrollbar-none px-8'>
+      <div className='scrollbar-hide px-8'>
         <section className='py-5 flex gap-2 items-start justify-between'>
           <div>
             <h3 className='xl:text-[24px] text-[18px] text-[#262B3A]'>Progress Tracking</h3>

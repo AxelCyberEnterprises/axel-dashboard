@@ -130,7 +130,7 @@ const Settings: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <section ref={scrollRef} className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-none max-w[464px]">
+                <section ref={scrollRef} className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide max-w[464px]">
                     <div className="relative flex gap-4 min-w-max border-b-2 border-[#E0E0E0]">
                         {sectionItems.map((item, index) => (
                             <div
@@ -149,7 +149,7 @@ const Settings: React.FC = () => {
                     </div>
                 </section>
 
-                <section className="flex-1 overflow-y-auto scrollbar-none">
+                <section className="flex-1 overflow-y-auto scrollbar-hide">
                     {activeIndex === 0 &&
                         <PersonalInfoForm
                             onSubmit={handlePersonalInfo}
