@@ -15,7 +15,7 @@ import AdminSessionHistory from "../pages/Dashboard/Admin/AdminSessionHistory";
 import AdminDashboardHome from "../pages/Dashboard/Admin/Index";
 import UserAnalytics from "../pages/Dashboard/User/Analytics";
 import UserDashboardHome from "../pages/Dashboard/User/Index";
-import UserPitchSessionReport from "../pages/Dashboard/User/SessionReports/PitchSessionReport";
+import UserPitchSessionReport from "../pages/Dashboard/User/SessionReport";
 import UserSettings from "../pages/Dashboard/User/Settings";
 import UserSessionHistory from "../pages/Dashboard/User/UserSessionHistory";
 import Features from "../pages/Features";
@@ -97,7 +97,7 @@ function SessionRoutes() {
     return (
         <Routes>
             <Route path="pitch-practice-session" element={<PitchPracticeSession />} />
-            <Route path="*" element={<Navigate replace to="/sessions" />} />
+            <Route path="*" element={<Navigate replace to="/dashboard/user" />} />
         </Routes>
     );
 }
