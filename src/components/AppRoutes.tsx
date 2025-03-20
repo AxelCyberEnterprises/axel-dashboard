@@ -24,6 +24,10 @@ import Pricing from "../pages/Pricing";
 import PitchPracticeSession from "../pages/Sessions/PitchPractice";
 import UserPlan from "./layouts/userAuth";
 import { Button } from "./ui/button";
+import Help from "@/pages/Dashboard/User/help/help";
+import SafetyPrivacy from "@/pages/Dashboard/User/help/SafetyPrivacy";
+import Chat from "@/pages/Dashboard/User/help/ChatbotPage";
+import HelpPage from "@/pages/Dashboard/User/help";
 import { Separator } from "./ui/separator";
 
 function RequireAuth({ children }: { children: ReactNode }) {
@@ -48,6 +52,12 @@ function UserDashboardRoutes() {
             <Route path="session-history/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
+            <Route path="help" element={<HelpPage/>} >
+            <Route index element={<Help/>} />
+            <Route path="safety" element={<SafetyPrivacy />} />
+            <Route path="message" element={<Chat />} />
+            </Route>
+
             <Route path="*" element={<Navigate replace to="/dashboard/user" />} />
         </Routes>
     );
@@ -83,7 +93,7 @@ function AuthRoutes() {
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="tutorial" element={<Tutorial />} />
-            <Route path="*" element={<Navigate replace to="/signup" />} />
+            <Route path="*" element={<Navigate replace to="/auth/signup" />} />
         </Routes>
     );
 }

@@ -68,7 +68,7 @@ const Help: React.FC = () => {
                 <section className="w-full bg-[#262b3a] text-white rounded-3xl font-[montserrat] mb-28 sm:mb-16 py-20 px-10 gap-3 mt-10 flex flex-col justify-center items-center">
                     <p className="text-4xl max-sm:text-3xl max-sm:leading-10 font-medium text-center ">Still want to know more?</p>
                     <p className="text-[#a5b8c3] sm:text-xl  text-center">Visit our FAQs page to know more about our services at EngageX</p>
-                    <Link className="mt-5 " to="/faqs">
+                    <Link className="mt-5 " to="faqs">
                         <div className="bg-[#6f7c8e]  text-lg flex items-center gap-0 px-8 py-3  hover:bg-[#6f7c8e90] border-dotted  !important border-[#6f7c8e] rounded-md">
                             <p className=" font-medium">Visit our FAQs</p>
                             <svg

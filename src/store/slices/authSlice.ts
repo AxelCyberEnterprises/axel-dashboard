@@ -8,7 +8,8 @@ interface Question {
 }
 
 interface SignupData {
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -26,6 +27,9 @@ interface AuthState {
     user: any | null;
     isAuthenticated: boolean;
     hasCheckedAuth: boolean;
+    emailForPasswordReset: string;
+    apiError: string | null;
+    successMessage: string | null;
 }
 
 const initialState: AuthState = {
@@ -45,22 +49,25 @@ const initialState: AuthState = {
             content: [
                 { contentId: 1, role: "Early Career Professional" },
                 { contentId: 2, role: "Mid-level Professionals" },
-                { contentId: 3, role: "Executives" },
+                { contentId: 3, role: "Sales Professionals" },
                 { contentId: 4, role: "C-suites" },
-                { contentId: 5, role: "Athletes" },
-                { contentId: 6, role: "Entrepreneurs" },
-                { contentId: 7, role: "Sales Professionals" },
+                { contentId: 5, role: "Entrepreneurs" },
+                { contentId: 6, role: "Major League Sports Athlete" },
+                { contentId: 7, role: "Major League Sports Executive" },
             ],
         },
     ],
     topicQuestion: "What do you plan on doing?",
 
-    signupFlow: "authQuestions",
+    signupFlow: "signup",
     routeFromLogin: false,
     signupData: null, // Stores signup details
     user: null,
-    isAuthenticated: true,
+    isAuthenticated: false,
     hasCheckedAuth: false,
+    emailForPasswordReset: "jnr@gmail.com",
+    apiError: null,
+    successMessage: "",
 };
 
 const authSlice = createSlice({
@@ -69,6 +76,15 @@ const authSlice = createSlice({
     reducers: {
         setTopicQuestion: (state, action: PayloadAction<string>) => {
             state.topicQuestion = action.payload;
+        },
+        setEmailForPasswordReset: (state, action: PayloadAction<string>) => {
+            state.emailForPasswordReset = action.payload;
+        },
+        setApiError: (state, action: PayloadAction<string>) => {
+            state.apiError = action.payload;
+        },
+        setSuccessMessage: (state, action: PayloadAction<string>) => {
+            state.successMessage = action.payload;
         },
         setSignupFlow: (state, action: PayloadAction<string>) => {
             state.signupFlow = action.payload;
@@ -86,20 +102,20 @@ const authSlice = createSlice({
             state.hasCheckedAuth = true;
         },
         login: (state, data) => {
-            const { token, isAdmin } = data.payload.data;
-
-            if (!token) {
+            const { token, email, is_admin } = data.payload.data;
+            if (!token || !email) {
                 throw new Error("Invalid data");
             }
 
             try {
                 tokenManager.setToken(token);
                 state.isAuthenticated = true;
-                state.user = !isAdmin;
+                state.user = !is_admin;
             } catch (error) {
                 console.error("Failed to set tokens:", error);
                 state.user = null;
                 state.isAuthenticated = false;
+
             }
         },
     },
@@ -114,5 +130,5 @@ export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { dispatch
     return true;
 });
 
-export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login } = authSlice.actions;
+export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setApiError, setEmailForPasswordReset, setSuccessMessage } = authSlice.actions;
 export default authSlice.reducer;
