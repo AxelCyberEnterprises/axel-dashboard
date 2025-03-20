@@ -2,7 +2,7 @@ import { apiPost } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { login, setEmailForPasswordReset, setSignupFlow } from "@/store/slices/authSlice";
+import { login, setEmailForPasswordReset, setSignupFlow, setSuccessMessage } from "@/store/slices/authSlice";
 
 export function useSignup() {
     
@@ -70,7 +70,7 @@ export function useForgotPassword() {
                     navigate("../reset-password");
         },
         onError: (error) => {
-            console.error(error || "Failed to send reset link. Please try again.");
+            console.error(error || "Failed to send OTP. Please try again.");
         },
     });
 }
@@ -81,7 +81,6 @@ type ResetPasswordResponse = {
     new_password: string;
 };
 
-import {setSuccessMessage} from "@/store/slices/authSlice";
 
 export function useResetPassword() {
     const dispatch = useDispatch();
@@ -95,6 +94,27 @@ export function useResetPassword() {
             console.log("Password reset successfully.");
             dispatch(setSuccessMessage("Password reset successfully! Redirecting to login..."));
             setTimeout(() => navigate("../login"), 2000);
+        },
+        onError: (error) => {
+            console.error(error.message);
+        },
+    });
+}
+
+
+export function useEmailConfirmation() {
+    const dispatch = useDispatch();
+    return useMutation({
+        mutationKey: ["emailConfirmation"],
+        mutationFn: async (data: { verification_code: string; email: string; }) => {
+            return await apiPost<{email:string}>("/users/auth/verify-email/", data);
+        },
+        onSuccess: () => {
+            console.log("Email confirmed successfully.");
+            dispatch(setSuccessMessage("Email verified successfully! Redirecting..."));
+             setTimeout(() => {
+                            dispatch(setSignupFlow("authQuestions"));
+                        }, 2000);
         },
         onError: (error) => {
             console.error(error.message);

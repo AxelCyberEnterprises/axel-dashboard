@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import { useDispatch } from "react-redux";
-// import { setSignupFlow, setSignupData } from "../../store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {  setSignupData } from "../../store/slices/authSlice";
 import { Link } from "react-router-dom";
 import { BackToWebsite, welcomeMessage } from "../layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
@@ -14,6 +14,7 @@ import { Checkbox } from "../ui/checkbox";
 import googleIcon from "@/assets/images/svgs/google-icon.svg";
 import { useSignup } from "@/hooks/auth";
 import axios from "axios";
+import { RootState } from "@/store";
 // Enhanced password validation schema
 const passwordSchema = z
     .string()
@@ -52,10 +53,11 @@ const Signup: React.FC = () => {
         },
     });
 
-    // const signupData = useSelector((state: RootState) => state.auth.signupData);
+    const dispatch = useDispatch()
+
+    const signupData = useSelector((state: RootState) => state.auth.signupData);
 
     const { mutate: signup, isPending, error } = useSignup();
-    console.log(isPending, error);
 
     const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
         const newData = {
@@ -64,9 +66,28 @@ const Signup: React.FC = () => {
             email: data.email,
             password: data.password,
         };
+        dispatch(
+            setSignupData({
+                ...signupData,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: data.password,
+                confirmPassword: data.confirmPassword,
+            }))
         signup(newData);
     };
 
+
+     useEffect(() => {
+                if (error) {
+                    form.setError("firstName", {
+                        type: "manual",
+                        message: (error.message || "Verification failed. Please try again."),
+                    });
+                }
+            }, [error]);
+            
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const password = e.target.value;
         form.setValue("password", password);
@@ -231,6 +252,7 @@ const Signup: React.FC = () => {
 
                     <Button
                         type="submit"
+                        isLoading={isPending}
                         className="rounded-lg font-[Montserrat] bg-[#262b3a] hover:bg-[#262b3ada] py-6"
                     >
                         Get Started
@@ -256,7 +278,7 @@ const Signup: React.FC = () => {
             </div>
             <button
                 onClick={handleGoogleLogin}
-                className="flex w-full bg-transparent hover:scale-[1.03] duration-300 border font-[Montserrat] py-2.5 text-black p-4 rounded-lg sm:w-3/4 mx-auto  justify-center gap-4"
+                className="flex w-full bg-transparent hover:scale-[1.03] duration-300 border border-[#d0d5dda2] font-[Montserrat] py-2.5 text-black p-4 rounded-lg sm:w-3/4 mx-auto  justify-center gap-4"
             >
                 <img src={googleIcon} className="w-[20px]" alt="" />
                 <p>Sign up with Google</p>
