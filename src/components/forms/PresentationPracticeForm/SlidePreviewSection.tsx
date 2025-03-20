@@ -28,7 +28,7 @@ const SlidePreviewSection = ({ className, form }: ISlidePreviewSectionProps) => 
                     <h6 className="text-lg">Slide Preview</h6>
                     <div className="space-y-6">
                         <div className="space-y-4">
-                            <div className="w-auto h-29 p-2 border border-bright-gray rounded-lg overflow-hidden">
+                            <div className="w-auto md:h-29 h-36 p-2 border border-bright-gray rounded-lg overflow-hidden">
                                 {isPdf(activeSlide.file) ? (
                                     <PDFViewer file={activeSlide.file} />
                                 ) : (

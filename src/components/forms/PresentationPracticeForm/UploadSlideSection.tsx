@@ -77,7 +77,7 @@ const UploadSlideSection = ({ className }: IUploadSlideSectionProps) => {
                     )}
                 </div>
             </section>
-            <section className="lg:hidden absolute bottom-0 inset-x-0 p-4 flex items-start gap-x-3 border-t border-bright-gray bg-white overflow-auto hide-scrollbar">
+            <section className="lg:hidden absolute bottom-0 inset-x-0 p-4 flex items-start gap-x-3 border-t border-bright-gray bg-white overflow-auto hide-scrollbar z-10">
                 <div className="flex flex-col gap-y-2 whitespace-nowrap">
                     <span className="text-sm text-center">Upload New slide</span>
 
@@ -103,7 +103,7 @@ const UploadSlideSection = ({ className }: IUploadSlideSectionProps) => {
                             {isPdf(file) ? (
                                 <PDFViewer file={file} />
                             ) : (
-                                <img src={preview} alt="slide" className="object-cover size-full rounded-md" />
+                                <img src={preview} alt="slide" className="object-cover size-full" />
                             )}
                         </div>
                     </div>
