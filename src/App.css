@@ -207,15 +207,14 @@
 }
 
 
-.scrollbar-none {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;     /* Firefox */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-.scrollbar-none::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, and Opera */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
 }
-
 
 @utility hide-scrollbar {
   scrollbar-width: none;

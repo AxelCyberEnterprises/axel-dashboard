@@ -13,7 +13,7 @@ interface TokenManagerConfig {
 }
 
 const TOKEN_CONFIG: TokenManagerConfig = {
-    accessTokenKey: "access_token",
+    accessTokenKey: "token",
     cookieOptions: {
         secure: import.meta.env.NODE_ENV === "production",
         sameSite: "strict",

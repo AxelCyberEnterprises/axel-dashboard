@@ -3,9 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { setRouteFromLogin, setSignupFlow, setTopicQuestion } from "../../store/slices/authSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { welcomeMessage } from "../../components/layouts/userAuth";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
@@ -21,8 +19,6 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
 
     const form = useForm<LoginFormValues>({
@@ -33,13 +29,11 @@ const Login: React.FC = () => {
         },
     });
 
-    const { mutate: login, isPending } = useLogin();
+    const { mutate: login, isPending, error } = useLogin();
+    
+    const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+            login(data);
 
-    const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
-        console.log("Form Data:", data);
-        login(data)
-        dispatch(setRouteFromLogin(true));
-        navigate("../../dashboard/user");
     };
 
     return (
@@ -53,13 +47,12 @@ const Login: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="email"
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        render={({ field }: { field: any }) => (
+                        render={({ field }) => (
                             <FormItem>
                                 <FormControl>
                                     <Input
                                         placeholder="Enter your email"
-                                        className="rounded-3xl py-7 md:py-[23px] font-[Inter] max-md:w-full text-lg focus:border-0 text-black border-[#d0d5dd]"
+                                        className="rounded-lg py-6 font-[Inter] max-md:w-full text-lg focus:border-0 text-black border-[#d0d5dd]"
                                         {...field}
                                     />
                                 </FormControl>
@@ -71,20 +64,19 @@ const Login: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="password"
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        render={({ field }: { field: any }) => (
+                        render={({ field }) => (
                             <FormItem className="relative border-0">
                                 <FormControl className="relative border-0">
                                     <div className="relative border-0">
                                         <Input
                                             type={showPassword ? "text" : "password"}
                                             placeholder="Enter your password"
-                                            className="rounded-3xl font-[Inter] py-7 md:py-[23px] pr-12 border text-black outline-0 border-[#d0d5dd] shadow-0 focus:outline-0  focus:border-0    w-full"
+                                            className="rounded-lg font-[Inter] py-6 pr-12 border text-black outline-0 border-[#d0d5dd] shadow-0 focus:outline-0 focus:border-0 w-full"
                                             {...field}
                                         />
                                         <Button
                                             type="button"
-                                            className="absolute  right-1 top-1/2 bg-transparent hover:bg-transparent  rounded-none shadow-none text-[#b7b7b7]  transform -translate-y-1/2"
+                                            className="absolute right-1 top-1/2 bg-transparent hover:bg-transparent rounded-none shadow-none text-[#b7b7b7] transform -translate-y-1/2"
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
                                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -96,17 +88,23 @@ const Login: React.FC = () => {
                         )}
                     />
 
-                    <Button type="submit" isLoading={isPending} className="py-7 md:py-[23px] font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-3xl">
+                    <Button
+                        type="submit"
+                        isLoading={isPending}
+                        className="py-6 font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-lg"
+                    >
                         Login
                     </Button>
+
+                    {error && <p className="text-sm text-red-500 text-center">{error.message}</p>}
                 </form>
             </Form>
 
-            <section className="flex sm:w-[75%] sm:mx-auto justify-between items-center pt-1.5">
+            <section className="flex md:w-[75%] sm:mx-auto justify-between items-center pt-1.5">
                 <div>
                     <label className="flex gap-2 justify-start items-center text-sm text-nowrap" htmlFor="remember">
                         <Checkbox
-                            className=" border-2  p-2 border-gray-300 rounded-md checked:bg-transparent   bg-transparent  data-[state=checked]:bg-transparent data-[state=checked]:text-black  "
+                            className="border-2 p-2 border-gray-300 rounded-md checked:bg-transparent bg-transparent data-[state=checked]:bg-transparent data-[state=checked]:text-black"
                             name="remember"
                             id="remember"
                         />
@@ -127,11 +125,7 @@ const Login: React.FC = () => {
                     Don't have an account?{" "}
                     <Link
                         to="../signup"
-                        onClick={() => {
-                            dispatch(setSignupFlow("authQuestions"));
-                            dispatch(setTopicQuestion("What do you plan on doing?"));
-                        }}
-                        className="text-[#262b3a] hover:bg-transparent  hover:underline shadow-none font-semibold bg-transparent p-0"
+                        className="text-[#262b3a] hover:bg-transparent hover:underline shadow-none font-semibold bg-transparent p-0"
                     >
                         Sign up
                     </Link>
