@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
-    <section className="flex px-10 lg:px-20 gap-20 font-montserrat py-26">
-      <div className="flex-1 flex flex-col justify-between">
+    <section className="flex flex-col md:flex-row px-10 lg:px-20 gap-20 font-montserrat py-26">
+      <div className="flex-1 flex flex-col justify-between gap-28">
         <div className="space-y-4">
           <h2 className="font-montreal leading-snug">
             We'd love to hear from you
@@ -12,7 +14,7 @@ function Hero() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 lg:gap-8">
           <div className="space-y-4">
             <svg
               width="24"
@@ -212,12 +214,20 @@ function Hero() {
           <textarea placeholder="" className="mt-3 h-[8rem]" />
         </div>
 
-        <div>
-          <option />{" "}
-          <p className="text-[#475467]">You agree to our privacy policy.</p>
+        <div className="flex w-full">
+          <input className="h-6 w-6" type="checkbox" id="agree" name="agree" />
+          <label htmlFor="agree" className="ml-4">
+            You agree to our{" "}
+            <span className="underline">
+              <Link to="/privacypolicy">privacy policy</Link>
+            </span>
+            .
+          </label>
         </div>
 
-        <button className="w-full py-4 ">Send message</button>
+        <a href="mailto:engagex@axelcyber.com">
+          <button className="w-full py-4 ">Send message</button>
+        </a>
       </div>
     </section>
   );

@@ -25,6 +25,9 @@ function Navbar() {
           <Link to="/pricing">
             <li className="py-4 lg:py-0">Pricing</li>
           </Link>
+          <Link to="/contact">
+            <li className="py-4 lg:py-0">Contact</li>
+          </Link>
         </ul>
         <button className="h-[3rem] lg:hidden space-x-4 border rounded-full border-dark-electric-blue/20">
           <p>Login</p>
