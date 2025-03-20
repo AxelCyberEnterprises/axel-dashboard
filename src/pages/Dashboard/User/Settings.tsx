@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PersonalInfoForm, { PersonalInfoFormData } from "@/components/dashboard/ProfileForm";
 import ActionModal from "@/components/modals/modalVariants/ActionModal";
 import circleCheck from '../../../assets/images/svgs/circle-check.svg';
@@ -11,7 +12,7 @@ import { useSearchParams } from "react-router-dom";
 const Settings: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(0);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showFailureModal, setShowFailureModal] = useState(false);
+    // const [showFailureModal, setShowFailureModal] = useState(false);
     const [planSuccessModal, setPlanSuccessModal] = useState(false);
     const [planFailureModal, setPlanFailureModal] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -48,8 +49,8 @@ const Settings: React.FC = () => {
     };
 
     const handlePersonalInfo = (data: PersonalInfoFormData, photo: File | null) => {
-        // console.log(data);
-        // console.log(photo);
+        console.log(data);
+        console.log(photo);
         setShowSuccessModal(true);
     }
 
@@ -65,7 +66,7 @@ const Settings: React.FC = () => {
     }
 
     const handleSaveNotifications = (categories: any) => {
-        // console.log('Saved notification preferences:', categories);
+        console.log('Saved notification preferences:', categories);
         setShowSuccessModal(true);
     };
 
@@ -95,6 +96,15 @@ const Settings: React.FC = () => {
             />
             <ActionModal
                 show={planSuccessModal}
+                onClose={() => setPlanSuccessModal(false)}
+                icon={circleCheck}
+                head='Payment Successful'
+                message='Your credit has been successfully processed! Thank you for your transaction.'
+                cta='Go to Home'
+                ctaClassName='border border-[#D5D7DA] text-[#FFFFFF]'
+            />
+            <ActionModal
+                show={planFailureModal}
                 onClose={() => setPlanSuccessModal(false)}
                 icon={circleCheck}
                 head='Payment Successful'
@@ -156,7 +166,7 @@ const Settings: React.FC = () => {
                     {activeIndex === 2 &&
                         <AccountSecurity
                             onSave={(data) => {
-                                // console.log('Saving data:', data)
+                                console.log('Saving data:', data)
                                 }
                             }
                             onCancel={() => {

@@ -175,7 +175,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                     className="w-16 h-16 rounded-full object-cover border"
                   />
                 ) : (
-                  <div className="w-16 h-16 rounded-full bg-gray-100 border flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-gray-100 border border-[#EAECF0] flex items-center justify-center">
                     <Upload size={20} className="text-gray-400" />
                   </div>
                 )}
@@ -186,7 +186,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 />
               </div>
               <div className="flex-1 w-full">
-                <div className="border rounded-lg p-4 sm:px-8 sm:py-4 text-center hover:bg-gray-50 transition-colors cursor-pointer">
+                <div className="border border-[#EAECF0] rounded-lg p-4 sm:px-8 sm:py-4 text-center hover:bg-gray-50 transition-colors cursor-pointer">
                   <input
                     type="file"
                     id="photo"

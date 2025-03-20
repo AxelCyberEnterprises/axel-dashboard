@@ -12,6 +12,7 @@ const Credits: React.FC<CreditProps> = ({
 }) => {
   const planPayment = () => {
     setShowSuccessModal(true);
+    setShowFailureModal(false);
   }
   return (
     <div>
