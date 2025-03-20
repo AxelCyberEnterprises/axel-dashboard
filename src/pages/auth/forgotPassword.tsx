@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
-import {setEmailForPasswordReset} from "@/store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useForgotPassword } from "@/hooks/auth";
 
 const forgotPasswordSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -17,8 +15,6 @@ const forgotPasswordSchema = z.object({
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 const ForgotPassword: React.FC = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const form = useForm<ForgotPasswordFormValues>({
         resolver: zodResolver(forgotPasswordSchema),
         defaultValues: {
@@ -26,41 +22,19 @@ const ForgotPassword: React.FC = () => {
         },
     });
 
-    
+    const { mutate: forgotPassword, isPending, error } = useForgotPassword();
 
-
-const onSubmit: SubmitHandler<ForgotPasswordFormValues> = async (data) => {
-    try {
-        // setIsLoading(true); // Uncomment if you have a loading state
-
-        const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}/users/auth/password-reset/`,
-            { email: data.email },
-            { headers: { "Content-Type": "application/json" } }
-        );
-        dispatch(setEmailForPasswordReset(data.email));
-        console.log(response);
-        navigate("../reset-password");
-    } catch (error: any) {
-        console.error("An unexpected error occurred:", error);
-
-        // Handle API error
-        if (error.response) {
+    const onSubmit: SubmitHandler<ForgotPasswordFormValues> = async (data) => {
+        forgotPassword(data);
+    };
+    useEffect(() => {
+        if (error) {
             form.setError("email", {
                 type: "manual",
-                message: error.response.data.message || "Failed to send reset link. Please try again.",
-            });
-        } else {
-            form.setError("email", {
-                type: "manual",
-                message: "An unexpected error occurred. Please try again later.",
+                message: "Failed to send reset link. Please try again.",
             });
         }
-    } finally {
-        // setIsLoading(false); // Uncomment if using a loading state
-    }
-};
-
+    }, [error]);
 
     return (
         <div className="forgot-password-container px-1 md:w-10/12 sm:w-3/5 h-screen sm:mx-auto   flex flex-col justify-center overflow-y-hidden gap-3 max-md:pl-0 max-lg:pl-5">
@@ -90,12 +64,13 @@ const onSubmit: SubmitHandler<ForgotPasswordFormValues> = async (data) => {
                     <div className="flex gap-4 font-[Inter] pt-4">
                         <Link
                             to="../login"
-                            className="bg-white flex-1 text-black rounded-lg py-4 px-5 h-auto border flex items-center justify-center font-semibold"
+                            className="bg-white flex-1 text-black rounded-lg py-4 px-5 h-auto border border-[#d0d5dd] flex items-center justify-center font-semibold"
                         >
                             Back
                         </Link>
                         <Button
                             type="submit"
+                            isLoading={isPending}
                             className="text-white flex items-center justify-center flex-[4.5] bg-[#262b3a] hover:bg-[#262b3ada] h-auto py-4 rounded-lg"
                         >
                             Get reset link

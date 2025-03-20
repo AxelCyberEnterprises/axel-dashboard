@@ -29,6 +29,7 @@ interface AuthState {
     hasCheckedAuth: boolean;
     emailForPasswordReset: string;
     apiError: string | null;
+    successMessage: string | null;
 }
 
 const initialState: AuthState = {
@@ -64,8 +65,9 @@ const initialState: AuthState = {
     user: null,
     isAuthenticated: false,
     hasCheckedAuth: false,
-    emailForPasswordReset: "",
+    emailForPasswordReset: "jnr@gmail.com",
     apiError: null,
+    successMessage: "",
 };
 
 const authSlice = createSlice({
@@ -80,6 +82,9 @@ const authSlice = createSlice({
         },
         setApiError: (state, action: PayloadAction<string>) => {
             state.apiError = action.payload;
+        },
+        setSuccessMessage: (state, action: PayloadAction<string>) => {
+            state.successMessage = action.payload;
         },
         setSignupFlow: (state, action: PayloadAction<string>) => {
             state.signupFlow = action.payload;
@@ -125,5 +130,5 @@ export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { dispatch
     return true;
 });
 
-export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setApiError, setEmailForPasswordReset } = authSlice.actions;
+export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setApiError, setEmailForPasswordReset, setSuccessMessage } = authSlice.actions;
 export default authSlice.reducer;

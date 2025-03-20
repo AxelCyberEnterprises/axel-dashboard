@@ -93,7 +93,7 @@ const Login: React.FC = () => {
                         isLoading={isPending}
                         className="py-6 font-[Inter] bg-[#262b3a] hover:bg-[#262b3ada] rounded-lg"
                     >
-                        {isPending ? "Logging in..." : "Login"}
+                        Login
                     </Button>
 
                     {error && <p className="text-sm text-red-500 text-center">{error.message}</p>}

@@ -7,7 +7,6 @@ import { setSignupFlow } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "../../components/ui/input"; // Shadcn Input component
 import { Button } from "../../components/ui/button"; // Shadcn Button component
-import { ClipLoader } from "react-spinners"; // For loading state
 import { RootState } from "@/store";
 
 // Zod schema for validation
@@ -104,10 +103,10 @@ const Confirmation: React.FC = () => {
 
                 <Button
                     type="submit"
-                    disabled={isLoading}
+                    isLoading={isLoading}
                     className="text-white flex-4/6 py-6 bg-[#262b3a] hover:bg-[#262b3ada] rounded-lg"
                 >
-                    {isLoading ? <ClipLoader size={20} color="#ffffff" /> : "Verify"}
+                    {"Verify"}
                 </Button>
                 </div>
             </form>

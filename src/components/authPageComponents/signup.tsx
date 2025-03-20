@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "../ui/checkbox";
 import googleIcon from "@/assets/images/svgs/google-icon.svg";
 import { useSignup } from "@/hooks/auth";
-
+import axios from "axios";
 // Enhanced password validation schema
 const passwordSchema = z
     .string()
@@ -52,10 +52,7 @@ const Signup: React.FC = () => {
         },
     });
 
-  
-
     // const signupData = useSelector((state: RootState) => state.auth.signupData);
-
 
     const { mutate: signup, isPending, error } = useSignup();
     console.log(isPending, error);
@@ -66,11 +63,9 @@ const Signup: React.FC = () => {
             last_name: data.lastName,
             email: data.email,
             password: data.password,
-        }
-        signup(newData)
-  
+        };
+        signup(newData);
     };
-    
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const password = e.target.value;
@@ -89,6 +84,22 @@ const Signup: React.FC = () => {
             setPasswordStrength("Medium");
         } else {
             setPasswordStrength("Weak");
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const response = await axios.post(
+                "http://exchange-v2-env.eba-ccvmvqqg.us-west-1.elasticbeanstalk.com/users/auth/google-login/", // Your Django endpoint
+                {}, // Send an empty object as the POST body (if no data is needed)
+                { withCredentials: true }
+            );
+    
+            console.log("Google login initiated:", response);
+    
+            window.location.href = response.request.responseURL; // Redirect to the Google login page.
+        } catch (error) {
+            console.error("Google login failed:", error);
         }
     };
 
@@ -243,7 +254,10 @@ const Signup: React.FC = () => {
                 <div className="absolute top-1/2 transform -translate-y-1/2 w-full border-b border-gray-300 z-10"></div>
                 <span className="relative z-20 bg-white px-3">OR</span>
             </div>
-            <button className="flex w-full bg-transparent hover:scale-[1.03] duration-300 border font-[Montserrat] py-2.5 text-black p-4 rounded-lg sm:w-3/4 mx-auto  justify-center gap-4">
+            <button
+                onClick={handleGoogleLogin}
+                className="flex w-full bg-transparent hover:scale-[1.03] duration-300 border font-[Montserrat] py-2.5 text-black p-4 rounded-lg sm:w-3/4 mx-auto  justify-center gap-4"
+            >
                 <img src={googleIcon} className="w-[20px]" alt="" />
                 <p>Sign up with Google</p>
             </button>
