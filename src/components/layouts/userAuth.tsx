@@ -1,8 +1,9 @@
-import { Outlet, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import authPageImage from "../../assets/images/authPage-image.png";
 import engageLogo from "../../assets/images/engage-x-logo.png";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { ReactNode } from "react";
 
 
 export function welcomeMessage() {
@@ -25,7 +26,7 @@ export function welcomeMessage() {
     </div>
   )
 }
-const UserPlan = () => {
+const UserPlan = ({ children }: { children: ReactNode }) => {
 
 
   const signupFlow = useSelector((state: RootState) => state.auth.signupFlow);
@@ -56,7 +57,7 @@ const UserPlan = () => {
         )}
         <div className="text-black h-full w-full ">
          
-            <Outlet />
+            { children }
         </div>
       </div>
       <aside className="flex-1 rounded-[45px] max-lg:rounded-none lg:my-5 md:block hidden overflow-hidden relative">

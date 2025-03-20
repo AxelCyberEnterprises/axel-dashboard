@@ -57,8 +57,8 @@ export function BaseTable<TData, TValue>({ columns, data }: BaseTableProps<TData
         <div className="flex flex-col gap-y-6">
             <BaseTableToolbar table={table} />
 
-            <ScrollArea className="rounded-md border whitespace-nowrap">
-                <Table>
+            <ScrollArea className="rounded-md border border-bright-gray whitespace-nowrap">
+                <Table className="**:border-bright-gray">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="bg-bright-gray hover:bg-bright-gray">

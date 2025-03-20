@@ -1,9 +1,12 @@
-import { Outlet } from "react-router-dom";
-import SideNav from "../dashboard/SideNav";
+// import { Outlet } from "react-router-dom";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import SideNav from "../dashboard/SideNav";
 import TopNav from "../dashboard/TopNav";
+import DynamicDialog from "../dialogs/DynamicDialog";
 
-const DashboardLayout = () => {
+import { ReactNode } from "react";
+
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
     return (
         <SidebarProvider
             style={
@@ -22,14 +25,15 @@ const DashboardLayout = () => {
                     {/* Top Nav with Breadcrumbs */}
                     <TopNav />
 
-          {/* Main Content Area with Outlet */}
-          <div className="flex-1 overflow-y-auto scrollbar-none">
-            <Outlet />
-          </div>
-        </SidebarInset>
-      </div>
-    </SidebarProvider>
-  );
+                    {/* Main Content Area with Outlet */}
+                    <div className="flex-1 overflow-y-auto scrollbar-none">
+                        {children}
+                        <DynamicDialog />
+                    </div>
+                </SidebarInset>
+            </div>
+        </SidebarProvider>
+    );
 };
 
 export default DashboardLayout;
