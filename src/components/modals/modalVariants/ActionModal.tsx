@@ -18,7 +18,7 @@ const PaymentPlanModal: React.FC<PaymentPlanModalProps> = ({show, onClose, icon,
       <Modal
         show={show} 
         onClose={onClose}
-        className='px-6 py-4'
+        className='px-6 py-4 sm:w-[350px] w-[90%]'
       >
         <div className='w-full flex justify-between items-center'>
           <img src={icon} alt='x icon' className='w-[50px] h-[50px]'/>

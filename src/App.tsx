@@ -23,7 +23,7 @@ import ForgotPassword from "./pages/auth/forgotPassword";
 import ResetPassword from "./pages/auth/resetPassword";
 import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
-import SubscriptionPlans from "./pages/Dashboard/User/SubscriptionPlans";
+import ProgressTracking from "./pages/Dashboard/User/ProgressTracking";
 
 function App() {
     return (
@@ -40,7 +40,7 @@ function App() {
                         <Route index element={<UserDashboardHome />} />
                         <Route path="session-history" element={<UserSessionHistory />} />
                         <Route path="analytics" element={<UserAnalytics />} />
-                        <Route path="subscription-plans" element={<SubscriptionPlans />} />
+                        <Route path="progress-tracking" element={<ProgressTracking />} />
                         <Route path="settings" element={<UserSettings />} />
                         <Route path="help" element={<HelpPage />}>
                             <Route index element={<Help />} />

@@ -18,6 +18,10 @@ const TopNav: React.FC = () => {
     const formatBreadcrumb = (segment: string) =>
         segment.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
+    if (location.pathname.includes('settings')) {
+        return null;
+      }
+
     return (
         <header className="flex h-16 shrink-0 items-center justify-between gap-2 px-8">
             <div className="flex items-center gap-2">
