@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { tokenManager } from "@/lib/utils";
 
 interface Question {
@@ -62,7 +62,7 @@ const initialState: AuthState = {
     signupFlow: "signup",
     routeFromLogin: false,
     signupData: null, // Stores signup details
-    user: null,
+    user: localStorage.getItem("user") ? true : null,
     isAuthenticated: false,
     hasCheckedAuth: false,
     emailForPasswordReset: "jnr@gmail.com",
@@ -95,8 +95,12 @@ const authSlice = createSlice({
         setSignupData: (state, action: PayloadAction<Partial<SignupData>>) => {
             state.signupData = { ...state.signupData!, ...action.payload };
         },
+        setUser: (state, action: PayloadAction<boolean>) => {
+            state.user = action.payload;
+        },
         logout: (state) => {
             tokenManager.clearToken();
+            localStorage.clear();
             state.user = null;
             state.isAuthenticated = false;
             state.hasCheckedAuth = true;
@@ -110,6 +114,7 @@ const authSlice = createSlice({
             try {
                 tokenManager.setToken(token);
                 state.isAuthenticated = true;
+                localStorage.setItem('user', String(!is_admin))
                 state.user = !is_admin;
             } catch (error) {
                 console.error("Failed to set tokens:", error);
@@ -121,14 +126,5 @@ const authSlice = createSlice({
     },
 });
 
-export const checkAuth = createAsyncThunk("auth/checkAuth", async (_, { dispatch }) => {
-    const accessToken = tokenManager.getToken();
-    if (!accessToken) {
-        dispatch(authSlice.actions.logout()); // Dispatch logout if no token
-        return false;
-    }
-    return true;
-});
-
-export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setApiError, setEmailForPasswordReset, setSuccessMessage } = authSlice.actions;
+export const { setTopicQuestion, setSignupFlow, setRouteFromLogin, setSignupData, logout, login, setApiError, setEmailForPasswordReset, setSuccessMessage, setUser } = authSlice.actions;
 export default authSlice.reducer;
