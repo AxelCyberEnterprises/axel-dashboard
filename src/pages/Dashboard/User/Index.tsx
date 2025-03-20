@@ -177,8 +177,10 @@ const UserDashboardHome: React.FC = () => {
                     <div className="index__card p-4 flex flex-col h-full justify-between rounded-[12px] relative overflow-hidden">
                         <img src={cardFlower} alt="card flower background" className="absolute top-0 right-0 h-1/2" />
                         <small className="independence mb-3.5">Available Credit</small>
-                        <h4 className="gunmetal mb-5.5">100</h4>
-                        <button className="p-3">Buy More Credits</button>
+                        <h4 className='gunmetal mb-5.5'>100</h4>
+                        <Link to={'/dashboard/user/settings?section=credits'}>
+                            <button className='p-3'>Buy More Credits</button>
+                        </Link>
                     </div>
                 </div>
                 {cardsData.map((card, index) => (
