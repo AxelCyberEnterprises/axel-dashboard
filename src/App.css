@@ -206,6 +206,15 @@
   animation-delay: 0.4s;
 }
 
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
 @utility hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
