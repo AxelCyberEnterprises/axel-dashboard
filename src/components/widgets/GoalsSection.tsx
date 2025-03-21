@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { Plus, Trash2 } from "lucide-react";
 import { HTMLAttributes } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
-import { FormType } from ".";
 
 const GOALS_GUIDE = ["Confidently deliver key points ", "Maintain audience engagement."];
 
 interface IGoalsSectionProps extends HTMLAttributes<HTMLElement> {
-    form: UseFormReturn<FormType>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    form: UseFormReturn<any>;
 }
 
-const GoalsSection = ({ form }: IGoalsSectionProps) => {
+const GoalsSection = ({ className, form }: IGoalsSectionProps) => {
     const { fields, append, remove } = useFieldArray({
         name: "goals",
         control: form.control,
@@ -23,7 +24,7 @@ const GoalsSection = ({ form }: IGoalsSectionProps) => {
     });
 
     return (
-        <section className="space-y-5">
+        <section className={cn("space-y-5", className)}>
             <div className="space-y-2">
                 <h6>Goals</h6>
                 <p className="text-independence">What are your goals for this session?</p>

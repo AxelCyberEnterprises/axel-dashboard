@@ -1,4 +1,5 @@
 import { tokenManager } from "@/lib/utils";
+import PitchPractice from "@/pages/Dashboard/User/PitchPractice";
 import PresentationPractice from "@/pages/Dashboard/User/PresentationPractice";
 import PublicSpeaking from "@/pages/Dashboard/User/PublicSpeaking";
 import { ReactNode } from "react";
@@ -43,6 +44,7 @@ function UserDashboardRoutes() {
         <Routes>
             <Route index element={<UserDashboardHome />} />
             <Route path="public-speaking" element={<PublicSpeaking />} />
+            <Route path="pitch-practice" element={<PitchPractice />} />
             <Route path="presentation-practice" element={<PresentationPractice />} />
             <Route path="session-history" element={<UserSessionHistory />} />
             <Route path="session-history/:id" element={<UserPitchSessionReport />} />
