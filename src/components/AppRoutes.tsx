@@ -29,15 +29,16 @@ import SafetyPrivacy from "@/pages/Dashboard/User/help/SafetyPrivacy";
 import Chat from "@/pages/Dashboard/User/help/ChatbotPage";
 import HelpPage from "@/pages/Dashboard/User/help";
 import { Separator } from "./ui/separator";
+import ProgressTracking from "@/pages/Dashboard/User/ProgressTracking";
 
 function RequireAuth({ children }: { children: ReactNode }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
     const location = useLocation();
 
-    if (!isAuthenticated && !tokenManager.getToken()) {
-        return <Navigate replace to="/auth/login" state={{ from: location }} />;
-    }
+    // if (!isAuthenticated && !tokenManager.getToken()) {
+    //     return <Navigate replace to="/auth/login" state={{ from: location }} />;
+    // }
 
     return children;
 }
@@ -48,6 +49,7 @@ function UserDashboardRoutes() {
             <Route index element={<UserDashboardHome />} />
             <Route path="public-speaking" element={<PublicSpeaking />} />
             <Route path="presentation-practice" element={<PresentationPractice />} />
+            <Route path="progress-tracking" element={<ProgressTracking />} />
             <Route path="session-history" element={<UserSessionHistory />} />
             <Route path="session-history/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />
