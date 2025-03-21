@@ -1,10 +1,10 @@
 import ControlledFieldWrapper from "@/components/controlled-fields/field-wrapper";
-import { Button } from "@/components/ui/button";
 import { FormControl, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import SlidePreviewSection from "@/components/widgets/SlidePreviewSection";
 import { cn } from "@/lib/utils";
 import { RootState } from "@/store";
 import { HTMLAttributes } from "react";
@@ -12,11 +12,11 @@ import { UseFormReturn } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { FormType } from ".";
 
-interface ISlidePreviewSectionProps extends HTMLAttributes<HTMLElement> {
+interface ISlidePreviewAndSettingsSectionProps extends HTMLAttributes<HTMLElement> {
     form: UseFormReturn<FormType>;
 }
 
-const SlidePreviewSection = ({ className, form }: ISlidePreviewSectionProps) => {
+const SlidePreviewAndSettingsSection = ({ className, form }: ISlidePreviewAndSettingsSectionProps) => {
     const { activeSlideIndex, slidePreviews } = useSelector((state: RootState) => state.presentationPractice);
     const activeSlide = slidePreviews[activeSlideIndex];
 
@@ -24,21 +24,9 @@ const SlidePreviewSection = ({ className, form }: ISlidePreviewSectionProps) => 
         <section className={cn("flex flex-col gap-y-4", className)}>
             {slidePreviews.length > 0 && (
                 <>
-                    <h6 className="text-lg">Slide Preview</h6>
-                    <div className="space-y-6">
-                        <div className="space-y-4">
-                            <div className="w-auto h-29 p-2 border border-bright-gray rounded-lg">
-                                <img src={activeSlide} alt="" className="object-cover size-full rounded-md" />
-                            </div>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                className="w-full h-10 text-gunmetal font-normal border-gunmetal"
-                            >
-                                Preview Slide
-                            </Button>
-                        </div>
-                        <Separator className="bg-bright-gray" />
+                    <SlidePreviewSection activeSlide={activeSlide} />
+                    <Separator className="bg-bright-gray" />
+                    <div className="space-y-4">
                         <h6 className="text-lg">Slide Settings</h6>
                         <div className="space-y-5">
                             <div className="flex items-center justify-between">
@@ -108,4 +96,4 @@ const SlidePreviewSection = ({ className, form }: ISlidePreviewSectionProps) => 
     );
 };
 
-export default SlidePreviewSection;
+export default SlidePreviewAndSettingsSection;

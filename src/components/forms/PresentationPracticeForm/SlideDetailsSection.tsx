@@ -2,7 +2,8 @@ import ControlledFieldWrapper from "@/components/controlled-fields/field-wrapper
 import { FormControl, FormItem, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import PDFViewer from "@/components/widgets/pdf-viewer";
+import { cn, isPdf } from "@/lib/utils";
 import { RootState } from "@/store";
 import { HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
@@ -15,22 +16,25 @@ interface ISlideDetatilsSectionProps extends HTMLAttributes<HTMLElement> {
 
 const SlideDetailsSection = ({ className, form }: ISlideDetatilsSectionProps) => {
     const { activeSlideIndex, slidePreviews } = useSelector((state: RootState) => state.presentationPractice);
-    const activeSlide = slidePreviews[activeSlideIndex];
 
     return (
         <section className={cn("flex flex-col gap-y-6", className)}>
             {slidePreviews.length > 0 && (
                 <>
                     <h6 className="text-lg">Slide {activeSlideIndex + 1}</h6>
-                    {slidePreviews.map((slide, index) => (
+                    {slidePreviews.map(({ file, preview }, index) => (
                         <div
-                            key={slide + index}
+                            key={preview + index}
                             className={cn("hidden space-y-4", {
                                 block: index === activeSlideIndex,
                             })}
                         >
-                            <div className="w-auto h-90 rounded-lg">
-                                <img src={activeSlide} alt="" className="object-cover size-full rounded-lg" />
+                            <div className="w-auto h-90 rounded-lg overflow-hidden">
+                                {isPdf(file) ? (
+                                    <PDFViewer file={file} />
+                                ) : (
+                                    <img src={preview} alt="" className="object-cover size-full rounded-lg" />
+                                )}
                             </div>
                             <div className="space-y-6">
                                 <ControlledFieldWrapper
