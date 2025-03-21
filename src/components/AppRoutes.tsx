@@ -25,15 +25,37 @@ import Pricing from "../pages/Pricing";
 import PitchPracticeSession from "../pages/Sessions/PitchPractice";
 import UserPlan from "./layouts/userAuth";
 import { Button } from "./ui/button";
+import Help from "@/pages/Dashboard/User/help/help";
+import SafetyPrivacy from "@/pages/Dashboard/User/help/SafetyPrivacy";
+import Chat from "@/pages/Dashboard/User/help/ChatbotPage";
+import HelpPage from "@/pages/Dashboard/User/help";
 import { Separator } from "./ui/separator";
+import ProgressTracking from "@/pages/Dashboard/User/ProgressTracking";
 
 function RequireAuth({ children }: { children: ReactNode }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const isUser = useSelector((state: any) => state.auth.user);
+    console.log('is user:', isUser);
+    
     const location = useLocation();
 
     if (!isAuthenticated && !tokenManager.getToken()) {
         return <Navigate replace to="/auth/login" state={{ from: location }} />;
+    }
+
+    // Redirect users trying to access the wrong dashboard
+    if (location.pathname.startsWith("/dashboard")) {
+        if (isUser && location.pathname.startsWith("/dashboard/admin")) {
+            return <Navigate replace to="/dashboard/user" />;
+        }
+        if (!isUser && location.pathname.startsWith("/dashboard/user")) {
+            return <Navigate replace to="/dashboard/admin" />;
+        }
+        if (location.pathname === "/dashboard") {
+            return <Navigate replace to={isUser ? "/dashboard/user" : "/dashboard/admin"} />;
+        }
     }
 
     return children;
@@ -46,10 +68,17 @@ function UserDashboardRoutes() {
             <Route path="public-speaking" element={<PublicSpeaking />} />
             <Route path="pitch-practice" element={<PitchPractice />} />
             <Route path="presentation-practice" element={<PresentationPractice />} />
+            <Route path="progress-tracking" element={<ProgressTracking />} />
             <Route path="session-history" element={<UserSessionHistory />} />
             <Route path="session-history/:id" element={<UserPitchSessionReport />} />
             <Route path="analytics" element={<UserAnalytics />} />
             <Route path="settings" element={<UserSettings />} />
+            <Route path="help" element={<HelpPage/>} >
+            <Route index element={<Help/>} />
+            <Route path="safety" element={<SafetyPrivacy />} />
+            <Route path="message" element={<Chat />} />
+            </Route>
+
             <Route path="*" element={<Navigate replace to="/dashboard/user" />} />
         </Routes>
     );
@@ -85,7 +114,7 @@ function AuthRoutes() {
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="tutorial" element={<Tutorial />} />
-            <Route path="*" element={<Navigate replace to="/signup" />} />
+            <Route path="*" element={<Navigate replace to="/auth/signup" />} />
         </Routes>
     );
 }

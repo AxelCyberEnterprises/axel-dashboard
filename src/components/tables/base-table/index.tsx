@@ -16,16 +16,29 @@ import {
 import { useState } from "react";
 import BaseTablePagination from "./BaseTablePagination";
 import BaseTableToolbar from "./BaseTableToolbar";
+import { cn } from "@/lib/utils";
 
 interface BaseTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    showToolBar?: boolean;
+    tableHeaderClassName?: string;
+    tableHeaderItemClassName?: string;
+    tableContainerClassName?: string;
+    pageSize?: number;
 }
 
-export function BaseTable<TData, TValue>({ columns, data }: BaseTableProps<TData, TValue>) {
+export function BaseTable<TData, TValue>({ 
+    columns, 
+    data, 
+    showToolBar, 
+    tableHeaderClassName, 
+    tableHeaderItemClassName, 
+    tableContainerClassName, 
+    pageSize }: BaseTableProps<TData, TValue>) {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 20,
+        pageSize: pageSize ? pageSize : 20,
     });
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -55,16 +68,16 @@ export function BaseTable<TData, TValue>({ columns, data }: BaseTableProps<TData
 
     return (
         <div className="flex flex-col gap-y-6">
-            <BaseTableToolbar table={table} />
+            {showToolBar && <BaseTableToolbar table={table} />}
 
-            <ScrollArea className="rounded-md border border-bright-gray whitespace-nowrap">
+            <ScrollArea className={cn("rounded-t-md border border-bright-gray whitespace-nowrap", tableContainerClassName)}>
                 <Table className="**:border-bright-gray">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} className="bg-bright-gray hover:bg-bright-gray">
+                            <TableRow key={headerGroup.id} className={cn("bg-bright-gray hover:bg-bright-gray", tableHeaderClassName)}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="font-semibold px-4 py-2 align-baseline">
+                                        <TableHead key={header.id} className={cn("font-semibold px-4 py-2 align-baseline", tableHeaderItemClassName)}>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(header.column.columnDef.header, header.getContext())}

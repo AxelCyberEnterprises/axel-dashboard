@@ -100,7 +100,6 @@ const Chat: React.FC = () => {
                     </p>
                 </div>
             </section>
-
             <div
                 ref={chatboxRef}
                 className=" h-[calc(100vh-13rem-2.5rem)] px-7 pb-14 pt-5  bg-white overflow-y-auto"
@@ -116,7 +115,7 @@ const Chat: React.FC = () => {
                             Ready to assist you with everything you need to know, <br />
                             from answering questions to giving recommendations
                         </p>
-                        <section className="text-[#4c5c75] text-sm mt-8 font-[montserrat] max-w-[41.5rem] flex gap-2">
+                        <section className="text-[#4c5c75] text-sm mt-8 font-[montserrat] max-w-[41.5rem] flex max-sm:flex-col gap-2">
                             <div className="border flex items-center border-[#a5b8c3] rounded-md p-2 py-6">
                                 <p>When was EngageX created and why was it created</p>
                             </div>

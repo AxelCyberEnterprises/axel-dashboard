@@ -12,12 +12,12 @@ const Tutorial: React.FC = () => {
                 <p className="text-[#667085] font-[Montserrat] -mt-3 mb-8">
                     A tutorial walkthrough video by AI Jacqueleen
                 </p>
-                <div className="mb-4">
-                    <img src={tutorial} alt="tutorial" />
+                <div className="mb-4 lg:w-4/5">
+                    <img src={tutorial} className="w-full" alt="tutorial" />
                 </div>
                 <button
                     onClick={() => navigate("../../dashboard/user")}
-                    className="font-[Montserrat] w-full lg:max-w-[360px] bg-[#262b3a] hover:bg-[#262b3ada]"
+                    className="font-[Montserrat] rounded-lg w-full md:py-5 py-4 lg:max-w-4/5 bg-[#262b3a] hover:bg-[#262b3ada]"
                 >
                     Finish up
                 </button>
