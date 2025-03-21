@@ -171,8 +171,9 @@ const AccountSecurity: React.FC<AccountSecurityProps> = ({
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        className="relative bg-[#252A39] rounded-full transition-colors flex items-center py-[1px] px-1 border-0"
+                        className="relative bg-[#252A39] rounded-full transition-colors flex items-center py-[1px] px-1 border-0 [&>*[data-slot='switch-thumb'][data-state='unchecked']]:-translate-x-[7px]"
                       />
+
                     </FormControl>
                     <div className="space-y-1">
                       <FormLabel className="text-[#10161E] font-medium">Enable Two-Factor Authentication</FormLabel>
