@@ -42,20 +42,20 @@ function RequireAuth({ children }: { children: ReactNode }) {
     const location = useLocation();
 
     if (!isAuthenticated && !tokenManager.getToken()) {
-        // return <Navigate replace to="/auth/login" state={{ from: location }} />;
+        return <Navigate replace to="/auth/login" state={{ from: location }} />;
     }
 
     // Redirect users trying to access the wrong dashboard
     if (location.pathname.startsWith("/dashboard")) {
-        // if (isUser && location.pathname.startsWith("/dashboard/admin")) {
-        //     return <Navigate replace to="/dashboard/user" />;
-        // }
-        // if (!isUser && location.pathname.startsWith("/dashboard/user")) {
-        //     return <Navigate replace to="/dashboard/admin" />;
-        // }
-        // if (location.pathname === "/dashboard") {
-        //     return <Navigate replace to={isUser ? "/dashboard/user" : "/dashboard/admin"} />;
-        // }
+        if (isUser && location.pathname.startsWith("/dashboard/admin")) {
+            return <Navigate replace to="/dashboard/user" />;
+        }
+        if (!isUser && location.pathname.startsWith("/dashboard/user")) {
+            return <Navigate replace to="/dashboard/admin" />;
+        }
+        if (location.pathname === "/dashboard") {
+            return <Navigate replace to={isUser ? "/dashboard/user" : "/dashboard/admin"} />;
+        }
     }
 
     return children;
