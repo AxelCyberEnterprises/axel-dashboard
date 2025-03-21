@@ -8,7 +8,7 @@ const DynamicDialog = () => {
     const {
         data: { children, description, title },
         isOpen,
-    } = useSelector((state: RootState) => state.dynamicDialogSlice);
+    } = useSelector((state: RootState) => state.dynamicDialog);
     const dispatch = useDispatch();
 
     const handleOpenChange = useCallback(

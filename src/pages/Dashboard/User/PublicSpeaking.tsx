@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const PublicSpeaking = () => {
     return (
-        <section className="flex flex-col gap-y-6 pl-4 lg:pr-[8vw] pr-4 pt-4 pb-[15vh]">
+        <section className="flex flex-col gap-y-6 px-4 pt-4 pb-[15vh]">
             <div className="flex items-center justify-between">
                 <h5>Set up Public Speaking Session</h5>
                 <Button variant="outline" className="text-gunmetal rounded-lg">

@@ -1,4 +1,4 @@
-export const PublicSpeakingDefaultGoals = [{ id: 1, goal: "" }];
+export const DefaultGoals = [{ id: 1, goal: "" }];
 
 export const VirtialEnvironmentOptions = [
     { name: "Conference Room", value: "conference_room", src: "/src/assets/images/pngs/conference-room.png" },
