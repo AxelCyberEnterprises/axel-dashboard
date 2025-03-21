@@ -10,6 +10,8 @@ const SideNav: React.FC = () => {
     const location = useLocation();
     const pathSegments = location.pathname.split("/").filter(Boolean);
     const lastSegment = pathSegments.length >= 2 ? pathSegments[1] : "";
+    console.log(location.pathname);
+    
     const dispatch = useDispatch()
     const userLinks = [
         {
@@ -467,7 +469,7 @@ const SideNav: React.FC = () => {
                         <Link
                             to={link.path}
                             key={index}
-                            className={`link flex items-center w-full py-2 px-3 mb-0.5 text-white ${
+                            className={`link flex items-center w-full py-2 px-3 mb-0.5 ${
                                 location.pathname === link.path ? "active" : ""
                             }`}
                         >
@@ -480,7 +482,7 @@ const SideNav: React.FC = () => {
                         <Link
                             to={link.path}
                             key={index}
-                            className={`link flex items-center w-full py-2 px-3 mb-0.5 text-white ${
+                            className={`link flex items-center w-full py-2 px-3 mb-0.5 ${
                                 location.pathname === link.path ? "active" : ""
                             }`}
                         >
@@ -490,13 +492,13 @@ const SideNav: React.FC = () => {
                     ))}
             </SidebarContent>
 
-            <SidebarFooter className="bottom__links w-full px-4">
+            <SidebarFooter className="bottom__links w-full p-0">
                 {bottomLinks.map((link, index) => (
                     <Link
                         to={link.path}
                         onClick={link.function}
                         key={index}
-                        className={`link flex items-center w-full py-2 px-1 mb-0.5 text-white ${
+                        className={`link flex items-center w-full py-2 px-3 mb-0.5 ${
                             location.pathname === link.path ? "active" : ""
                         }`}
                     >

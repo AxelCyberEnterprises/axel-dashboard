@@ -1,4 +1,4 @@
-import { ArrowLeft, Download, Heart, Plus, UserRound } from 'lucide-react';
+import { ArrowLeft, Download, Heart, UserRound } from 'lucide-react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import ShadLinearLineChart from '@/components/dashboard/ShadLinearLineChart';
@@ -91,6 +91,8 @@ const PitchSessionReport: React.FC = () => {
         },
     ];
 
+    // const sessionType = 'pitch';
+
     return (
         <div className="py-4 text-primary-blue">
             <section className="px-4 lg:px-8 border-b-1 border-bright-gray">
@@ -103,15 +105,15 @@ const PitchSessionReport: React.FC = () => {
                     <div className="flex items-center gap-2">
                         <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-bright-gray">
                             <Download />
-                            Download
+                            <span className="hidden lg:block">Download</span>
                         </Button>
                         <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-bright-gray">
                             <Heart />
-                            Save to Archive
+                            <span className="hidden lg:block">Save to Archive</span>
                         </Button>
                         <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-bright-gray">
                             <UserRound />
-                            Speak with a Coach
+                            <span className="hidden lg:block">Speak With a Coach</span>
                         </Button>
                     </div>
                 </div>
@@ -217,80 +219,77 @@ const PitchSessionReport: React.FC = () => {
                 <div className="border-1 border-bright-gray rounded-xl py-5 px-4">
                     <h5 className="mb-5">Timing & Efficiency Analysis</h5>
 
-                    <div className="flex flex-wrap">
-                        <div className="md:pe-2 w-full md:w-1/2 mb-3">
-                            <div className="border-1 border-bright-gray rounded-xl py-5 px-3">
-                                <p className="mb-4">Total Time Saved/Overshot</p>
-                                <div className="flex gap-4 items-center">
-                                    <h5>-2:15</h5>
+                    <div className="flex gap-6 sm:flex-col lg:flex-row">
+                        <div className="flex flex-col gap-3 w-full">
+                            <div className="w-full mb-3">
+                                <div className="border-1 border-bright-gray rounded-xl py-5 px-3 w-full">
+                                    <p className="mb-4">Total Time Saved/Overshot</p>
+                                    <div className="flex gap-4 items-center">
+                                        <h5>-2:15</h5>
 
-                                    <div className="flex justify-center items-center text-crimson-red bg-crimson-red/20 p-2 rounded-4xl">
-                                        <small>Overshot</small>
+                                        <div className="flex justify-center items-center text-crimson-red bg-crimson-red/20 p-2 rounded-4xl">
+                                            <small>Overshot</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="md:ps-2 w-full md:w-1/2">
-                            <div className="border-1 border-bright-gray rounded-xl py-5 px-3">
-                                <p className="mb-4">Slide Specific Timing</p>
-                                <div className="flex gap-4 items-center">
-                                    <h5>Slide 3</h5>
+                            <div className="w-full">
+                                <div className="border-1 border-bright-gray rounded-xl py-5 px-3 w-full">
+                                    <p className="mb-4">Slide Specific Timing</p>
+                                    <div className="flex gap-4 items-center">
+                                        <h5>Slide 3</h5>
 
-                                    <div className="flex justify-center items-center bg-alice-blue p-2 rounded-4xl">
-                                        <small>Need Adjustment</small>
+                                        <div className="flex justify-center items-center bg-alice-blue p-2 rounded-4xl">
+                                            <small>Need Adjustment</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <h6 className="py-4 mt-2">Suggestions for Optimized Pacing</h6>
-                    <ul className="list-disc text-primary-blue/80">
-                        <li className="mb-2">Reduce time on introduction by 30 seconds</li>
-                        <li className="mb-2">Spend more time explaining key benefits</li>
-                        <li>Spend more time explaining key benefits</li>
-                    </ul>
-                </div>
-
-                <div className="border-1 border-bright-gray rounded-lg py-5 px-4 mt-4">
-                    <div className="flex justify-between mb-4">
-                        <h5 className="mb-4">Highlights & Areas for Improvement</h5>
-
-                        <Button className="flex gap-1 py-5 bg-transparent hover:bg-gray/20 text-primary-blue border-1 border-bright-gray">
-                            {" "}
-                            <Plus /> Set Personal Goal
-                        </Button>
-                    </div>
-
-                    <div className="flex flex-wrap">
-                        <div className="w-full md:w-1/2 md:pe-2 mb-3">
-                            <h6 className="text-medium-sea-green mb-3.5">Strengths</h6>
-                            <ul className="list-none space-y-3">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-medium-sea-green">✔</span> Excellent pace variation
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-medium-sea-green">✔</span> Strong opening hook
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-medium-sea-green">✔</span> Effective use of pauses
-                                </li>
+                            <h6 className="py-4 mt-2">Suggestions for Optimized Pacing</h6>
+                            <ul className="list-disc text-primary-blue/80">
+                                <li className="mb-2">Reduce time on introduction by 30 seconds</li>
+                                <li className="mb-2">Spend more time explaining key benefits</li>
+                                <li>Spend more time explaining key benefits</li>
                             </ul>
                         </div>
 
-                        <div className="w-full md:w-1/2 md:ps-2">
-                            <h6 className="text-jelly-bean mb-3.5">Weaknesses</h6>
-                            <ul className="list-none space-y-3">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-jelly-bean">✔</span> Excellent pace variation
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-jelly-bean">✔</span> Strong opening hook
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-jelly-bean">✔</span> Effective use of pauses
-                                </li>
-                            </ul>
+                        <div className="flex flex-col w-full sm:mt-5">
+                            <div className="flex justify-between mb-4">
+                                <h6 className="mb-4">Strengths & Areas for Improvement</h6>
+                            </div>
+
+                            <div className="flex flex-col gap-3">
+                                <div className="w-full md:w-1/2 md:pe-2 mb-3">
+                                    <h6 className="text-medium-sea-green mb-3.5">Strengths</h6>
+                                    <ul className="list-none space-y-3">
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-medium-sea-green">✔</span> Excellent pace variation
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-medium-sea-green">✔</span> Strong opening hook
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-medium-sea-green">✔</span> Effective use of pauses
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="w-full md:w-1/2 md:ps-2">
+                                    <h6 className="text-jelly-bean mb-3.5">Weaknesses</h6>
+                                    <ul className="list-none space-y-3">
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-jelly-bean">✔</span> Excellent pace variation
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-jelly-bean">✔</span> Strong opening hook
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-jelly-bean">✔</span> Effective use of pauses
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

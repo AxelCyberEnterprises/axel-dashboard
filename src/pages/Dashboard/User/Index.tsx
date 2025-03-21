@@ -178,8 +178,8 @@ const UserDashboardHome: React.FC = () => {
                         <img src={cardFlower} alt="card flower background" className="absolute top-0 right-0 h-1/2" />
                         <small className="independence mb-3.5">Available Credit</small>
                         <h4 className='gunmetal mb-5.5'>100</h4>
-                        <Link to={'/dashboard/user/settings?section=credits'}>
-                            <button className='p-3'>Buy More Credits</button>
+                        <Link className="w-full" to={'/dashboard/user/settings?section=credits'}>
+                            <button className='p-3 w-full'>Buy More Credits</button>
                         </Link>
                     </div>
                 </div>
