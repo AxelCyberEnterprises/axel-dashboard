@@ -93,7 +93,7 @@ const PitchSessionReport: React.FC = () => {
 
     return (
         <div className="py-4 text-primary-blue">
-            <section className="px-4 lg:px-8 border-b-1">
+            <section className="px-4 lg:px-8 border-b-1 border-bright-gray">
                 <div className="py-3 flex flex-wrap justify-between items-center">
                     <div className="flex items-center gap-2">
                         <ArrowLeft className="w-5 aspect-square" />
@@ -101,15 +101,15 @@ const PitchSessionReport: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-primary-blue">
+                        <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-bright-gray">
                             <Download />
                             Download
                         </Button>
-                        <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-primary-blue">
+                        <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-bright-gray">
                             <Heart />
                             Save to Archive
                         </Button>
-                        <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-primary-blue">
+                        <Button className="flex gap-1 p-5 text-primary-blue bg-transparent hover:bg-grey/10 border-1 border-bright-gray">
                             <UserRound />
                             Speak with a Coach
                         </Button>
@@ -131,14 +131,14 @@ const PitchSessionReport: React.FC = () => {
             <section className="px-4 lg:px-8 py-4">
                 <div className="flex flex-wrap md:flex-col-reverse lg:flex-row w-full items-stretch">
                     <div className="w-full lg:w-7/12 lg:pe-2 mb-4 md:mb-0">
-                        <div className="border-1 rounded-xl p-4">
+                        <div className="border-1 border-bright-gray rounded-xl p-4">
                             <h6 className="mb-3">Audience Reactions</h6>
                             <ShadLinearLineChart data={chartData} colors={chartColors} />
                         </div>
                     </div>
 
                     <div className="md:mb-4 lg:mb-0 w-full lg:w-5/12 lg:ps-2 flex flex-col md:flex-row lg:flex-col justify-between h-full lg:space-y-5 md:space-x-4 space-y-4">
-                        <div className="border-1 rounded-xl p-4 w-full md:w-1/2 lg:w-full lg:me-0">
+                        <div className="border-1 border-bright-gray rounded-xl p-4 w-full md:w-1/2 lg:w-full lg:me-0">
                             <h6 className="mb-3">Overall Performance</h6>
                             <div className="relative w-full h-50 flex flex-col items-center">
                                 <SemiCircleProgress percent={0.88} color={"#262B3A"} />
@@ -152,7 +152,7 @@ const PitchSessionReport: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="border-1 rounded-xl px-4 py-6 w-full md:w-1/2 lg:w-full flex flex-col lg:ms-0 mb-4">
+                        <div className="border-1 border-bright-gray rounded-xl px-4 py-6 w-full md:w-1/2 lg:w-full flex flex-col lg:ms-0 mb-4">
                             <h6 className="mb-4">Engagement Heatmap</h6>
                             <div className="flex">
                                 <div className="w-1/6 h-10 bg-medium-sea-green/30"></div>
@@ -168,7 +168,7 @@ const PitchSessionReport: React.FC = () => {
             </section>
 
             <section className="px-4 lg:px-8">
-                <div className="performance border-1 rounded-xl py-5 px-4">
+                <div className="performance border-1 border-bright-gray rounded-xl py-5 px-4">
                     <h5 className="mb-4">Performance Analytics</h5>
                     <h6 className="mb-6">Vocal Variety</h6>
 
@@ -214,12 +214,12 @@ const PitchSessionReport: React.FC = () => {
             </section>
 
             <section className="px-4 lg:px-8 py-4">
-                <div className="border-1 rounded-xl py-5 px-4">
+                <div className="border-1 border-bright-gray rounded-xl py-5 px-4">
                     <h5 className="mb-5">Timing & Efficiency Analysis</h5>
 
                     <div className="flex flex-wrap">
                         <div className="md:pe-2 w-full md:w-1/2 mb-3">
-                            <div className="border-1 rounded-xl py-5 px-3">
+                            <div className="border-1 border-bright-gray rounded-xl py-5 px-3">
                                 <p className="mb-4">Total Time Saved/Overshot</p>
                                 <div className="flex gap-4 items-center">
                                     <h5>-2:15</h5>
@@ -231,7 +231,7 @@ const PitchSessionReport: React.FC = () => {
                             </div>
                         </div>
                         <div className="md:ps-2 w-full md:w-1/2">
-                            <div className="border-1 rounded-xl py-5 px-3">
+                            <div className="border-1 border-bright-gray rounded-xl py-5 px-3">
                                 <p className="mb-4">Slide Specific Timing</p>
                                 <div className="flex gap-4 items-center">
                                     <h5>Slide 3</h5>
@@ -252,11 +252,11 @@ const PitchSessionReport: React.FC = () => {
                     </ul>
                 </div>
 
-                <div className="border-1 rounded-lg py-5 px-4 mt-4">
+                <div className="border-1 border-bright-gray rounded-lg py-5 px-4 mt-4">
                     <div className="flex justify-between mb-4">
                         <h5 className="mb-4">Highlights & Areas for Improvement</h5>
 
-                        <Button className="flex gap-1 py-5 border-primary-blue bg-transparent hover:bg-gray/20 text-primary-blue border-1">
+                        <Button className="flex gap-1 py-5 bg-transparent hover:bg-gray/20 text-primary-blue border-1 border-bright-gray">
                             {" "}
                             <Plus /> Set Personal Goal
                         </Button>
@@ -296,7 +296,7 @@ const PitchSessionReport: React.FC = () => {
                 </div>
 
                 <div className="w-full flex flex-wrap gap-3 justify-end mt-8">
-                    <Button className="flex gap-1 py-5 border-primary-blue bg-transparent hover:bg-gray/20 text-primary-blue border-1">
+                    <Button className="flex gap-1 py-5 bg-transparent hover:bg-gray/20 text-primary-blue border-1 border-bright-gray">
                         View History Session
                     </Button>
                     <Button className="flex gap-1 py-5 bg-primary-blue hover:bg-primary-blue/90">
