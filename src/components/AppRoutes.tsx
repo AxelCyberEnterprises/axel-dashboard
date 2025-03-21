@@ -36,9 +36,9 @@ function RequireAuth({ children }: { children: ReactNode }) {
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
     const location = useLocation();
 
-    // if (!isAuthenticated && !tokenManager.getToken()) {
-    //     return <Navigate replace to="/auth/login" state={{ from: location }} />;
-    // }
+    if (!isAuthenticated && !tokenManager.getToken()) {
+        return <Navigate replace to="/auth/login" state={{ from: location }} />;
+    }
 
     return children;
 }
