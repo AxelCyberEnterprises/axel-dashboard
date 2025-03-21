@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import axios from "axios";
 import { setSignupFlow } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
@@ -19,10 +18,9 @@ type VerificationFormValues = z.infer<typeof verificationSchema>;
 
 const Confirmation: React.FC = () => {
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = React.useState(false);
     const [apiError, setApiError] = React.useState<string | null>(null);
-    const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
     const signupData = useSelector((state: RootState) => state.auth.signupData);
+    const successMessage = useSelector((state: RootState) => state.auth.successMessage);
     
     const form = useForm<VerificationFormValues>({
         resolver: zodResolver(verificationSchema),
@@ -32,7 +30,6 @@ const Confirmation: React.FC = () => {
     const {mutate: emailConfirmation, isPending, error} = useEmailConfirmation();
 
     const onSubmit = async (data: VerificationFormValues) => {
-        setIsLoading(true);
         setApiError(null);
 
 
@@ -42,19 +39,7 @@ const Confirmation: React.FC = () => {
         } else {
             setApiError("Email is missing. Please try again.");
         }
-        // try {
-        //     const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/auth/verify-email/`, {
-        //         email: signupData?.email,
-        //         verification_code: data.code,
-        //     });
-
-        //     setSuccessMessage("Email verified successfully! Redirecting...");
-        //     setTimeout(() => dispatch(setSignupFlow("authQuestions")), 2000);
-        // } catch (error: any) {
-        //     setApiError(error.response?.data?.message || "Verification failed. Please try again.");
-        // } finally {
-        //     setIsLoading(false);
-        // }
+       
     };
 
      useEffect(() => {
@@ -67,14 +52,16 @@ const Confirmation: React.FC = () => {
         }, [error]);
 
 
+        const watchValues = form.watch(); 
+
 
 
     const handleResendLink = async () => {
-        try {
-            const response = await axios.post("/api/resend-verification-code");
-            setSuccessMessage("A new verification code has been sent to your email.");
-        } catch (error: any) {
-            setApiError(error.response?.data?.message || "Failed to resend the code. Please try again.");
+        if (signupData?.email) {
+            console.log(signupData.email)
+            emailConfirmation({ verification_code: watchValues.code, email: signupData.email });
+        } else {
+            setApiError("Email is missing. Please try again.");
         }
     };
 

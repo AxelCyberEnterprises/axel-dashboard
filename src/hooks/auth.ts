@@ -121,3 +121,21 @@ export function useEmailConfirmation() {
         },
     });
 }
+
+
+
+
+export function usePublicSpeaking() {
+    return useMutation({
+        mutationKey: ["publicSpeaking"],
+        mutationFn: async (data: { session_name: string; session_type: string; note: string; allow_ai_questions: boolean; }) => {
+            return await apiPost("/sessions/sessions/", data);
+        },
+        onSuccess: () => {
+            console.log("Public speaking session created successfully.");
+        },
+        onError: (error) => {
+            console.error(error.message);
+        },
+    });
+}
