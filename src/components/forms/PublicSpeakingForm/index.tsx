@@ -2,7 +2,7 @@ import StartSession from "@/components/dialogs/dialog-contents/StartSession";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { PublicSpeakingDefaultGoals } from "@/config/form-field-options";
+import { DefaultGoals } from "@/config/form-field-options";
 import { PublicSpeakingSchema } from "@/schemas/public-speaking";
 import { openDialog } from "@/store/slices/dynamicDialogSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +10,7 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { z } from "zod";
-import GoalsSection from "./GoalsSection";
+import GoalsSection from "../../widgets/GoalsSection";
 import InputSpeakerNotesSection from "./InputSpeakerNotesSection";
 import TimeAllocationSection from "./TimeAllocationSection";
 import VirtualEnvironmentSection from "./VirtualEnvironmentSection";
@@ -22,7 +22,7 @@ const PublicSpeakingForm = () => {
 
     const form = useForm<FormType>({
         resolver: zodResolver(PublicSpeakingSchema),
-        defaultValues: useMemo(() => ({ goals: PublicSpeakingDefaultGoals }), []),
+        defaultValues: useMemo(() => ({ goals: DefaultGoals }), []),
     });
 
     return (

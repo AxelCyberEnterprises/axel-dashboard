@@ -9,13 +9,14 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Form } from "@/components/ui/form";
-import { PresentationPracticeSchema } from "@/schemas/presentation-practice";
+import { DefaultGoals } from "@/config/form-field-options";
+import { PitchPracticeSchema } from "@/schemas/pitch-practice";
 import { RootState } from "@/store";
-import { setActiveSlideIndex, setslidePreviews } from "@/store/slices/dashboard/user/presentationPracticeSlice";
+import { setActiveSlideIndex, setslidePreviews } from "@/store/slices/dashboard/user/pitchPracticeSlice";
 import { openDialog } from "@/store/slices/dynamicDialogSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Settings } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { z } from "zod";
@@ -23,14 +24,15 @@ import UploadSlideSection from "../../widgets/UploadSlideSection";
 import SlideDetailsSection from "./SlideDetailsSection";
 import SlidePreviewAndSettingsSection from "./SlidePreviewAndSettingsSection";
 
-export type FormType = z.infer<typeof PresentationPracticeSchema>;
+export type FormType = z.infer<typeof PitchPracticeSchema>;
 
-const PresentationPracticeForm = () => {
-    const { activeSlideIndex, slidePreviews } = useSelector((state: RootState) => state.presentationPractice);
+const PitchPracticeForm = () => {
+    const { activeSlideIndex, slidePreviews } = useSelector((state: RootState) => state.pitchPractice);
     const dispatch = useDispatch();
 
     const form = useForm<FormType>({
-        resolver: zodResolver(PresentationPracticeSchema),
+        resolver: zodResolver(PitchPracticeSchema),
+        defaultValues: useMemo(() => ({ goals: DefaultGoals }), []),
     });
 
     useEffect(() => {
@@ -54,7 +56,7 @@ const PresentationPracticeForm = () => {
         <Form {...form}>
             <form className="flex flex-col">
                 <div className="lg:hidden flex items-center justify-between py-4">
-                    <h6 className="md:block hidden text-lg">Presentation Setup</h6>
+                    <h6 className="md:block hidden text-lg">Pitch Setup</h6>
                     <div className="flex items-center gap-x-3">
                         <Drawer>
                             <DrawerTrigger asChild>
@@ -165,4 +167,4 @@ const PresentationPracticeForm = () => {
     );
 };
 
-export default PresentationPracticeForm;
+export default PitchPracticeForm;

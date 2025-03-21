@@ -1,9 +1,13 @@
-import SegmentedProgressBar from '@/components/dashboard/SegmentedProgressBar';
-import React, { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { SquareArrowUpRight, ThumbsUp, Volume2, X } from 'lucide-react';
-import audience from '../../assets/images/pngs/audience.png';
+import React, { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { SquareArrowUpRight, ThumbsUp, Volume2, X } from "lucide-react";
+import audience from "../../assets/images/pngs/audience.png";
 import { ReactMediaRecorder } from "react-media-recorder";
+import AudienceEngaged from "@/components/session/AudienceEngaged";
+import LiveAudienceReaction from "@/components/session/LiveAudienceReaction";
+import EngagementMetrics from "@/components/session/EngagementMetrics";
+import CountdownTimer from "@/components/session/CountdownTimer";
+import TimerProgressBar from "@/components/session/TimerProgressBar";
 
 // Component to preview video stream
 const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
@@ -19,7 +23,7 @@ const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
         return null;
     }
 
-    return <video ref={videoRef} className='w-full h-full object-cover' autoPlay />;
+    return <video ref={videoRef} className="w-full h-full object-cover" autoPlay />;
 };
 
 // Main recording component
@@ -41,7 +45,7 @@ const RecordView = () => {
                 };
 
                 return (
-                    <div className='h-full relative'>
+                    <div className="h-full relative rounded-3xl">
                         <VideoPreview stream={previewStream} />
                         <div className="absolute bottom-0 z-10">
                             {!isRecording ? (
@@ -58,19 +62,20 @@ const RecordView = () => {
 };
 
 const PitchPractice: React.FC = () => {
+
     return (
         <div className="text-primary-blue">
-            <section className="flex flex-wrap border-b-1 px-8 py-4 justify-between items-center">
+            <section className="flex flex-wrap border-b-1 border-bright-gray px-8 py-4 justify-between items-center">
                 <div className="w-full lg:w-9/12">
                     <h4 className="mb-4">Pitch Practice Session</h4>
                     <div className="mb-3">
-                        <SegmentedProgressBar percent={10} color={"#252A39"} divisions={1} />
+                        <TimerProgressBar minutes={2} />
                     </div>
                     <small className="text-grey">Slide 1 of 10</small>
                 </div>
 
                 <div className="flex gap-2 my-3">
-                    <Button className="bg-transparent hover:bg-ghost-white/50 border-1 border-grey text-primary-blue">
+                    <Button className="bg-transparent hover:bg-ghost-white/50 border-1 border-bright-gray text-primary-blue">
                         Restart
                     </Button>
                     <Button className="bg-primary-blue hover:bg-primary-blue/90 flex">
@@ -94,13 +99,13 @@ const PitchPractice: React.FC = () => {
                                     <p className="ms-2">Audio Settings</p>
                                 </div>
                                 <p className="ms-3 text-grey">
-                                    Time: <span className="text-maximum-yellow-red">05:23</span>
+                                    <CountdownTimer minutes={2} />
                                 </p>
                             </div>
                         </div>
 
                         <div className=" px-4 md:px-0">
-                            <div className="w-full rounded-xl border-1 border-grey px-3.5 py-3 mt-5">
+                            <div className="w-full rounded-xl border-1 border-bright-gray px-3.5 py-3 mt-5">
                                 <h6 className="py-2">Speaker Notes</h6>
                                 <p className="text-grey">
                                     “Our solution leverages cutting-edge AI to transform how businesses handle customer
@@ -119,75 +124,18 @@ const PitchPractice: React.FC = () => {
 
                 {/* right side large screens  */}
                 <div className="right__side hidden md:block w-full md:w-3/12 lg:w-3/12 px-8 lg:ps-4 py-4">
-                    <div className="py-5 px-3 border-1 border-grey rounded-xl">
+                    <div className="py-5 px-3 border-1 border-bright-gray rounded-xl">
                         <h6 className="mb-3">Live Audience</h6>
                         <img src={audience} alt="audience" />
                     </div>
 
-                    <div className="py-5 px-3 border-1 border-grey rounded-xl mt-3">
-                        <h6 className="mb-4">Audience Engaged</h6>
-                        <div className="mb-2">
-                            <SegmentedProgressBar percent={86} color={"#40B869"} divisions={1} />
-                        </div>
-                        <small className="text-grey">86% engaged</small>
-                    </div>
+                    <AudienceEngaged percent={86} />
 
-                    <div className="py-5 px-3 border-1 border-grey rounded-xl mt-3">
-                        <h6 className="mb-4">Live Audience Reaction</h6>
-                        <div className="reactions">
-                            <div className="flex w-full justify-between items-center mb-3">
-                                <div className="flex items-center">
-                                    <div className="w-6 h-6 bg-primary-blue rounded-4xl flex items-center justify-center bg-">
-                                        <ThumbsUp className="w-1/2 aspect-square text-white" />
-                                    </div>
-                                    <p className="ms-2">Interested</p>
-                                </div>
-                                <p>32</p>
-                            </div>
+                    <LiveAudienceReaction percent1={32} percent2={42} percent3={35} />
 
-                            <div className="flex w-full justify-between items-center mb-3">
-                                <div className="flex items-center">
-                                    <div className="w-6 h-6 bg-primary-blue rounded-4xl flex items-center justify-center bg-">
-                                        <ThumbsUp className="w-1/2 aspect-square text-white" />
-                                    </div>
-                                    <p className="ms-2">Sure</p>
-                                </div>
-                                <p>32</p>
-                            </div>
+                    <EngagementMetrics percent1={72} percent2={62} percent3={85} />
 
-                            <div className="flex w-full justify-between items-center mb-3">
-                                <div className="flex items-center">
-                                    <div className="w-6 h-6 bg-primary-blue rounded-4xl flex items-center justify-center bg-">
-                                        <ThumbsUp className="w-1/2 aspect-square text-white" />
-                                    </div>
-                                    <p className="ms-2">Skeptical</p>
-                                </div>
-                                <p>32</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="py-5 px-3 border-1 border-grey rounded-xl mt-3">
-                        <h6 className="mb-4.5">Engagement Metrics</h6>
-                        <div className="metrics">
-                            <div className="mb-3">
-                                <p className="mb-3">Confidence Level</p>
-                                <SegmentedProgressBar percent={75} color={"#252A39"} divisions={1} />
-                            </div>
-
-                            <div className="mb-3">
-                                <p className="mb-3">Accuracy of Facts</p>
-                                <SegmentedProgressBar percent={75} color={"#252A39"} divisions={1} />
-                            </div>
-
-                            <div className="mb-3">
-                                <p className="mb-3">Clarity of Speech</p>
-                                <SegmentedProgressBar percent={75} color={"#252A39"} divisions={1} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="py-5 px-3 border-1 border-grey rounded-xl mt-3">
+                    <div className="py-5 px-3 border-1 border-bright-gray rounded-xl mt-3">
                         <h6 className="mb-4">Realtime Feedback</h6>
                         <ul className="text-grey list-disc">
                             <li className="mb-2">Great eye contact with audience</li>
@@ -210,7 +158,7 @@ const PitchPractice: React.FC = () => {
                                         <ThumbsUp className="w-1/2 aspect-square text-white" />
                                     </div>
                                 </div>
-                                <p>32</p>
+                                <p>{86}</p>
                             </div>
 
                             <div className="flex flex-col justify-between items-center w-2/12">
@@ -219,7 +167,7 @@ const PitchPractice: React.FC = () => {
                                         <ThumbsUp className="w-1/2 aspect-square text-white" />
                                     </div>
                                 </div>
-                                <p>32</p>
+                                <p>{86}</p>
                             </div>
 
                             <div className="flex flex-col justify-between items-center w-2/12">
@@ -228,8 +176,8 @@ const PitchPractice: React.FC = () => {
                                         <ThumbsUp className="w-1/2 aspect-square text-white" />
                                     </div>
                                 </div>
-                                <p>32</p>
-                            </div>  
+                                <p>{86}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
