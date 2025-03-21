@@ -1,12 +1,13 @@
-import SegmentedProgressBar from '@/components/dashboard/SegmentedProgressBar';
-import React, { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { SquareArrowUpRight, ThumbsUp, Volume2, X } from 'lucide-react';
-import audience from '../../assets/images/pngs/audience.png';
+import React, { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { SquareArrowUpRight, ThumbsUp, Volume2, X } from "lucide-react";
+import audience from "../../assets/images/pngs/audience.png";
 import { ReactMediaRecorder } from "react-media-recorder";
-import AudienceEngaged from '@/components/session/AudienceEngaged';
-import LiveAudienceReaction from '@/components/session/LiveAudienceReaction';
-import EngagementMetrics from '@/components/session/EngagementMetrics';
+import AudienceEngaged from "@/components/session/AudienceEngaged";
+import LiveAudienceReaction from "@/components/session/LiveAudienceReaction";
+import EngagementMetrics from "@/components/session/EngagementMetrics";
+import CountdownTimer from "@/components/session/CountdownTimer";
+import TimerProgressBar from "@/components/session/TimerProgressBar";
 
 // Component to preview video stream
 const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
@@ -22,7 +23,7 @@ const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
         return null;
     }
 
-    return <video ref={videoRef} className='w-full h-full object-cover' autoPlay />;
+    return <video ref={videoRef} className="w-full h-full object-cover" autoPlay />;
 };
 
 // Main recording component
@@ -44,7 +45,7 @@ const RecordView = () => {
                 };
 
                 return (
-                    <div className='h-full relative rounded-3xl'>
+                    <div className="h-full relative rounded-3xl">
                         <VideoPreview stream={previewStream} />
                         <div className="absolute bottom-0 z-10">
                             {!isRecording ? (
@@ -61,13 +62,14 @@ const RecordView = () => {
 };
 
 const PitchPractice: React.FC = () => {
+
     return (
         <div className="text-primary-blue">
             <section className="flex flex-wrap border-b-1 border-bright-gray px-8 py-4 justify-between items-center">
                 <div className="w-full lg:w-9/12">
                     <h4 className="mb-4">Pitch Practice Session</h4>
                     <div className="mb-3">
-                        <SegmentedProgressBar percent={10} color={"#252A39"} divisions={1} />
+                        <TimerProgressBar minutes={2} />
                     </div>
                     <small className="text-grey">Slide 1 of 10</small>
                 </div>
@@ -97,7 +99,7 @@ const PitchPractice: React.FC = () => {
                                     <p className="ms-2">Audio Settings</p>
                                 </div>
                                 <p className="ms-3 text-grey">
-                                    Time: <span className="text-maximum-yellow-red">05:23</span>
+                                    <CountdownTimer minutes={2} />
                                 </p>
                             </div>
                         </div>
