@@ -1,7 +1,7 @@
-import "./styles/index.scss";
-import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./App.css";
 import AppRoutes from "./components/AppRoutes";
+import "./styles/index.scss";
 
 const queryClient = new QueryClient({
   defaultOptions: {

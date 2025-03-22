@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import cardFlower from "../../../assets/images/svgs/card-flower.svg";
-import speakingBg from "../../../assets/images/jpegs/speaking-bg.jpeg";
-import presentationBg from "../../../assets/images/jpegs/presentation-bg.jpeg";
 import practiceBg from "../../../assets/images/jpegs/practice-bg.png";
-import SemiCircleProgress from "../../../components/dashboard/SemiCircleProgress";
+import presentationBg from "../../../assets/images/jpegs/presentation-bg.jpeg";
+import speakingBg from "../../../assets/images/jpegs/speaking-bg.jpeg";
+import cardFlower from "../../../assets/images/svgs/card-flower.svg";
 import SegmentedProgressBar from "../../../components/dashboard/SegmentedProgressBar";
+import SemiCircleProgress from "../../../components/dashboard/SemiCircleProgress";
 import ShadLineChart from "../../../components/dashboard/ShadLineChart";
 
 const UserDashboardHome: React.FC = () => {
@@ -17,7 +17,7 @@ const UserDashboardHome: React.FC = () => {
             title: "Public Speaking",
             text: "Improve delivery & structure with real-time AI feedback",
             buttonText: "Start Public Speaking",
-            href: "/nature",
+            href: "./public-speaking",
             icon: (
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -32,7 +32,7 @@ const UserDashboardHome: React.FC = () => {
             title: "Presentation",
             text: "Improve delivery & structure with real-time AI feedback",
             buttonText: "Start Your Presentation",
-            href: "/nature",
+            href: "./presentation-practice",
             icon: (
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -47,7 +47,7 @@ const UserDashboardHome: React.FC = () => {
             title: "Pitch Practice",
             text: "Sharpen your persuasion and confidence",
             buttonText: "Start Pitching",
-            href: "/nature",
+            href: "./pitch-practice",
             icon: (
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_812_2033)">
@@ -177,8 +177,10 @@ const UserDashboardHome: React.FC = () => {
                     <div className="index__card p-4 flex flex-col h-full justify-between rounded-[12px] relative overflow-hidden">
                         <img src={cardFlower} alt="card flower background" className="absolute top-0 right-0 h-1/2" />
                         <small className="independence mb-3.5">Available Credit</small>
-                        <h4 className="gunmetal mb-5.5">100</h4>
-                        <button className="p-3">Buy More Credits</button>
+                        <h4 className='gunmetal mb-5.5'>100</h4>
+                        <Link className="w-full" to={'/dashboard/user/settings?section=credits'}>
+                            <button className='p-3 w-full'>Buy More Credits</button>
+                        </Link>
                     </div>
                 </div>
                 {cardsData.map((card, index) => (

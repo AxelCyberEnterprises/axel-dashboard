@@ -1,14 +1,18 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/svgs/logo.svg";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "../ui/sidebar";
 import { Input } from "../ui/input";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "../ui/sidebar";
+import { logout } from "@/store/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const SideNav: React.FC = () => {
     const location = useLocation();
     const pathSegments = location.pathname.split("/").filter(Boolean);
     const lastSegment = pathSegments.length >= 2 ? pathSegments[1] : "";
-
+    console.log(location.pathname);
+    
+    const dispatch = useDispatch()
     const userLinks = [
         {
             name: "Home",
@@ -110,7 +114,30 @@ const SideNav: React.FC = () => {
             path: "/dashboard/user/pitch-practice",
         },
         {
-            name: "Reports & Analytics",
+            name: "Presentation Practice",
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="me-5"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    color="#BDBDBD"
+                    fill="none"
+                >
+                    <path
+                        d="M3 21H21M11 16H13M8 11C9.838 8.405 14.119 8.263 16 11M5.409 17.118C5.05 15.602 4.871 14.844 5.106 14.26C5.252 13.897 5.502 13.584 5.826 13.36C6.346 13 7.13 13 8.702 13H15.299C16.869 13 17.654 13 18.174 13.36C18.498 13.584 18.748 13.897 18.894 14.26C19.129 14.844 18.95 15.602 18.591 17.118C18.238 18.612 18.061 19.358 17.621 19.895C17.3436 20.2335 16.9954 20.5073 16.601 20.697C15.973 21 15.199 21 13.652 21H10.348C8.801 21 8.028 21 7.4 20.697C7.00557 20.5073 6.65742 20.2335 6.38 19.895C5.938 19.358 5.762 18.612 5.409 17.118ZM14 5C14 5.53043 13.7893 6.03914 13.4142 6.41421C13.0391 6.78929 12.5304 7 12 7C11.4696 7 10.9609 6.78929 10.5858 6.41421C10.2107 6.03914 10 5.53043 10 5C10 4.46957 10.2107 3.96086 10.5858 3.58579C10.9609 3.21071 11.4696 3 12 3C12.5304 3 13.0391 3.21071 13.4142 3.58579C13.7893 3.96086 14 4.46957 14 5Z"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            ),
+            path: "/dashboard/user/presentation-practice",
+        },
+        {
+            name: "Session History",
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -137,10 +164,10 @@ const SideNav: React.FC = () => {
                     />
                 </svg>
             ),
-            path: "/dashboard/user/reports",
+            path: "/dashboard/user/session-history",
         },
         {
-            name: "Progress Tracking",
+            name: "Progress & Performance",
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -152,13 +179,37 @@ const SideNav: React.FC = () => {
                     fill="none"
                 >
                     <path
-                        d="M21 21H10C6.70017 21 5.05025 21 4.02513 19.9749C3 18.9497 3 17.2998 3 14V3"
+                        d="M17.1995 2H6.79854C5.34054 2 4.06154 2.985 4.00354 4.404C3.92954 6.189 5.18554 7.374 6.50354 8.487C8.32854 10.027 9.24054 10.797 9.33554 11.771C9.35087 11.9237 9.35087 12.0763 9.33554 12.229C9.24054 13.204 8.32854 13.973 6.50354 15.513C5.14854 16.656 3.92554 17.72 4.00354 19.596C4.06054 21.016 5.33854 22 6.79754 22H17.1985C18.6565 22 19.9355 21.015 19.9945 19.596C20.0405 18.466 19.6215 17.342 18.7325 16.56C18.3275 16.203 17.9065 15.862 17.4925 15.513C15.6685 13.973 14.7565 13.203 14.6615 12.229C14.6463 12.0767 14.6463 11.9233 14.6615 11.771C14.7565 10.796 15.6695 10.027 17.4935 8.487C18.8335 7.356 20.0705 6.258 19.9935 4.404C19.9375 2.984 18.6575 2 17.1995 2Z"
                         stroke="currentColor"
-                        strokeWidth="1.5"
+                        strokeWidth="0.75"
                         strokeLinecap="round"
+                        strokeLinejoin="round"
                     />
                     <path
-                        d="M7.99707 16.999C11.5286 16.999 18.9122 15.5348 18.6979 6.43269M16.4886 8.04302L18.3721 6.14612C18.5656 5.95127 18.8798 5.94981 19.0751 6.14286L20.9971 8.04302"
+                        d="M8.99854 21.638C8.99854 21.196 8.99854 20.975 9.08654 20.782C9.10035 20.7512 9.1157 20.7212 9.13254 20.692C9.23954 20.509 9.42054 20.38 9.78254 20.121C10.7885 19.402 11.2925 19.043 11.8635 19.005C11.9535 18.999 12.0435 18.999 12.1335 19.005C12.7055 19.043 13.2085 19.402 14.2135 20.121C14.5765 20.38 14.7575 20.509 14.8645 20.692C14.8819 20.722 14.8972 20.752 14.9105 20.782C14.9985 20.975 14.9985 21.196 14.9985 21.638V22H8.99854V21.638Z"
+                        stroke="currentColor"
+                        strokeWidth="0.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            ),
+            path: "/dashboard/user/progress-tracking",
+        },
+        {
+            name: "Session Comparison",
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="me-5"
+                    width="24"
+                    height="24"
+                    color="#BDBDBD"
+                    fill="none"
+                >
+                    <path
+                        d="M20.5 5.5H9.5C5.787 5.5 3 8.185 3 12M3.5 18.5H14.5C18.213 18.5 21 15.815 21 12M18.5 3C18.5 3 21 4.841 21 5.5C21 6.159 18.5 8 18.5 8M5.5 16C5.5 16 3 17.841 3 18.5C3 19.159 5.5 21 5.5 21"
                         stroke="currentColor"
                         strokeWidth="1.5"
                         strokeLinecap="round"
@@ -166,7 +217,7 @@ const SideNav: React.FC = () => {
                     />
                 </svg>
             ),
-            path: "/dashboard/user/progress-tracking",
+            path: "#",
         },
     ];
 
@@ -373,6 +424,9 @@ const SideNav: React.FC = () => {
                 </svg>
             ),
             path: "/dashboard/user/logout",
+            function: (()=>{
+                dispatch(logout())
+            })
         },
     ];
 
@@ -415,7 +469,7 @@ const SideNav: React.FC = () => {
                         <Link
                             to={link.path}
                             key={index}
-                            className={`link flex items-center w-full py-2 px-3 mb-0.5 text-white ${
+                            className={`link flex items-center w-full py-2 px-3 mb-0.5 ${
                                 location.pathname === link.path ? "active" : ""
                             }`}
                         >
@@ -428,7 +482,7 @@ const SideNav: React.FC = () => {
                         <Link
                             to={link.path}
                             key={index}
-                            className={`link flex items-center w-full py-2 px-3 mb-0.5 text-white ${
+                            className={`link flex items-center w-full py-2 px-3 mb-0.5 ${
                                 location.pathname === link.path ? "active" : ""
                             }`}
                         >
@@ -438,12 +492,13 @@ const SideNav: React.FC = () => {
                     ))}
             </SidebarContent>
 
-            <SidebarFooter className="bottom__links w-full px-4">
+            <SidebarFooter className="bottom__links w-full p-0">
                 {bottomLinks.map((link, index) => (
                     <Link
                         to={link.path}
+                        onClick={link.function}
                         key={index}
-                        className={`link flex items-center w-full py-2 px-1 mb-0.5 text-white ${
+                        className={`link flex items-center w-full py-2 px-3 mb-0.5 ${
                             location.pathname === link.path ? "active" : ""
                         }`}
                     >
